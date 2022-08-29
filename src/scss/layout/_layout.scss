@@ -1,0 +1,23 @@
+//body grid
+body{
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+//display grid tweaks
+.side-nav{
+  .img-fluid{
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+//post thumbnail
+.post-header{
+  .img-fluid{
+    width: 100%;
+    max-width: 45px;
+    max-height: 45px;
+  }
+}

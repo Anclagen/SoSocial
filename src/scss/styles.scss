@@ -1,0 +1,12 @@
+@import "variables/variables";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "general/typography";
+@import "layout/layout";
+@import "components/_forms";
+
+.navbar-brand{
+  img{
+    max-width: 5rem;
+  }
+}
+
