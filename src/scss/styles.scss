@@ -2,10 +2,8 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "general/typography";
 @import "layout/layout";
-@import "components/_forms";
+//getting error using * to import whole folders
+@import "components/forms";
+@import "components/navbar";
 
-.navbar-brand{
-  img{
-    max-width: 5rem;
-  }
-}
+

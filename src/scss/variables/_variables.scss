@@ -1,34 +1,31 @@
-@import "../../../node_modules/bootstrap/scss/functions";
+
 //colours
 
 $primary:       black;
-$secondary:     #343a40;
-$tertiary:      #495057;
-$success:       #198754;
-$info:          #0dcaf0;
-$warning:       #ffc107;
-$danger:        #dc3545;
-$light:         #f8f9fa;
-$dark:          #212529;
-
-
-$theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  "tertiary":   $tertiary,
-  "success":    $success,
-  "info":       $info,
-  "warning":    $warning,
-  "danger":     $danger,
-  "light":      $light,
-  "dark":       $dark
-);
-
-//getting errors trying to do this else where, important over writes form controls
- @each $name, $colour in $theme-colors {
-   .place-text-#{$name}::placeholder { color: $colour !important; }
- }
-
+$secondary:     #212529; 
+$success:       #08641c;
+$info:          #0098b6;
+$warning:       #dbba00;
+$danger:        #9c0413;
+$light:         #f7f7f7;
+$dark:          #343a40;
 
 //navigation variables
 $navbar-brand-padding-y: 0;
+
+//put all variable changes above this!
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+
+$extra-theme-colors:(
+  "tertiary":      #495057,
+);
+
+$theme-colors: map-merge($extra-theme-colors, $theme-colors);
+
+
+//getting errors trying to do this else where, important over writes form controls
+@each $name, $colour in $theme-colors {
+  .place-text-#{$name}::placeholder { color: $colour !important; }
+}
+
