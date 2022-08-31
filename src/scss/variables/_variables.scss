@@ -13,6 +13,7 @@ $dark:          #343a40;
 //navigation variables
 $navbar-brand-padding-y: 0;
 
+
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
@@ -35,6 +36,9 @@ $spacer: 1.5rem;
 //put all variable changes above this!
 @import "../../../node_modules/bootstrap/scss/functions";
 @import "../../../node_modules/bootstrap/scss/variables";
+
+$navbar-dark-toggler-border-color:  rgba($white, .8);
+$navbar-dark-toggler-icon-bg:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-dark-toggler-border-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
 
 $extra-theme-colors:(
   "tertiary":      #495057,
