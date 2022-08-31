@@ -61,7 +61,7 @@
           <h1 class="text-center text-white my-4 border-bottom border-white">Leopold the Fluff</h1>
         </div>
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-4 mb-3">
             <div class="bg-secondary rounded-3 p-3 text-white">
               <h2>About Me</h2>
               <div>
@@ -91,191 +91,196 @@
               </p>
             </div>
           </div>
-          <div class="col-md-6">
-            <section>
-              <h2 class="text-white">Post A Comment</h2>
-              <div class="card bg-secondary mb-4">
-                <form action="#">
-                  <div class="mb-3">
-                    <textarea
-                      class="form-control rounded-0 border-0 mt-2 bg-tertiary text-white place-text-light"
-                      id="exampleFormControlTextarea1"
-                      rows="3"
-                      placeholder="Need to say something?"
-                    ></textarea>
+          <div class="row flex-column-reverse flex-lg-row col-md-8">
+            <div class="col-lg-8">
+              <section>
+                <h2 class="text-white">Post A Comment</h2>
+                <div class="card bg-secondary mb-4">
+                  <form action="#">
+                    <div class="mb-3">
+                      <textarea
+                        class="form-control rounded-0 border-0 mt-2 bg-tertiary text-white place-text-light"
+                        id="exampleFormControlTextarea1"
+                        rows="3"
+                        placeholder="Need to say something?"
+                      ></textarea>
+                    </div>
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between">
+                        <button type="" class="btn btn-danger">Add Image</button>
+                        <button type="" class="btn btn-danger mx-2">Add Video</button>
+                        <button type="submit" class="btn btn-success float-end">Post</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </section>
+              <section class="text-white">
+                <h2>Your Recent Posts</h2>
+                <div class="card bg-secondary mb-3">
+                  <div class="m-3 post-header rounded-3 d-flex">
+                    <img class="img-fluid rounded-circle me-2" src="/dist/images/leo_bow_tie_square.jpg" />
+                    <div>
+                      <p class="mb-0">You</p>
+                      <p class="mb-0">11:44 28/08/22</p>
+                    </div>
+                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
                   </div>
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <button type="" class="btn btn-danger">Add Image</button>
-                      <button type="" class="btn btn-danger mx-2">Add Video</button>
-                      <button type="submit" class="btn btn-success float-end">Post</button>
+                  <div class="bg-tertiary">
+                    <p class="p-3 m-0">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
+                      eget justo ornare posuere.
+                    </p>
+                  </div>
+                  <div class="card-body pb-2 pe-3">
+                    <div class="d-flex justify-content-end align-items-center fs-5">
+                      <i class="fa-solid fa-heart-crack me-1"></i>
+                      <span class="me-4">(1)</span>
+                      <i class="fa-solid fa-heart me-1"></i>
+                      <span class="me-4">(15)</span>
+                      <i class="fa-solid fa-share-nodes me-4"></i>
+                      <i class="fa-solid fa-comments me-4"></i>
+                      <i class="fa-solid fa-comment"></i>
                     </div>
                   </div>
-                </form>
-              </div>
-            </section>
-            <section class="text-white">
-              <h2>Your Recent Posts</h2>
-              <div class="card bg-secondary mb-3">
-                <div class="m-3 post-header rounded-3 d-flex">
-                  <img class="img-fluid rounded-circle me-2" src="/dist/images/leo_bow_tie_square.jpg" />
-                  <div>
-                    <p class="mb-0">You</p>
-                    <p class="mb-0">11:44 28/08/22</p>
+                </div>
+                <div class="card bg-secondary mb-3">
+                  <div class="m-3 post-header rounded-3 d-flex">
+                    <img class="img-fluid rounded-circle me-2" src="/dist/images/leo_bow_tie_square.jpg" />
+                    <div>
+                      <p class="mb-0">You</p>
+                      <p class="mb-0">11:44 28/08/22</p>
+                    </div>
+                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
                   </div>
-                  <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                </div>
-                <div class="bg-tertiary">
-                  <p class="p-3 m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                    eget justo ornare posuere.
-                  </p>
-                </div>
-                <div class="card-body pb-2 pe-3">
-                  <div class="d-flex justify-content-end align-items-center fs-5">
-                    <i class="fa-solid fa-heart-crack me-1"></i>
-                    <span class="me-4">(1)</span>
-                    <i class="fa-solid fa-heart me-1"></i>
-                    <span class="me-4">(15)</span>
-                    <i class="fa-solid fa-share-nodes me-4"></i>
-                    <i class="fa-solid fa-comments me-4"></i>
-                    <i class="fa-solid fa-comment"></i>
+                  <div class="bg-tertiary">
+                    <p class="p-3 m-0">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
+                      eget justo ornare posuere.
+                    </p>
+                  </div>
+                  <div class="card-body pb-2 pe-3">
+                    <div class="d-flex justify-content-end align-items-center fs-5">
+                      <i class="fa-solid fa-heart-crack me-1"></i>
+                      <span class="me-4">(1)</span>
+                      <i class="fa-solid fa-heart me-1"></i>
+                      <span class="me-4">(15)</span>
+                      <i class="fa-solid fa-share-nodes me-4"></i>
+                      <i class="fa-solid fa-comments me-4"></i>
+                      <i class="fa-solid fa-comment"></i>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="card bg-secondary mb-3">
-                <div class="m-3 post-header rounded-3 d-flex">
-                  <img class="img-fluid rounded-circle me-2" src="/dist/images/leo_bow_tie_square.jpg" />
-                  <div>
-                    <p class="mb-0">You</p>
-                    <p class="mb-0">11:44 28/08/22</p>
+                <div class="card bg-secondary mb-3">
+                  <div class="m-3 post-header rounded-3 d-flex">
+                    <img class="img-fluid rounded-circle me-2" src="/dist/images/leo_bow_tie_square.jpg" />
+                    <div>
+                      <p class="mb-0">You</p>
+                      <p class="mb-0">11:44 28/08/22</p>
+                    </div>
+                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
                   </div>
-                  <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                </div>
-                <div class="bg-tertiary">
-                  <p class="p-3 m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                    eget justo ornare posuere.
-                  </p>
-                </div>
-                <div class="card-body pb-2 pe-3">
-                  <div class="d-flex justify-content-end align-items-center fs-5">
-                    <i class="fa-solid fa-heart-crack me-1"></i>
-                    <span class="me-4">(1)</span>
-                    <i class="fa-solid fa-heart me-1"></i>
-                    <span class="me-4">(15)</span>
-                    <i class="fa-solid fa-share-nodes me-4"></i>
-                    <i class="fa-solid fa-comments me-4"></i>
-                    <i class="fa-solid fa-comment"></i>
+                  <div class="bg-tertiary">
+                    <p class="p-3 m-0">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
+                      eget justo ornare posuere.
+                    </p>
                   </div>
-                </div>
-              </div>
-              <div class="card bg-secondary mb-3">
-                <div class="m-3 post-header rounded-3 d-flex">
-                  <img class="img-fluid rounded-circle me-2" src="/dist/images/leo_bow_tie_square.jpg" />
-                  <div>
-                    <p class="mb-0">You</p>
-                    <p class="mb-0">11:44 28/08/22</p>
-                  </div>
-                  <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                </div>
-                <div class="bg-tertiary">
-                  <p class="p-3 m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                    eget justo ornare posuere.
-                  </p>
-                </div>
-                <div class="card-body pb-2 pe-3">
-                  <div class="d-flex justify-content-end align-items-center fs-5">
-                    <i class="fa-solid fa-heart-crack me-1"></i>
-                    <span class="me-4">(1)</span>
-                    <i class="fa-solid fa-heart me-1"></i>
-                    <span class="me-4">(15)</span>
-                    <i class="fa-solid fa-share-nodes me-4"></i>
-                    <i class="fa-solid fa-comments me-4"></i>
-                    <i class="fa-solid fa-comment"></i>
+                  <div class="card-body pb-2 pe-3">
+                    <div class="d-flex justify-content-end align-items-center fs-5">
+                      <i class="fa-solid fa-heart-crack me-1"></i>
+                      <span class="me-4">(1)</span>
+                      <i class="fa-solid fa-heart me-1"></i>
+                      <span class="me-4">(15)</span>
+                      <i class="fa-solid fa-share-nodes me-4"></i>
+                      <i class="fa-solid fa-comments me-4"></i>
+                      <i class="fa-solid fa-comment"></i>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="card bg-secondary mb-3">
-                <div class="m-3 post-header rounded-3 d-flex">
-                  <img class="img-fluid rounded-circle me-2" src="/dist/images/leo_bow_tie_square.jpg" />
-                  <div>
-                    <p class="mb-0">You</p>
-                    <p class="mb-0">11:44 28/08/22</p>
+                <div class="card bg-secondary mb-3">
+                  <div class="m-3 post-header rounded-3 d-flex">
+                    <img class="img-fluid rounded-circle me-2" src="/dist/images/leo_bow_tie_square.jpg" />
+                    <div>
+                      <p class="mb-0">You</p>
+                      <p class="mb-0">11:44 28/08/22</p>
+                    </div>
+                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
                   </div>
-                  <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                </div>
-                <div class="bg-tertiary">
-                  <p class="p-3 m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                    eget justo ornare posuere.
-                  </p>
-                </div>
-                <div class="card-body pb-2 pe-3">
-                  <div class="d-flex justify-content-end align-items-center fs-5">
-                    <i class="fa-solid fa-heart-crack me-1"></i>
-                    <span class="me-4">(1)</span>
-                    <i class="fa-solid fa-heart me-1"></i>
-                    <span class="me-4">(15)</span>
-                    <i class="fa-solid fa-share-nodes me-4"></i>
-                    <i class="fa-solid fa-comments me-4"></i>
-                    <i class="fa-solid fa-comment"></i>
+                  <div class="bg-tertiary">
+                    <p class="p-3 m-0">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
+                      eget justo ornare posuere.
+                    </p>
+                  </div>
+                  <div class="card-body pb-2 pe-3">
+                    <div class="d-flex justify-content-end align-items-center fs-5">
+                      <i class="fa-solid fa-heart-crack me-1"></i>
+                      <span class="me-4">(1)</span>
+                      <i class="fa-solid fa-heart me-1"></i>
+                      <span class="me-4">(15)</span>
+                      <i class="fa-solid fa-share-nodes me-4"></i>
+                      <i class="fa-solid fa-comments me-4"></i>
+                      <i class="fa-solid fa-comment"></i>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="text-center">
-                <button type="button" class="btn btn-lg btn-info">Show More</button>
-              </div>
-            </section>
-          </div>
-          <div class="col-md-3">
-            <div class="bg-secondary rounded-3 p-3 text-white">
-              <h2>Your Friends</h2>
-              <div class="m-3 post-header rounded-3 d-flex">
-                <img class="img-fluid rounded-circle me-3" src="/dist/images/20220314_183244.jpg" />
-                <div>
-                  <p class="mb-0 fs-5">Milo</p>
-                  <p class="mb-0">Online</p>
+                <div class="text-center">
+                  <button type="button" class="btn btn-lg btn-info mb-4">Show More</button>
                 </div>
-              </div>
-              <div class="m-3 post-header rounded-3 d-flex">
-                <img class="img-fluid rounded-circle me-3" src="/dist/images/20220314_183244.jpg" />
-                <div>
-                  <p class="mb-0 fs-5">Milo</p>
-                  <p class="mb-0">Online</p>
+              </section>
+            </div>
+            <div class="col-lg-4 mb-2">
+              <div class="bg-secondary rounded-3 p-3 text-white">
+                <h2>Your Friends</h2>
+                <div class="d-flex flex-lg-column flex-wrap justify-content-center">
+                  <div class="post-header rounded-3 d-flex">
+                    <img class="img-fluid rounded-circle me-3" src="/dist/images/20220314_183244.jpg" />
+                    <div>
+                      <p class="mb-0 fs-5">Milo</p>
+                      <p class="mb-0">Online</p>
+                    </div>
+                  </div>
+                  <div class="post-header rounded-3 d-flex">
+                    <img class="img-fluid rounded-circle me-3" src="/dist/images/20220314_183244.jpg" />
+                    <div>
+                      <p class="mb-0 fs-5">Milo</p>
+                      <p class="mb-0">Online</p>
+                    </div>
+                  </div>
+                  <div class="post-header rounded-3 d-flex">
+                    <img class="img-fluid rounded-circle me-3" src="/dist/images/20220314_183244.jpg" />
+                    <div>
+                      <p class="mb-0 fs-5">Milo</p>
+                      <p class="mb-0">Online</p>
+                    </div>
+                  </div>
+                  <div class="post-header rounded-3 d-flex">
+                    <img class="img-fluid rounded-circle me-3" src="/dist/images/20220314_183244.jpg" />
+                    <div>
+                      <p class="mb-0 fs-5">Milo</p>
+                      <p class="mb-0">Online</p>
+                    </div>
+                  </div>
+                  <div class="post-header rounded-3 d-flex">
+                    <img class="img-fluid rounded-circle me-3" src="/dist/images/20220314_183244.jpg" />
+                    <div>
+                      <p class="mb-0 fs-5">Milo</p>
+                      <p class="mb-0">Online</p>
+                    </div>
+                  </div>
+                  <div class="post-header rounded-3 d-flex">
+                    <img class="img-fluid rounded-circle me-3" src="/dist/images/20220314_183244.jpg" />
+                    <div>
+                      <p class="mb-0 fs-5">Milo</p>
+                      <p class="mb-0">Online</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="m-3 post-header rounded-3 d-flex">
-                <img class="img-fluid rounded-circle me-3" src="/dist/images/20220314_183244.jpg" />
-                <div>
-                  <p class="mb-0 fs-5">Milo</p>
-                  <p class="mb-0">Online</p>
+
+                <div class="text-center">
+                  <button type="button" class="btn btn-info mt-2">Show More</button>
                 </div>
-              </div>
-              <div class="m-3 post-header rounded-3 d-flex">
-                <img class="img-fluid rounded-circle me-3" src="/dist/images/20220314_183244.jpg" />
-                <div>
-                  <p class="mb-0 fs-5">Milo</p>
-                  <p class="mb-0">Online</p>
-                </div>
-              </div>
-              <div class="m-3 post-header rounded-3 d-flex">
-                <img class="img-fluid rounded-circle me-3" src="/dist/images/20220314_183244.jpg" />
-                <div>
-                  <p class="mb-0 fs-5">Milo</p>
-                  <p class="mb-0">Online</p>
-                </div>
-              </div>
-              <div class="m-3 post-header rounded-3 d-flex">
-                <img class="img-fluid rounded-circle me-3" src="/dist/images/20220314_183244.jpg" />
-                <div>
-                  <p class="mb-0 fs-5">Milo</p>
-                  <p class="mb-0">Online</p>
-                </div>
-              </div>
-              <div class="text-center">
-                <button type="button" class="btn btn-info">Show More</button>
               </div>
             </div>
           </div>
