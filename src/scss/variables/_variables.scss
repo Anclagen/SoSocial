@@ -1,0 +1,53 @@
+
+//colours
+
+$primary:       black;
+$secondary:     #212529; 
+$success:       #08641c;
+$info:          #0098b6;
+$warning:       #dbba00;
+$danger:        #9c0413;
+$light:         #f7f7f7;
+$dark:          #343a40;
+
+//navigation variables
+$navbar-brand-padding-y: 0;
+
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+);
+
+$spacer: 1.5rem;
+
+//put all variable changes above this!
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+
+$navbar-dark-toggler-border-color:  rgba($white, .8);
+$navbar-dark-toggler-icon-bg:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-dark-toggler-border-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+
+$extra-theme-colors:(
+  "tertiary":      #495057,
+);
+
+$theme-colors: map-merge($extra-theme-colors, $theme-colors);
+
+//needed to change input box colours
+@each $name, $colour in $theme-colors {
+  .place-text-#{$name}::placeholder { color: $colour !important; }
+}
+

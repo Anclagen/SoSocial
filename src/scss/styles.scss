@@ -1,0 +1,7 @@
+@import "variables/variables";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "general/typography";
+@import "layout/layout";
+//getting error using * to import whole folders
+@import "components/forms";
+@import "components/navbar";
