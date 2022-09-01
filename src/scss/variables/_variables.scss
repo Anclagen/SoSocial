@@ -46,8 +46,7 @@ $extra-theme-colors:(
 
 $theme-colors: map-merge($extra-theme-colors, $theme-colors);
 
-
-//getting errors trying to do this else where, important over writes form controls
+//needed to change input box colours
 @each $name, $colour in $theme-colors {
   .place-text-#{$name}::placeholder { color: $colour !important; }
 }
