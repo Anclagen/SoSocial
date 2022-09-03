@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/dist/css/styles.css" />
+    <link rel="stylesheet" href="dist/css/styles.css" />
     <!-- <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script> -->
     <script
       defer
@@ -15,13 +15,13 @@
     <script src="../js/main.js" defer></script>
     <script src="https://kit.fontawesome.com/e4f6b5cf1a.js" crossorigin="anonymous"></script>
     <title>Login | SoSocial</title>
-    <link rel="icon" href="../images/logo/logo_compact_light.png" />
+    <link rel="icon" href="images/logo/logo_compact_light.png" />
   </head>
   <body class="bg-dark d-flex flex-column min-vh-100">
     <header>
       <nav class="navbar navbar-dark bg-primary navbar-expand-lg fs-5">
         <div class="container-xxl">
-          <a class="navbar-brand pe-5 me-5" href="index.html"><img src="/dist/images/logo/logo_full_light.png" alt="SoSocial Logo" /></a>
+          <a class="navbar-brand pe-5 me-5" href="index.html"><img src="images/logo/logo_full_light.png" alt="SoSocial Logo" /></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -59,7 +59,7 @@
           <div>
             <form action="profile.html">
               <div class="login-header">
-                <img class="mb-4 px-4 rounded-circle bg-primary" src="dist/images/logo/logo_compact_light.png" alt="SoSocial Logo" />
+                <img class="mb-4 px-4 rounded-circle bg-primary" src="images/logo/logo_compact_light.png" alt="SoSocial Logo" />
                 <h1 class="mb-3 text-white">
                   Welcome Back, <br />
                   Login
@@ -70,7 +70,15 @@
                 <label for="floatingInput">Email address</label>
               </div>
               <div class="form-floating">
-                <input type="password" class="form-control mb-3" id="floatingPassword" placeholder="Password" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" required />
+                <input
+                  type="password"
+                  class="form-control mb-3"
+                  id="floatingPassword"
+                  placeholder="Password"
+                  title="Password must be atleast 8 characters, including a number and upper case character"
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+                  required
+                />
                 <label for="floatingPassword">Password</label>
               </div>
 
