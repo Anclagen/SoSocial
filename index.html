@@ -15,7 +15,7 @@
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
       crossorigin="anonymous"
     ></script>
-    <script src="/dist/js/main.js" defer></script>
+    <script src="/js/main.js" defer></script>
     <script src="https://kit.fontawesome.com/e4f6b5cf1a.js" crossorigin="anonymous"></script>
     <title>SoSocial Home</title>
     <link rel="icon" href="/dist/images/logo/logo_compact_light.png" />
@@ -24,7 +24,7 @@
     <header>
       <nav class="navbar navbar-dark bg-primary navbar-expand-lg fs-5">
         <div class="container-xxl">
-          <a class="navbar-brand pe-5 me-5" href="index.html"><img src="/dist/images/logo/logo_full_light.png" alt="SoSocial Logo" /></a>
+          <a class="navbar-brand pe-5 me-5" href="index.html"><img src="/images/logo/logo_full_light.png" alt="SoSocial Logo" /></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -73,15 +73,16 @@
     </header>
     <main class="my-4">
       <div class="container-xxl text-white">
-        <h1 class="border-bottom border-white">Welcome Back Leopold</h1>
+        <h1 class="border-bottom border-white text-center">Welcome Back Leopold</h1>
         <div class="row">
+          <!-- Secondary side navigation -->
           <div class="col-md-3 mb-2">
             <div class="bg-secondary rounded-3 pb-3">
               <div class="text-center">
                 <div class="m-1 side-nav">
-                  <img class="img-fluid rounded-circle p-2" src="/dist/images/leo_bow_tie_square.jpg" alt="users profile picture" />
+                  <img class="img-fluid rounded-circle p-2" src="/images/leo_bow_tie_square.jpg" alt="users profile picture" />
                 </div>
-                <span class="px-3 text-center"> Leopold the Fluff</span>
+                <h2 class="px-3 text-center">Leopold the Fluff</h2>
               </div>
               <div>
                 <div class="text-white">
@@ -115,7 +116,7 @@
                             <div class="row">
                               <div class="position-relative col-3">
                                 <i class="fa-solid fa-user-plus"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-tertiary">2 <span class="visually-hidden">unread messages</span></span>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">2 <span class="visually-hidden">unread messages</span></span>
                               </div>
                               <div class="col-9">
                                 <span>Friend Requests</span>
@@ -170,8 +171,10 @@
               </div>
             </div>
           </div>
+          <!-- Main Page Content -->
           <div class="col-md-9">
             <div class="m-1">
+              <!-- Make a post section -->
               <section>
                 <h2>Make a post</h2>
                 <div class="card bg-secondary">
@@ -194,11 +197,12 @@
                   </form>
                 </div>
               </section>
+              <!-- Friends Posts section -->
               <section>
                 <h2 class="mt-3">Your Friends Feed</h2>
                 <div class="card bg-secondary mb-3">
                   <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/dist/images/20220314_183244.jpg" />
+                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
                     <div>
                       <p class="mb-0">Milo</p>
                       <p class="mb-0">11:44 28/08/22</p>
@@ -219,7 +223,7 @@
                       <span class="me-3">(15)</span>
                       <div class="position-relative">
                         <i class="fa-solid fa-comments me-4"> </i>
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-tertiary">2 <span class="visually-hidden">unread messages</span></span>
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">2 <span class="visually-hidden">unread messages</span></span>
                       </div>
                       <i class="fa-solid fa-share-nodes me-3"></i>
                       <button
@@ -254,7 +258,7 @@
                 </div>
                 <div class="card bg-secondary mb-3">
                   <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/dist/images/20220314_183244.jpg" />
+                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
                     <div>
                       <p class="mb-0">Milo</p>
                       <p class="mb-0">11:44 28/08/22</p>
@@ -306,7 +310,7 @@
                 </div>
                 <div class="card bg-secondary mb-3">
                   <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/dist/images/20220314_183244.jpg" />
+                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
                     <div>
                       <p class="mb-0">Milo</p>
                       <p class="mb-0">11:44 28/08/22</p>
@@ -358,7 +362,7 @@
                 </div>
                 <div class="card bg-secondary mb-3">
                   <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/dist/images/20220314_183244.jpg" />
+                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
                     <div>
                       <p class="mb-0">Milo</p>
                       <p class="mb-0">11:44 28/08/22</p>
@@ -367,7 +371,7 @@
                   </div>
                   <div class="bg-tertiary">
                     <p class="p-3 m-0">Having an amazing time on my summer hols, look forward to seeing you all when I get back.</p>
-                    <img class="img-fluid px-3 pb-3" src="/dist/images/IMG-20220622-WA0011.jpg" />
+                    <img class="img-fluid px-3 pb-3" src="images/good_view.jpg" alt="nice view" />
                   </div>
                   <div class="card-body pb-2 pe-3">
                     <div class="d-flex justify-content-end align-items-center fs-5">
@@ -408,7 +412,7 @@
                 </div>
                 <div class="card bg-secondary mb-3">
                   <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/dist/images/20220314_183244.jpg" />
+                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
                     <div>
                       <p class="mb-0">Milo</p>
                       <p class="mb-0">11:44 28/08/22</p>
