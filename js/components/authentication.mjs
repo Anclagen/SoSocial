@@ -80,15 +80,16 @@ export async function register(name, email, password, avatar="", banner=""){
 export class handleAPI {
   baseURL = "https://nf-api.onrender.com/api/v1/social/";
   pathPosts = "https://nf-api.onrender.com/api/v1/social/posts";
-  pathProfile = "https://nf-api.onrender.com/api/v1/social/profile";
+  pathProfile = "https://nf-api.onrender.com/api/v1/social/profiles";
   headers = {"Content-Type": "application/json", "Authorization":""}
+
 
   constructor({accessToken}){
     this.headers.Authorization = `Bearer ${accessToken}`
   }
 
   logout(){
-    deleteLocalItem();
+    deleteLocalItem("user");
     location.href = "/login.html"
   }
 
@@ -110,6 +111,11 @@ export class handleAPI {
   async getProfile(name){ //might have to just use name
     const options = new MyOptions("GET", this.headers);
     return await callAPI(this.pathProfile + "/" + name, options)
+  }
+
+  async updateProfile(name, body){ //might have to just use name
+    const options = new MyOptions("GET", this.headers, body);
+    return await callAPI(`${this.pathProfile}/${name}/media`, options)
   }
 
   async createPost(body){
