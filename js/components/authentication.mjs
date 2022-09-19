@@ -1,6 +1,6 @@
-import {callAPI, MyOptions} from "./api.mjs"
-import {setLocalItem, deleteLocalItem, getLocalItem} from "./localStorage.mjs"
-import {isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername} from "./validation.mjs"
+import {callAPI, MyOptions} from "./api/api.mjs"
+import {setLocalItem, deleteLocalItem, getLocalItem} from "./local_storage/localStorage.mjs"
+import {isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername} from "./validation/validation.mjs"
 
 /**
  * Logs user in and returns response object.
@@ -78,38 +78,64 @@ export async function register(name, email, password, avatar="", banner=""){
  * as well as create/update and delete posts.
  */
 export class handleAPI {
-  
   baseURL = "https://nf-api.onrender.com/api/v1/social/";
-  pathRegister = "https://nf-api.onrender.com/api/v1/social/auth/register";
-  pathPosts = "https://nf-api.onrender.com/api/v1/social/auth/posts";
-  pathProfile = "https://nf-api.onrender.com/api/v1/social/auth/profile";
-
+  pathPosts = "https://nf-api.onrender.com/api/v1/social/posts";
+  pathProfile = "https://nf-api.onrender.com/api/v1/social/profile";
   headers = {"Content-Type": "application/json", "Authorization":""}
 
   constructor({accessToken}){
     this.headers.Authorization = `Bearer ${accessToken}`
   }
-  
-  logthis(){
-    console.log("its alive!!!")
+
+  logout(){
+    deleteLocalItem();
+    location.href = "/login.html"
   }
 
   async getPosts(){
-    return await callAPI(this.pathProfile, this.headers);
+    const options = new MyOptions("GET", this.headers);
+    return await callAPI(this.pathPosts, options);
   }
 
-  getPost(id){}
+  async getPost(id){
+    const options = new MyOptions("GET", this.headers);
+    return await callAPI(this.pathPosts + "/" + id, options);
+  }
 
   async getProfiles(){
-    return await callAPI(this.pathProfile, this.headers);
+    const options = new MyOptions("GET", this.headers);
+    return await callAPI(this.pathProfile, options);
   }
 
-  getProfile(User){}
-  createPost(){}
-  updatePost(){}
-  deletePost(){}
-  replyToPost(id, replyID = id){}
-  reactToPost(id){}
+  async getProfile(name){ //might have to just use name
+    const options = new MyOptions("GET", this.headers);
+    return await callAPI(this.pathProfile + "/" + name, options)
+  }
+
+  async createPost(body){
+    const options = new MyOptions("POST", this.headers, body);
+    return await callAPI(this.pathPosts, options)
+  }
+
+  async updatePost(body, id){
+    const options = new MyOptions("PUT", this.headers, body);
+    return await callAPI(this.pathPosts + "/" + id, options)
+  }
+
+  async deletePost(id){
+    const options = new MyOptions("DELETE", this.headers);
+    return await callAPI(this.pathPosts + "/" + id, options)
+  }
+
+  async replyToPost(id, body){
+    const options = new MyOptions("POST", this.headers, body);
+    return await callAPI(this.pathPosts + "/" + id + "/comment", options)
+  }
+
+  async reactToPost(id, symbol){
+    const options = new MyOptions("PUT", this.headers);
+    return await callAPI(`${this.pathPosts}/${id}/react/${symbol}`, options)
+  }
 }
 
 
