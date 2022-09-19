@@ -50,23 +50,22 @@ export class MyOptions {
    * @param {String} method GET, POST, PUT, DELETE, etc.
    * @param {Headers} headers Headers(), Auths, content-types etc.
    * @param {object} body can be empty if not needed.
+   * @return {object} returns options object.
    */
   constructor(method, headers, body ="") {
-    this.method = method;
-    this.headers = headers;
-    this.body = body;
-  }
-
-  /**
-   * returns object, with method, body, headers.
-   * @returns {object}
-   */
-  returnOptions(){
-    return {
-    method: this.method,
-    headers: this.headers,
-    body: this.body
+    if(body === ""){
+      return {
+        method: method,
+        headers: headers,
+        }
+    } else {
+      return {
+        method: method,
+        headers: headers,
+        body: body
+        }
     }
+
   }
 }
 
