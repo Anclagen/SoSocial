@@ -1,4 +1,9 @@
-import {setLocalItem, deleteLocalItem, login, register,isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords} from "./components/main.mjs"
+import {updateAPI, setLocalItem, deleteLocalItem, login, register,isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords} from "./components/main.mjs"
+
+let API = updateAPI();
+const logout = document.querySelector("#logout");
+
+logout.addEventListener("click", API.logout);
 
 //Page element grabs
 const loginForm = document.querySelector("#login-form");
@@ -17,7 +22,6 @@ const toggleText = document.querySelector("#toggle-text");
 const toggleBtn = document.querySelector("#toggle-btn");
 const signUpInputs = document.querySelectorAll(".signup");
 
-console.log(submitBtn.textContent)
 /**
  * Toggles between login and signup forms.
  */
@@ -57,7 +61,7 @@ async function validateLoginSignUp(submit){
 
           if(response.status === 200){
             setLocalItem("user", JSON.stringify(loginDetails));
-            //location.href = `/profile.html`
+            location.href = `/profile.html`
           } else {
             loginFormError.innerHTML = loginDetails.message;
           }

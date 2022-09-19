@@ -17,7 +17,14 @@ import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValid
     return new handleAPI(userCredentials);
   } else if(pageURL !== "/login.html"){
     location.href = `/login.html?previous=${pageURL}`;
+  } else {
+    const logout = document.querySelector("#logout");
+    logout.classList.add("d-none");
+    return {};
   }
+  const logout = document.querySelector("#logout");
+  logout.classList.add("d-none")
 };
 
-export {isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, login, register, setLocalItem, deleteLocalItem}  
+//export {isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, login, register, setLocalItem, deleteLocalItem}  
+export * from "./authentication.mjs"
