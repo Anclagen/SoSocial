@@ -10927,6 +10927,10 @@ body {
   height: 15px;
 }
 
+.hidden {
+  display: none;
+}
+
 .navbar-brand img {
   max-width: 5rem;
 }
