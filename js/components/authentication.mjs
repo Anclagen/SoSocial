@@ -81,41 +81,73 @@ export class handleAPI {
   baseURL = "https://nf-api.onrender.com/api/v1/social/";
   pathPosts = "https://nf-api.onrender.com/api/v1/social/posts";
   pathProfile = "https://nf-api.onrender.com/api/v1/social/profiles";
-  headers = {"Content-Type": "application/json", "Authorization":""}
 
+  moreDetail = "?_author=true&_comments=true&_reactions=true";
 
-  constructor({accessToken}){
-    this.headers.Authorization = `Bearer ${accessToken}`
+  headers = {"Content-Type": "application/json", "Authorization":""};
+  username = "";
+  avatar = "";
+
+  /**
+   * Pass user object response from login.
+   */
+  constructor({accessToken, name, avatar}){
+    this.headers.Authorization = `Bearer ${accessToken}`;
+    this.name = name;
+    this.avatar = avatar;
   }
 
+  /**
+   * Logs user out, deletes user credentials in local storage,
+   * redirects user to login page.
+   */
   logout(){
     deleteLocalItem("user");
     location.href = "/login.html"
   }
 
+  /**
+   * Returns all the posts in an array.
+   * @returns [Array] returns an array of posts
+   */
   async getPosts(){
     const options = new MyOptions("GET", this.headers);
-    return await callAPI(this.pathPosts, options);
+    return await callAPI(this.pathPosts + this.moreDetail, options);
   }
 
+  /**
+   * Using post ID returns a particular post's data.
+   * @param {Post ID} id 
+   * @returns {Object} returns and object with all the post's data.
+   */
   async getPost(id){
     const options = new MyOptions("GET", this.headers);
-    return await callAPI(this.pathPosts + "/" + id, options);
+    return await callAPI(`${this.pathPosts}/${id}${this.moreDetail}`, options);
   }
 
+  /**
+   * Gets all the users profiles
+   * @returns [array] returns an array of user data objects.
+   */
   async getProfiles(){
     const options = new MyOptions("GET", this.headers);
     return await callAPI(this.pathProfile, options);
   }
 
+  /**
+   * Returns the past usernames profile data
+   * @param {String} name their username 
+   * @returns {object} object with user info
+   */
   async getProfile(name){ //might have to just use name
     const options = new MyOptions("GET", this.headers);
     return await callAPI(this.pathProfile + "/" + name, options)
   }
 
-  async updateProfile(name, body){ //might have to just use name
+
+  async updateProfile(body){ //might have to just use name
     const options = new MyOptions("GET", this.headers, body);
-    return await callAPI(`${this.pathProfile}/${name}/media`, options)
+    return await callAPI(`${this.pathProfile}/${this.name}/media`, options)
   }
 
   async createPost(body){
