@@ -9,7 +9,8 @@
  */
 export function isValidEmail(email, errorContainer) {
   //probably a nicer way to build this regex
-  const emailRegEx = /^[A-Za-z0-9_\.\+-]+@([noroff]+\.[no]{2})|^[A-Za-z0-9_\.\+-]+@(([stud]+\.[noroff]+\.[no]{2}))/g;
+  //const emailRegEx = /^[A-Za-z0-9_\.\+-]+@([noroff]+\.[no]{2})|^[A-Za-z0-9_\.\+-]+@(([stud]+\.[noroff]+\.[no]{2}))/g;
+  const emailRegEx = /^[\w\-.]+@(stud.)?noroff.no$/g;
   const validateEmail = emailRegEx.test(email.value);
   if (validateEmail){ 
     errorContainer.innerHTML = "";
@@ -32,7 +33,8 @@ export function isValidEmail(email, errorContainer) {
  */
 export function isValidUsername(username, errorContainer) {
   //probably a nicer way to build this regex
-  const userRegEx = /^[A-Za-z0-9_]{1,}$/g;
+  //const userRegEx = /^[A-Za-z0-9_]{1,}$/g;
+  const userRegEx = /^[\w]+$/g;
   const validateUser = userRegEx.test(username.value);
   if (validateUser){ 
     errorContainer.innerHTML = "";

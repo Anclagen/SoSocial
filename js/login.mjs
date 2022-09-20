@@ -2,7 +2,6 @@ import {updateAPI, setLocalItem, deleteLocalItem, login, register,isValidUsernam
 
 let API = updateAPI();
 const logout = document.querySelector("#logout");
-
 logout.addEventListener("click", API.logout);
 
 //Page element grabs
