@@ -12,6 +12,7 @@
 
 [GitHub Project Link](https://github.com/users/Anclagen/projects/1)
 
+Originally made a trello board but after some experimenting switched to github projects.
 [Trello Board Link](https://trello.com/b/uy380e5p/sosocial-js2-ca)
 
 > ## Design <a id="design"></a>

@@ -11,7 +11,7 @@ export function getLocalItem(key){
 }
 
 /**
- * Stores JSON content in local storage
+ * converts content to json and stores in local storage
  * @param {String} key 
  * @param {JSON} content
  * @example

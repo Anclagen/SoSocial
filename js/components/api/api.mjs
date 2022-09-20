@@ -33,7 +33,8 @@ export async function callAPI(url, options){
  * const options = {method: GET,
  *                  body: "",
  *                  headers: myHeaders};
- * const details = callAPI(url, options);
+ * console.log(callAPI(url, options));
+ * // [data, pages]
  */
 export async function callAPIPlusHeaders (url, options){
   const response = await fetch(url, options);
@@ -43,7 +44,9 @@ export async function callAPIPlusHeaders (url, options){
   return [data, headers];
 }
 
-
+/**
+ * Creates a options object for the fetch with provided parameters.
+ */
 export class MyOptions {
   /**
    * creates an object with method, body, headers.

@@ -1,15 +1,13 @@
 /**
- * Checks if string is an email
+ * Checks if string is a noroff email, returns error to error container if fails
  * @param {Input Element} email 
  * @param {Element} errorContainer error message is displayed here.
  * @returns {boolean}
  * @example
  * console.log(isValidEmail("example@example.com"))
- * //True
+ * //False
  */
 export function isValidEmail(email, errorContainer) {
-  //probably a nicer way to build this regex
-  //const emailRegEx = /^[A-Za-z0-9_\.\+-]+@([noroff]+\.[no]{2})|^[A-Za-z0-9_\.\+-]+@(([stud]+\.[noroff]+\.[no]{2}))/g;
   const emailRegEx = /^[\w\-.]+@(stud.)?noroff.no$/g;
   const validateEmail = emailRegEx.test(email.value);
   if (validateEmail){ 
@@ -23,7 +21,7 @@ export function isValidEmail(email, errorContainer) {
 
 
 /**
- * Checks if string is an email
+ * Checks if string is a valid username, returns error to error container if fails
  * @param {Input Element} username
  * @param {Element} errorContainer error message is displayed here.
  * @returns {boolean}
@@ -47,7 +45,7 @@ export function isValidUsername(username, errorContainer) {
 
 
 /**
- * 
+ * Checks input length, returns error message to error container if false.
  * @param {Input Element} input 
  * @param {Number} length 
  * @param {Element} errorContainer error message is displayed here.
@@ -61,20 +59,25 @@ export function isValidInputLength(input, length, errorContainer) {
     errorContainer.innerHTML = "";
     return true;
   } else {
-    errorContainer.innerHTML = `Your ${input.id} needs to be 8 characters long.`;
+    errorContainer.innerHTML = `Your ${input.id} needs to be at least ${length} characters long.`;
     return false;
   }
 }
 
 
 /**
- * 
+ * Checks inputs values match and are a minimum length, returns error message to error container if false.
  * @param {Input Element} input1 
  * @param {Input Element} input2 
  * @param {Number} length 
  * @param {Element} errorContainer error message is displayed here.
  * @returns {boolean}
- * 
+ * @example 
+ * const passwordInput = document.queryselector("#password");
+ * const confirmPasswordInput = document.queryselector("#passwordConfirm");
+ * const passError = document.queryselector("#passwordError");
+ * console.log(hasMatchingPasswords(passwordInput, confirmPasswordInput, 8, PassError));
+ * returns true or false
  */
 export function hasMatchingPasswords(input1, input2, length, errorContainer){
   if(input1.value === input2.value && input1.value.length >= length){

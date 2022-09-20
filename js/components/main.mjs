@@ -8,9 +8,9 @@ import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValid
  * @returns new handleAPI(userCredentials); 
  *          or redirects to login.
  * @example
- * const APIhandler = updateAPI();
+ * const APIhandler = initialiseAPIHandler();
  */
- export function updateAPI(){
+ export function initialiseAPIHandler(){
   const pageURL = window.location.pathname;
   if(localStorage.user !== undefined){
     const userCredentials = JSON.parse(getLocalItem("user"));

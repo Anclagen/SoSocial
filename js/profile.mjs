@@ -1,2 +1,2 @@
-import {updateAPI} from "./components/main.mjs"
-const API = updateAPI();
+import {initialiseAPIHandler} from "./components/main.mjs"
+const API = initialiseAPIHandler();
