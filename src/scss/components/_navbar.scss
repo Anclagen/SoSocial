@@ -3,3 +3,8 @@
     max-width: 5rem;
   }
 }
+
+.dropdown-menu[data-bs-popper] {
+  left: auto !important;
+  right: 0;
+}
