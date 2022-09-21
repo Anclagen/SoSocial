@@ -140,37 +140,69 @@ export class handleAPI {
    * @returns {object} object with user info
    */
   async getProfile(name){ //might have to just use name
-    const options = new MyOptions("GET", this.headers);
+    const options = new MyOptions("PUT", this.headers);
     return await callAPI(this.pathProfile + "/" + name, options)
   }
 
-
+  /**
+   * Updates user info, passed into the body
+   * @param {Object} body 
+   * @returns {Object}
+   */
   async updateProfile(body){ //might have to just use name
     const options = new MyOptions("GET", this.headers, body);
     return await callAPI(`${this.pathProfile}/${this.name}/media`, options)
   }
 
+  /**
+   * Creates a post with the passed body object
+   * @param {Object} body {"title": "string", "body":"string", "tags": ["string"],"media": "string"}
+   * @returns {Object} returns the post response object.
+   */
   async createPost(body){
     const options = new MyOptions("POST", this.headers, body);
     return await callAPI(this.pathPosts, options)
   }
 
+  /**
+   * Updates a specific post.
+   * @param {Object} body {"title": "string", "body":"string", "tags": ["string"],"media": "string"}
+   * @param {Number} id The posts ID number.
+   * @returns 
+   */
   async updatePost(body, id){
     const options = new MyOptions("PUT", this.headers, body);
     return await callAPI(this.pathPosts + "/" + id, options)
   }
 
+  /**
+   * Deletes a specific post
+   * @param {Number} id The posts ID number.
+   * @returns 
+   */
   async deletePost(id){
     const options = new MyOptions("DELETE", this.headers);
     return await callAPI(this.pathPosts + "/" + id, options)
   }
 
+  /**
+   * Reply to a specific post
+   * @param {Number} id The primary posts ID 
+   * @param {Object} body {body: "String", replyToId: "Number"} replyToNumber used for replying to other replies.
+   * @returns {Object} response with the post object.
+   */
   async replyToPost(id, body){
     const options = new MyOptions("POST", this.headers, body);
     return await callAPI(this.pathPosts + "/" + id + "/comment", options)
   }
 
-  async reactToPost(id, symbol){
+  /**
+   * Allows a user to react to a post with a symbol
+   * @param {Number} id Primary posts ID
+   * @param {Symbol} symbol Symbol you want to react to the post with
+   * @returns 
+   */
+  async reactToPost(id, symbol){ //maybe add body to allow reactions to replies?
     const options = new MyOptions("PUT", this.headers);
     return await callAPI(`${this.pathPosts}/${id}/react/${symbol}`, options)
   }
