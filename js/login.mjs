@@ -1,4 +1,4 @@
-import {initialiseAPIHandler, setLocalItem, deleteLocalItem, login, register,isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords} from "./components/main.mjs"
+import {initialiseAPIHandler, setLocalItem, login, register,isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords} from "./components/main.mjs"
 
 let API = initialiseAPIHandler();
 const logout = document.querySelector("#logout");
