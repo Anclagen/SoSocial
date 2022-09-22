@@ -56,42 +56,51 @@
     <main class="mb-4">
       <div class="container-xxl px-3">
         <!-- Page banner and title -->
-        <div class="profile-banner position-relative">
-          <img class="img-fluid" alt="leopold's profile banner" src="images/leo_banner_small_alternate2.jpg" />
-          <img class="rounded-circle bg-primary p-1 profile-img position-absolute top-50 start-0 ms-2" src="/images/leo_bow_tie_square.jpg" alt="users profile picture" />
-          <h1 class="text-center text-white my-4 border-bottom border-white">Leopold the Fluff</h1>
+        <div class="position-relative banner">
+          <img class="img-fluid profile-banner" alt="user's profile banner" id="profileBanner" src="" onerror="this.src='images/polaroid-g812a0ddaa_1280.jpg' " />
+          <img
+            class="rounded-circle bg-primary profile-img position-absolute top-50 start-0 ms-2"
+            id="profileImage"
+            src=""
+            onerror="this.src='images/blank-profile-picture-g6fdaa6a22_640.png'"
+            alt="users profile picture"
+          />
+          <h1 class="text-center text-white my-4 border-bottom border-white">Unknown User</h1>
         </div>
         <!-- Main page content -->
         <div class="row">
           <!-- About details -->
           <div class="col-md-4 mb-3">
             <div class="bg-secondary rounded-3 p-3 text-white">
+              <div id="edit"></div>
               <h2>About Me</h2>
-              <div>
-                <i class="fa-solid fa-location-pin"></i>
-                <span class="ms-3">Lives in Bergen</span>
+              <div id="about">
+                <div>
+                  <i class="fa-solid fa-location-pin"></i>
+                  <span class="ms-3">Lives in Bergen</span>
+                </div>
+                <div class="text-white">
+                  <i class="fa-solid fa-house-flag"></i>
+                  <span class="ms-2">Comes from Bergen</span>
+                </div>
+                <div class="text-white">
+                  <i class="fa-solid fa-graduation-cap"></i>
+                  <span class="ms-2">Studying front end development</span>
+                </div>
+                <div class="text-white">
+                  <i class="fa-solid fa-heart-crack"></i>
+                  <span class="ms-2">Currently Single</span>
+                </div>
+                <div class="text-white">
+                  <i class="fa-solid fa-baby"></i>
+                  <span class="ms-3">Born September 16th</span>
+                </div>
+                <h3 class="mt-3">Bio</h3>
+                <p>
+                  Vivamus luctus finibus risus, at pharetra lacus accumsan sed. Donec maximus pellentesque tellus. Aenean sit amet libero vitae nisl mollis accumsan. Vestibulum ornare ex eget eros
+                  vestibulum vehicula. Quisque vitae quam erat. Phasellus porta tempus neque non maximus. Nunc auctor sed est pulvinar viverra.
+                </p>
               </div>
-              <div class="text-white">
-                <i class="fa-solid fa-house-flag"></i>
-                <span class="ms-2">Comes from Bergen</span>
-              </div>
-              <div class="text-white">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <span class="ms-2">Studying front end development</span>
-              </div>
-              <div class="text-white">
-                <i class="fa-solid fa-heart-crack"></i>
-                <span class="ms-2">Currently Single</span>
-              </div>
-              <div class="text-white">
-                <i class="fa-solid fa-baby"></i>
-                <span class="ms-3">Born September 16th</span>
-              </div>
-              <h3 class="mt-3">Bio</h3>
-              <p>
-                Vivamus luctus finibus risus, at pharetra lacus accumsan sed. Donec maximus pellentesque tellus. Aenean sit amet libero vitae nisl mollis accumsan. Vestibulum ornare ex eget eros
-                vestibulum vehicula. Quisque vitae quam erat. Phasellus porta tempus neque non maximus. Nunc auctor sed est pulvinar viverra.
-              </p>
             </div>
           </div>
           <!-- Post and friends sections -->
@@ -122,114 +131,7 @@
               </section>
               <section class="text-white">
                 <h2>Your Recent Posts</h2>
-                <div class="card bg-secondary mb-3">
-                  <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/leo_bow_tie_square.jpg" alt="leo's profile picture" />
-                    <div>
-                      <p class="mb-0">You</p>
-                      <p class="mb-0">11:44 28/08/22</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                  </div>
-                  <div class="bg-tertiary">
-                    <p class="p-3 m-0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                      eget justo ornare posuere.
-                    </p>
-                  </div>
-                  <div class="card-body pb-2 pe-3">
-                    <div class="d-flex justify-content-end align-items-center fs-5">
-                      <i class="fa-solid fa-heart-crack me-1"></i>
-                      <span class="me-2">(1)</span>
-                      <i class="fa-solid fa-heart me-1"></i>
-                      <span class="me-2">(15)</span>
-                      <i class="fa-solid fa-share-nodes me-3"></i>
-                      <i class="fa-solid fa-comments me-3"></i>
-                      <i class="fa-solid fa-comment"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="card bg-secondary mb-3">
-                  <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/leo_bow_tie_square.jpg" alt="leo's profile picture" />
-                    <div>
-                      <p class="mb-0">You</p>
-                      <p class="mb-0">11:44 28/08/22</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                  </div>
-                  <div class="bg-tertiary">
-                    <p class="p-3 m-0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                      eget justo ornare posuere.
-                    </p>
-                  </div>
-                  <div class="card-body pb-2 pe-3">
-                    <div class="d-flex justify-content-end align-items-center fs-5">
-                      <i class="fa-solid fa-heart-crack me-1"></i>
-                      <span class="me-2">(1)</span>
-                      <i class="fa-solid fa-heart me-1"></i>
-                      <span class="me-2">(15)</span>
-                      <i class="fa-solid fa-share-nodes me-3"></i>
-                      <i class="fa-solid fa-comments me-3"></i>
-                      <i class="fa-solid fa-comment"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="card bg-secondary mb-3">
-                  <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/leo_bow_tie_square.jpg" alt="leo's profile picture" />
-                    <div>
-                      <p class="mb-0">You</p>
-                      <p class="mb-0">11:44 28/08/22</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                  </div>
-                  <div class="bg-tertiary">
-                    <p class="p-3 m-0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                      eget justo ornare posuere.
-                    </p>
-                  </div>
-                  <div class="card-body pb-2 pe-3">
-                    <div class="d-flex justify-content-end align-items-center fs-5">
-                      <i class="fa-solid fa-heart-crack me-1"></i>
-                      <span class="me-2">(1)</span>
-                      <i class="fa-solid fa-heart me-1"></i>
-                      <span class="me-2">(15)</span>
-                      <i class="fa-solid fa-share-nodes me-3"></i>
-                      <i class="fa-solid fa-comments me-3"></i>
-                      <i class="fa-solid fa-comment"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="card bg-secondary mb-3">
-                  <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/leo_bow_tie_square.jpg" alt="leo's profile picture" />
-                    <div>
-                      <p class="mb-0">You</p>
-                      <p class="mb-0">11:44 28/08/22</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                  </div>
-                  <div class="bg-tertiary">
-                    <p class="p-3 m-0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                      eget justo ornare posuere.
-                    </p>
-                  </div>
-                  <div class="card-body pb-2 pe-3">
-                    <div class="d-flex justify-content-end align-items-center fs-5">
-                      <i class="fa-solid fa-heart-crack me-1"></i>
-                      <span class="me-2">(1)</span>
-                      <i class="fa-solid fa-heart me-1"></i>
-                      <span class="me-2">(15)</span>
-                      <i class="fa-solid fa-share-nodes me-3"></i>
-                      <i class="fa-solid fa-comments me-3"></i>
-                      <i class="fa-solid fa-comment"></i>
-                    </div>
-                  </div>
-                </div>
+                <div id="post-feed"></div>
                 <div class="text-center">
                   <button type="button" class="btn btn-lg btn-info mb-4">Show More</button>
                 </div>
