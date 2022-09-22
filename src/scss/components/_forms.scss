@@ -7,3 +7,14 @@
 .hidden {
   display: none;
 }
+
+.closing {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: height 0.5s ease, opacity 1.5s ease ;
+}
+
+.open {
+  opacity: 1;
+}
