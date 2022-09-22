@@ -1,38 +1,47 @@
 @charset "UTF-8";
 .place-text-tertiary::placeholder {
   color: #495057 !important;
+  font-style: italic;
 }
 
 .place-text-primary::placeholder {
   color: black !important;
+  font-style: italic;
 }
 
 .place-text-secondary::placeholder {
   color: #212529 !important;
+  font-style: italic;
 }
 
 .place-text-success::placeholder {
   color: #08641c !important;
+  font-style: italic;
 }
 
 .place-text-info::placeholder {
   color: #0098b6 !important;
+  font-style: italic;
 }
 
 .place-text-warning::placeholder {
   color: #dbba00 !important;
+  font-style: italic;
 }
 
 .place-text-danger::placeholder {
   color: #9c0413 !important;
+  font-style: italic;
 }
 
 .place-text-light::placeholder {
   color: #f7f7f7 !important;
+  font-style: italic;
 }
 
 .place-text-dark::placeholder {
   color: #343a40 !important;
+  font-style: italic;
 }
 
 /*!
@@ -10938,6 +10947,17 @@ body {
 
 .hidden {
   display: none;
+}
+
+.closing {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: height 0.5s ease, opacity 1.5s ease;
+}
+
+.open {
+  opacity: 1;
 }
 
 .navbar-brand img {
