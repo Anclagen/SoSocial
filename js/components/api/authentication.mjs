@@ -85,7 +85,7 @@ export class handleAPI {
   moreDetail = "?_author=true&_comments=true&_reactions=true";
 
   headers = {"Content-Type": "application/json", "Authorization":""};
-  username = "";
+  name = "";
   avatar = "";
 
   /**
