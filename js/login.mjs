@@ -24,7 +24,6 @@ const signUpInputs = document.querySelectorAll(".signup");
 /**
  * Toggles between login and signup forms.
  */
-
 function toggleForm(){
   if(submitBtn.innerText === "Sign Up"){
     submitBtn.innerText = "Login";
@@ -55,8 +54,8 @@ async function validateLoginSignUp(submit){
           const response = await login(email.value, password.value);
           const loginDetails = await response.json();
 
-          console.log(response)
-          console.log(loginDetails)
+          // console.log(response);
+          // console.log(loginDetails);
 
           if(response.status === 200){
             setLocalItem("user", JSON.stringify(loginDetails));
