@@ -1,4 +1,5 @@
-import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValidUsername, handleAPI, isValidEmail, isValidInputLength, hasMatchingPasswords, login, register} from "./authentication.mjs"
+import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValidUsername, handleAPI, isValidEmail, isValidInputLength, hasMatchingPasswords, login, register} from "./api/authentication.mjs"
+import {createBasicPost} from "./render/post_cards.mjs"
 
 /**
  * Checks for "user" in local storage,
@@ -27,4 +28,5 @@ import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValid
 };
 
 //export {isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, login, register, setLocalItem, deleteLocalItem}  
-export * from "./authentication.mjs"
+export * from "./api/authentication.mjs"
+export * from "./render/post_cards.mjs"
