@@ -92,3 +92,12 @@ export function hasMatchingPasswords(input1, input2, length, errorContainer){
   }
 }
 
+/**
+ * checks an image is an actual link to a valid image.
+ * @param {String} link img url.
+ * @returns {Boolean}
+ */
+export function isValidImgLink(link){
+  const imgRegEx = /\.(jpg|jpeg|png|webp|avif|gif)(?=\?.+|$)/;
+  return imgRegEx.test(link);
+}

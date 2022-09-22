@@ -1,3 +1,5 @@
+import {isValidImgLink} from "../validation/validation.mjs"
+
 export function createBasicPost(data){
   const post = document.createElement("div");
   post.classList = "card bg-secondary mb-3";
@@ -7,13 +9,13 @@ export function createBasicPost(data){
   post.appendChild(postHead);
 
   const avatar = document.createElement("img");
-  if(!data.author.avatar || data.author.avatar === "string"){
-    avatar.src = "images/blank-profile-picture-g6fdaa6a22_640.png";
+  if(!isValidImgLink(data.author.avatar)){
+    avatar.src = "images/default-avatar.png";
   } else {
     avatar.src = data.author.avatar;
   }
   
-  avatar.setAttribute("onerror", `this.src="images/blank-profile-picture-g6fdaa6a22_640.png"`);
+  avatar.setAttribute("onerror", `this.src="images/default-avatar.png"`);
   avatar.classList = "img-fluid rounded-circle me-2";
   postHead.appendChild(avatar);
 
@@ -40,7 +42,7 @@ export function createBasicPost(data){
   postBody.appendChild(postBodyTitle);
 
   //if statement here?
-  if(/\.(jpg|jpeg|png|webp|avif|gif)$/.test(data.media)){
+  if(isValidImgLink(data.media)){ //works so far
     const postBodyImg = document.createElement("img");
     postBodyImg.src = data.media;
     postBodyImg.classList = "px-3 w-100";
@@ -48,8 +50,6 @@ export function createBasicPost(data){
     postBodyImg.setAttribute("onerror", `this.src="images/404.jpg"`);
     postBody.appendChild(postBodyImg);
   }
-
-
 
   const postBodyContent = document.createElement("p")
   postBodyContent.classList = "px-3 pb-2";
