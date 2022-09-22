@@ -1,5 +1,7 @@
 import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValidUsername, handleAPI, isValidEmail, isValidInputLength, hasMatchingPasswords, login, register} from "./api/authentication.mjs"
 import {createBasicPost} from "./render/post_cards.mjs"
+import {showInput} from "./functionality/accordion.mjs"
+import {postComment, newPost} from "./api/post_comments.mjs"
 
 /**
  * Checks for "user" in local storage,
@@ -29,4 +31,7 @@ import {createBasicPost} from "./render/post_cards.mjs"
 
 //export {isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, login, register, setLocalItem, deleteLocalItem}  
 export * from "./api/authentication.mjs"
+export * from "./api/post_comments.mjs"
 export * from "./render/post_cards.mjs"
+export * from "./functionality/accordion.mjs"
+
