@@ -1,6 +1,6 @@
-import {callAPI, MyOptions} from "./api/api.mjs"
-import {setLocalItem, deleteLocalItem, getLocalItem} from "./local_storage/localStorage.mjs"
-import {isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername} from "./validation/validation.mjs"
+import {callAPI, MyOptions} from "./api.mjs"
+import {setLocalItem, deleteLocalItem, getLocalItem} from "../local_storage/localStorage.mjs"
+import {isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername} from "../validation/validation.mjs"
 
 /**
  * Logs user in and returns response object.
@@ -140,7 +140,7 @@ export class handleAPI {
    * @returns {object} object with user info
    */
   async getProfile(name){ //might have to just use name
-    const options = new MyOptions("PUT", this.headers);
+    const options = new MyOptions("GET", this.headers);
     return await callAPI(this.pathProfile + "/" + name, options)
   }
 
@@ -150,7 +150,7 @@ export class handleAPI {
    * @returns {Object}
    */
   async updateProfile(body){ //might have to just use name
-    const options = new MyOptions("GET", this.headers, body);
+    const options = new MyOptions("PUT", this.headers, body);
     return await callAPI(`${this.pathProfile}/${this.name}/media`, options)
   }
 
