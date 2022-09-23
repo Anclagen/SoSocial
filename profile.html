@@ -57,7 +57,7 @@
       <div class="container-xxl px-3">
         <!-- Page banner and title -->
         <div class="position-relative banner">
-          <img class="img-fluid profile-banner" alt="user's profile banner" id="profileBanner" src="" onerror="this.src='images/polaroid-g812a0ddaa_1280.jpg' " />
+          <img class="img-fluid profile-banner" alt="user's profile banner" id="profileBanner" src="" onerror="this.src='images/default-banner.jpg' " />
           <img
             class="rounded-circle bg-primary profile-img position-absolute top-50 start-0 ms-2"
             id="profileImage"
@@ -101,6 +101,14 @@
                 </p>
               </div>
               <div id="edit" class="hidden">
+                <div class="text-danger" id="edit-error"></div>
+                <form id="edit-profile-form" class="closing hidden">
+                  <label for="banner" class="text-white ms-2 pt-2">Banner</label>
+                  <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="banner" placeholder="www.example.com/banner.jpg" name="banner" required />
+                  <label for="avatar" class="text-white ms-2 pt-2">Avatar</label>
+                  <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="avatar" placeholder="www.example.com/avatar.jpg" name="avatar" required />
+                  <input type="submit" class="btn btn-success d-block mx-auto mt-2" value="Update" />
+                </form>
                 <div class="text-center" id="edit-btn">
                   <button type="button" class="btn btn-info mt-2">Edit Profile</button>
                 </div>
@@ -129,7 +137,7 @@
                       ></textarea>
                       <div class="hidden closing" id="image-container">
                         <label for="media" class="text-white ms-2 pt-2">Image Link</label>
-                        <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="media" name="media" placeholder="wwww.example.com/image.jpg" />
+                        <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="media" name="media" placeholder="www.example.com/image.jpg" />
                       </div>
                       <div class="hidden closing" id="tags-container">
                         <label for="tags" class="text-white ms-2 pt-2">Tags</label>
@@ -155,51 +163,13 @@
             <!-- Your friends section -->
             <div class="col-lg-4 mb-2">
               <div class="bg-secondary rounded-3 p-3 text-white">
-                <h2>Your Friends</h2>
-                <div class="d-flex flex-lg-column flex-wrap justify-content-center">
-                  <div class="post-header rounded-3 px-1 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0 fs-5">Milo</p>
-                      <p class="mb-0">Online</p>
-                    </div>
-                  </div>
-                  <div class="post-header rounded-3 px-1 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0 fs-5">Milo</p>
-                      <p class="mb-0">Online</p>
-                    </div>
-                  </div>
-                  <div class="post-header rounded-3 px-1 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0 fs-5">Milo</p>
-                      <p class="mb-0">Online</p>
-                    </div>
-                  </div>
-                  <div class="post-header rounded-3 px-1 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0 fs-5">Milo</p>
-                      <p class="mb-0">Online</p>
-                    </div>
-                  </div>
-                  <div class="post-header rounded-3 px-1 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0 fs-5">Milo</p>
-                      <p class="mb-0">Online</p>
-                    </div>
-                  </div>
-                  <div class="post-header rounded-3 px-1 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0 fs-5">Milo</p>
-                      <p class="mb-0">Online</p>
-                    </div>
-                  </div>
+                <h2>Following</h2>
+                <div class="d-flex flex-lg-column flex-wrap justify-content-center" id="following"></div>
+                <div class="text-center">
+                  <button type="button" class="btn btn-info mt-2">Show More</button>
                 </div>
+                <h2 class="mt-3">Followers</h2>
+                <div class="d-flex flex-lg-column flex-wrap justify-content-center" id="followers"></div>
                 <div class="text-center">
                   <button type="button" class="btn btn-info mt-2">Show More</button>
                 </div>
