@@ -1,20 +1,31 @@
-import {initialiseAPIHandler, createBasicPost, showInput, postComment, newPost} from "./components/main.mjs"
+import {initialiseAPIHandler, createBasicPost, showInput, postComment, newPost, isValidImgLink, createAvatar} from "./components/main.mjs"
 const API = initialiseAPIHandler();
-//it begins!
-
+//page grabs
+//users banner, avatar and name
 const profileBanner = document.querySelector("#profileBanner");
 const profileImage = document.querySelector("#profileImage");
 const heading = document.querySelector("h1");
-const editContainer = document.querySelector("#edit");
-const aboutContainer = document.querySelector("#about");
+//post comment form
 const postsContainer = document.querySelector("#post-feed");
 const postCommentSection = document.querySelector("#post-comment");
 const postCommentForm = document.querySelector("#post-comment-form");
-const editBtn = document.querySelector("#edit-btn");
 const imageBtn = document.querySelector("#img-btn");
 const imageContainer = document.querySelector("#image-container");
 const tagsBtn = document.querySelector("#tags-btn");
 const tagsContainer = document.querySelector("#tags-container");
+//edit user details form
+const aboutContainer = document.querySelector("#about");
+const editContainer = document.querySelector("#edit");
+const editError = document.querySelector("#edit-error");
+const editBtn = document.querySelector("#edit-btn");
+const editProfileForm = document.querySelector("#edit-profile-form");
+const avatarInput = document.querySelector("#avatar");
+const bannerInput = document.querySelector("#banner");
+//followers
+const followersContainer = document.querySelector("#followers");
+const followingContainer = document.querySelector("#following");
+
+
 
 /**
  * Checks if a query string is present to define a user.
@@ -30,6 +41,23 @@ function defineUser(API){
   return user
 }
 
+function showProfileForm(){
+  showInput(editProfileForm, 210);
+  //editBtn.classList.add("hidden");
+}
+
+async function updateProfile(submit){
+  submit.preventDefault();
+  if(!isValidImgLink(bannerInput.value)){ editError.innerHTML="Invalid Image Link"}
+  if(!isValidImgLink(avatarInput.value)){ editError.innerHTML="Invalid Image Link"}
+  if(isValidImgLink(avatarInput.value) && isValidImgLink(bannerInput.value)){
+    editError.innerHTML=""
+    const body = JSON.stringify({banner:bannerInput.value, avatar:avatarInput.value});
+    const response = await API.updateProfile(body);
+    renderProfileContent(response);
+    showProfileForm();
+  }
+}
 
 /**
  * Checks profile data matches logged in user to enable profile editing.
@@ -38,30 +66,14 @@ function defineUser(API){
 async function isUsersProfile({name}){
   if(API.name === name){
     editContainer.classList.remove("hidden");
-    editBtn.addEventListener("click", createProfileForm);
-    function createProfileForm(){
-      editBtn.classList.add("hidden");
-    }
+    editBtn.addEventListener("click", showProfileForm);
+    editProfileForm.addEventListener("submit", updateProfile)
 
     postCommentSection.classList.remove("hidden");
     imageBtn.addEventListener("click", function(){showInput(imageContainer, 84)});
     tagsBtn.addEventListener("click", function(){showInput(tagsContainer, 84)});
-
-    async function postYourComment(submit){
-
-      const title = document.querySelector("#title");
-      const body = document.querySelector("#body");
-      const media = document.querySelector("#media");
-      const tags = document.querySelector("#tags");
-      const bodyData = new newPost(title.value, body.value, media.value, tags.value)
-
-      console.log(bodyData.returnBody())
-      submit.preventDefault();
-      console.log(await postComment(API, JSON.stringify(bodyData.returnBody())))
-    }
-    postCommentForm.addEventListener("submit", postYourComment)
+    postCommentForm.addEventListener("submit", postYourComment);
   }
-
 }
 
 /**
@@ -75,6 +87,18 @@ function renderProfileContent({banner, avatar, name, meta = ""}){
   // aboutContainer.innerText = meta // awaiting extra content???
 }
 
+async function postYourComment(submit){
+  submit.preventDefault();
+  const title = document.querySelector("#title");
+  const body = document.querySelector("#body");
+  const media = document.querySelector("#media");
+  const tags = document.querySelector("#tags");
+  const bodyData = new newPost(title.value, body.value, media.value, tags.value);
+  await postComment(API, JSON.stringify(bodyData.returnBody()))
+  postCommentForm.reset()
+}
+
+
 
 (async () => {
   try{
@@ -83,7 +107,15 @@ function renderProfileContent({banner, avatar, name, meta = ""}){
     renderProfileContent(data);
     isUsersProfile(data);
 
-    // Get Your Posts
+    data.following.forEach(following => {
+      followingContainer.innerHTML += (createAvatar(following))
+    })
+    data.followers.forEach(follower => {
+      followersContainer.innerHTML += (createAvatar(follower))
+    })
+
+
+    // Get Your Posts, lacking enough data to use the profile posts
     const postData = await API.getPosts(); 
     const yourPosts = postData.filter(post => post.author.name === user);
     console.log(yourPosts)
@@ -91,15 +123,8 @@ function renderProfileContent({banner, avatar, name, meta = ""}){
       postsContainer.appendChild(createBasicPost(post));
     });
 
-
+    
   } catch(error) {
     console.log(error)
   }
-
 })();
-
-function checkLength(input, length) {
-  return input.trim().length > length;
-}
-
-console.log(checkLength("teee", 5))
