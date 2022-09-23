@@ -53,10 +53,6 @@ async function validateLoginSignUp(submit){
         try{
           const response = await login(email.value, password.value);
           const loginDetails = await response.json();
-
-          // console.log(response);
-          // console.log(loginDetails);
-
           if(response.status === 200){
             setLocalItem("user", JSON.stringify(loginDetails));
             location.href = `/profile.html`
