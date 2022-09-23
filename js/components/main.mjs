@@ -1,5 +1,6 @@
-import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValidUsername, handleAPI, isValidEmail, isValidInputLength, hasMatchingPasswords, login, register} from "./api/authentication.mjs"
+import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValidUsername, handleAPI, isValidEmail, isValidInputLength, hasMatchingPasswords, isValidImgLink, login, register} from "./api/authentication.mjs"
 import {createBasicPost} from "./render/post_cards.mjs"
+import {createAvatar} from "./render/user_avatar.mjs"
 import {showInput} from "./functionality/accordion.mjs"
 import {postComment, newPost} from "./api/post_comments.mjs"
 
@@ -29,9 +30,9 @@ import {postComment, newPost} from "./api/post_comments.mjs"
   logout.classList.add("d-none")
 };
 
-//export {isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, login, register, setLocalItem, deleteLocalItem}  
 export * from "./api/authentication.mjs"
 export * from "./api/post_comments.mjs"
 export * from "./render/post_cards.mjs"
+export * from "./render/user_avatar.mjs"
 export * from "./functionality/accordion.mjs"
 
