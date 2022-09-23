@@ -99,5 +99,6 @@ export function hasMatchingPasswords(input1, input2, length, errorContainer){
  */
 export function isValidImgLink(link){
   const imgRegEx = /\.(jpg|jpeg|png|webp|avif|gif)(?=\?.+|$)/;
-  return imgRegEx.test(link);
+  return imgRegEx.test(link.toLowerCase());
 }
+
