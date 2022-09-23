@@ -1,6 +1,6 @@
 import {callAPI, MyOptions} from "./api.mjs"
 import {setLocalItem, deleteLocalItem, getLocalItem} from "../local_storage/localStorage.mjs"
-import {isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername} from "../validation/validation.mjs"
+import {isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername, isValidImgLink} from "../validation/validation.mjs"
 
 /**
  * Logs user in and returns response object.
@@ -83,6 +83,7 @@ export class handleAPI {
   pathProfile = "https://nf-api.onrender.com/api/v1/social/profiles";
 
   moreDetail = "?_author=true&_comments=true&_reactions=true";
+  moreProfileDetail = "?_posts=true&_following=true&_followers=true";
 
   headers = {"Content-Type": "application/json", "Authorization":""};
   name = "";
@@ -141,7 +142,7 @@ export class handleAPI {
    */
   async getProfile(name){ //might have to just use name
     const options = new MyOptions("GET", this.headers);
-    return await callAPI(this.pathProfile + "/" + name, options)
+    return await callAPI(this.pathProfile + "/" + name  + this.moreProfileDetail, options)
   }
 
   /**
@@ -153,6 +154,27 @@ export class handleAPI {
     const options = new MyOptions("PUT", this.headers, body);
     return await callAPI(`${this.pathProfile}/${this.name}/media`, options)
   }
+
+  /**
+ * Follows a user
+ * @param {String} username
+ * @returns {Object} An object with arrays for followers and following.
+ */
+  async followProfile(name){ //might have to just use name
+    const options = new MyOptions("PUT", this.headers);
+    return await callAPI(`${this.pathProfile}/${name}/follow`, options)
+  }
+
+  /**
+ * Unfollows a user
+ * @param {String} username
+ * @returns {Object} An object with arrays for followers and following.
+ */
+  async unfollowProfile(name){ //might have to just use name
+    const options = new MyOptions("PUT", this.headers);
+    return await callAPI(`${this.pathProfile}/${name}/unfollow`, options)
+  }
+
 
   /**
    * Creates a post with the passed body object
@@ -210,4 +232,4 @@ export class handleAPI {
 
 
 
-export {setLocalItem, deleteLocalItem, getLocalItem, isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, MyOptions, callAPI}  
+export {setLocalItem, deleteLocalItem, getLocalItem, isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, isValidImgLink, MyOptions, callAPI}  
