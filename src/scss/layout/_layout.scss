@@ -14,10 +14,32 @@
 //post thumbnail
 .post-header{
   .img-fluid{
-    width: 100%;
-    max-width: 45px;
-    max-height: 45px;
+    width: 45px;
+    height: 45px;
   }
+
+
+
+  @media only screen and (min-width: 991px){
+    .follower-names{
+      max-width: 90px;
+      overflow: hidden;
+      text-overflow: ".."; 
+    }
+  }
+
+  @media only screen and (min-width: 1100px){
+    .follower-names{
+      max-width: 120px;
+    }
+  }
+
+  @media only screen and (min-width: 1300px){
+    .follower-names{
+      max-width: 150px;
+    }
+  }
+
 }
 
 //profile page banner
