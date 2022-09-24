@@ -24,6 +24,8 @@ const bannerInput = document.querySelector("#banner");
 //followers
 const followersContainer = document.querySelector("#followers");
 const followingContainer = document.querySelector("#following");
+const followContainer = document.querySelector("#follow-user");
+const followBtn = document.querySelector("#follow-btn");
 
 
 
@@ -40,6 +42,8 @@ function defineUser(API){
   } 
   return user
 }
+
+const user = defineUser(API);
 
 function showProfileForm(){
   showInput(editProfileForm, 210);
@@ -63,17 +67,45 @@ async function updateProfile(submit){
  * Checks profile data matches logged in user to enable profile editing.
  * @param {Object} UserData a single profile object.
  */
-async function isUsersProfile({name}){
+async function isUsersProfile({name, avatar, banner, followers}, API){
   if(API.name === name){
     editContainer.classList.remove("hidden");
     editBtn.addEventListener("click", showProfileForm);
+    bannerInput.value = banner;
+    avatarInput.value = avatar;
     editProfileForm.addEventListener("submit", updateProfile)
-
+    followContainer.classList.add("hidden")
     postCommentSection.classList.remove("hidden");
     imageBtn.addEventListener("click", function(){showInput(imageContainer, 84)});
     tagsBtn.addEventListener("click", function(){showInput(tagsContainer, 84)});
     postCommentForm.addEventListener("submit", postYourComment);
+  } else{
+    const followerNames = followers.map((follower) => follower.name)
+    if(followerNames.includes(API.name)){
+      followBtn.innerText = "unfollow";
+    }
+    followBtn.setAttribute("user", name);
+    followBtn.addEventListener("click", followUser);
   }
+}
+
+async function followUser(){
+  const name = this.getAttribute('user');
+  try{
+    if(this.innerText === "follow"){
+      const response = await API.followProfile(name);
+      this.innerText = "unfollow";
+      console.log(response)
+    } else {
+      const response = await API.unfollowProfile(name);
+      this.innerText = "follow";
+      console.log(response)
+    }
+  } catch(e){
+    console.log(e)
+  }
+
+
 }
 
 /**
@@ -96,16 +128,26 @@ async function postYourComment(submit){
   const bodyData = new newPost(title.value, body.value, media.value, tags.value);
   await postComment(API, JSON.stringify(bodyData.returnBody()))
   postCommentForm.reset()
+  getUsersPosts()
 }
 
+async function getUsersPosts(API){
+  const postData = await API.getPosts(); 
+  const yourPosts = postData.filter(post => post.author.name === user);
+  postsContainer.innerHTML= "";
+  yourPosts.forEach(post => {
+    postsContainer.appendChild(createBasicPost(post));
+  });
+}
 
-
-(async () => {
+async function createPage(){
   try{
-    let user = defineUser(API);
+    
     const data = await API.getProfile(user); 
+    console.log(data)
     renderProfileContent(data);
-    isUsersProfile(data);
+    isUsersProfile(data, API);
+    await getUsersPosts(API);
 
     data.following.forEach(following => {
       followingContainer.innerHTML += (createAvatar(following))
@@ -114,17 +156,9 @@ async function postYourComment(submit){
       followersContainer.innerHTML += (createAvatar(follower))
     })
 
-
-    // Get Your Posts, lacking enough data to use the profile posts
-    const postData = await API.getPosts(); 
-    const yourPosts = postData.filter(post => post.author.name === user);
-    console.log(yourPosts)
-    yourPosts.forEach(post => {
-      postsContainer.appendChild(createBasicPost(post));
-    });
-
-    
   } catch(error) {
     console.log(error)
   }
-})();
+};
+
+createPage()
