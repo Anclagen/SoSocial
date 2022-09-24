@@ -86,6 +86,7 @@ export class handleAPI {
   moreProfileDetail = "?_posts=true&_following=true&_followers=true";
 
   headers = {"Content-Type": "application/json", "Authorization":""};
+  headersNoContent = {"Authorization":""};
   name = "";
   avatar = "";
 
@@ -94,6 +95,7 @@ export class handleAPI {
    */
   constructor({accessToken, name, avatar}){
     this.headers.Authorization = `Bearer ${accessToken}`;
+    this.headersNoContent.Authorization = `Bearer ${accessToken}`;
     this.name = name;
     this.avatar = avatar;
   }
@@ -161,7 +163,7 @@ export class handleAPI {
  * @returns {Object} An object with arrays for followers and following.
  */
   async followProfile(name){ //might have to just use name
-    const options = new MyOptions("PUT", this.headers);
+    const options = new MyOptions("PUT", this.headersNoContent);
     return await callAPI(`${this.pathProfile}/${name}/follow`, options)
   }
 
@@ -171,7 +173,7 @@ export class handleAPI {
  * @returns {Object} An object with arrays for followers and following.
  */
   async unfollowProfile(name){ //might have to just use name
-    const options = new MyOptions("PUT", this.headers);
+    const options = new MyOptions("PUT", this.headersNoContent);
     return await callAPI(`${this.pathProfile}/${name}/unfollow`, options)
   }
 
