@@ -1,5 +1,22 @@
 import {isValidImgLink} from "../validation/validation.mjs"
 
+export function createAPost(data){
+  const postClone = document.importNode(postTemplate, true).content;
+  postClone.querySelector(".userName").innerText = data.author.name;
+  postClone.querySelector(".userAvatar").src = data.author.avatar;
+  postClone.querySelector(".postTitle").innerText = data.title;
+  postClone.querySelector(".postBody").innerText = data.body; 
+  if(isValidImgLink(data.media)){ //works so far
+    const postBodyImg = document.createElement("img");
+    postBodyImg.src = data.media;
+    postBodyImg.classList = "px-3 w-100";
+    postBodyImg.setAttribute("loading", "lazy");
+    postBodyImg.setAttribute("onerror", `this.src="images/404.jpg"`);
+    postClone.querySelector(".postImage").appendChild(postBodyImg);
+  }
+  return postClone
+}
+
 export function createBasicPost(data){
   const post = document.createElement("div");
   post.classList = "card bg-secondary mb-3";
