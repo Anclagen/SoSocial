@@ -113,7 +113,7 @@
                   <button type="button" class="btn btn-info mt-2">Edit Profile</button>
                 </div>
               </div>
-              <div id="follow-user">
+              <div id="follow-user" class="hidden">
                 <button id="follow-btn" class="btn btn-success d-block mx-auto mt-2">Follow</button>
               </div>
             </div>
@@ -193,5 +193,24 @@
       </ul>
       <p class="text-center text-white">© 2022 SoSocial</p>
     </footer>
+    <template id="postTemplate">
+      <div class="card bg-secondary mb-3">
+        <div class="m-3 post-header rounded-3 d-flex">
+          <img src="" onerror='this.src="images/default-avatar.png"' class="userAvatar img-fluid rounded-circle me-2" />
+          <div>
+            <p class="mb-0 userName"></p>
+            <p class="mb-0 postCreated"></p>
+          </div>
+        </div>
+        <div class="bg-tertiary">
+          <h3 class="px-3 py-2 postTitle"></h3>
+          <p class="px-3 pb-2 postBody"></p>
+          <div class="px-2 postImage"></div>
+        </div>
+        <div class="card-body pb-2 pe-3">
+          <span></span>
+        </div>
+      </div>
+    </template>
   </body>
 </html>
