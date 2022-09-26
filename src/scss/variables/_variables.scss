@@ -48,6 +48,6 @@ $theme-colors: map-merge($extra-theme-colors, $theme-colors);
 
 //needed to change input box colours
 @each $name, $colour in $theme-colors {
-  .place-text-#{$name}::placeholder { color: $colour !important; }
+  .place-text-#{$name}::placeholder { color: $colour !important;  font-style: italic;}
 }
 
