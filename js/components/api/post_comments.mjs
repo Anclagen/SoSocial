@@ -18,11 +18,3 @@ export class newPost {
     return this.body
   }
 }
-
-export async function postComment(API, data){
-  try{
-    return await API.createPost(data)
-  } catch(e){
-    console.log(e)
-  }
-}
