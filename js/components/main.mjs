@@ -2,7 +2,7 @@ import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValid
 import {createBasicPost, createAPost} from "./render/post_cards.mjs"
 import {createAvatar} from "./render/user_avatar.mjs"
 import {showInput} from "./functionality/accordion.mjs"
-import {postComment, newPost} from "./api/post_comments.mjs"
+import {newPost} from "./api/post_comments.mjs"
 
 /**
  * Checks for "user" in local storage,
