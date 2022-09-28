@@ -84,6 +84,8 @@ export class handleAPI {
 
   moreDetail = "?_author=true&_comments=true&_reactions=true";
   moreProfileDetail = "?_posts=true&_following=true&_followers=true";
+  //offset by 100 to show next items 101-200, and offset by 200 to show 201-300 etc..
+  offset = "&offset="
 
   headers = {"Content-Type": "application/json", "Authorization":""};
   headersNoContent = {"Authorization":""};
@@ -176,7 +178,6 @@ export class handleAPI {
     const options = new MyOptions("PUT", this.headersNoContent);
     return await callAPI(`${this.pathProfile}/${name}/unfollow`, options)
   }
-
 
   /**
    * Creates a post with the passed body object
