@@ -76,9 +76,9 @@
       <div class="container-xxl text-white">
         <h1 class="border-bottom border-white text-center">Welcome Back Leopold</h1>
         <div class="row">
-          <!-- Secondary side navigation -->
-          <div class="col-md-3 mb-2">
-            <div class="bg-secondary rounded-3 pb-3">
+          <!---- Secondary side navigation ----->
+          <div class="col-md-4 mb-2">
+            <div class="bg-secondary rounded-3 p-2">
               <div class="text-center">
                 <div class="m-1 side-nav">
                   <img class="img-fluid rounded-circle p-2" src="/images/leo_bow_tie_square.jpg" alt="users profile picture" />
@@ -86,383 +86,64 @@
                 <h2 class="px-3 text-center">Leopold the Fluff</h2>
               </div>
               <div>
-                <div class="text-white">
-                  <hr class="my-1 mx-3" />
-                  <nav class="navbar navbar-dark navbar-expand-md">
-                    <div class="container-fluid d-flex flex-column justify-content-start">
-                      <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                      >
-                        <h3 class="text-white m-0">More <span class="navbar-toggler-icon"></span></h3>
-                      </button>
-                      <div class="collapse navbar-collapse side-links" id="navbarNavAltMarkup">
-                        <div class="navbar-nav d-flex flex-column side-links">
-                          <a href="#" class="nav-link text-white">
-                            <div class="row">
-                              <div class="col-3">
-                                <i class="fa-solid fa-user-group"></i>
-                              </div>
-                              <div class="col-9">
-                                <span class="col-9">Friends</span>
-                              </div>
-                            </div>
-                          </a>
-                          <a href="#" class="nav-link text-white">
-                            <div class="row">
-                              <div class="position-relative col-3">
-                                <i class="fa-solid fa-user-plus"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">2 <span class="visually-hidden">unread messages</span></span>
-                              </div>
-                              <div class="col-9">
-                                <span>Friend Requests</span>
-                              </div>
-                            </div>
-                          </a>
-                          <a href="#" class="nav-link text-white">
-                            <div class="row">
-                              <div class="col-3">
-                                <i class="fa-solid fa-comments"></i>
-                              </div>
-                              <div class="col-9">
-                                <span>Replies</span>
-                              </div>
-                            </div>
-                          </a>
-                          <a href="#" class="nav-link text-white">
-                            <div class="row">
-                              <div class="col-3">
-                                <i class="fa-solid fa-images"></i>
-                              </div>
-                              <div class="col-9">
-                                <span>Pictures</span>
-                              </div>
-                            </div>
-                          </a>
-                          <a href="#" class="nav-link text-white">
-                            <div class="row">
-                              <div class="col-3">
-                                <i class="fa-solid fa-video"></i>
-                              </div>
-                              <div class="col-9">
-                                <span>Videos</span>
-                              </div>
-                            </div>
-                          </a>
-                          <a href="#" class="nav-link text-white">
-                            <div class="row">
-                              <div class="col-3">
-                                <i class="fa-solid fa-square-rss"></i>
-                              </div>
-                              <div class="col-9">
-                                <span>Feeds</span>
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-                      </div>
+                <!---- Search Users ---->
+                <div class="search-users">
+                  <form class="px-4">
+                    <div>
+                      <label for="search-users">Search Users</label>
+                      <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="search-users" inputmode="search" />
                     </div>
-                  </nav>
+                  </form>
+                  <div id="user-search-results"></div>
+                </div>
+                <div class="mt-3">
+                  <h3 class="text-center">You Might Know</h3>
+                  <div class="px-3" id="you-might-know"></div>
                 </div>
               </div>
             </div>
           </div>
           <!-- Main Page Content -->
-          <div class="col-md-9">
+          <div class="col-md-8">
             <div class="m-1">
               <!-- Make a post section -->
               <section>
                 <h2>Make a post</h2>
                 <div class="card bg-secondary">
-                  <form action="#">
-                    <div class="mb-3">
+                  <form id="post-comment-form" class="mx-2">
+                    <div class="d-flex-column">
+                      <label for="title" class="text-white ms-2 pt-2">Title</label>
+                      <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="title" placeholder="Click Bait Title?" name="title" required />
+                      <label for="body" class="text-white ms-2 pt-2">Post Body</label>
                       <textarea
-                        class="form-control rounded-0 border-0 mt-2 bg-tertiary text-white place-text-light"
-                        id="exampleFormControlTextarea1"
+                        class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light"
+                        id="body"
                         rows="3"
                         placeholder="Need to say something?"
+                        name="body"
+                        required
                       ></textarea>
-                    </div>
-                    <div class="card-body">
-                      <div class="d-flex justify-content-between">
-                        <button type="" class="btn btn-danger">Add Image</button>
-                        <button type="" class="btn btn-danger mx-2">Add Video</button>
-                        <button type="submit" class="btn btn-success float-end">Post</button>
+                      <div class="hidden closing" id="image-container">
+                        <label for="media" class="text-white ms-2 pt-2">Image Link</label>
+                        <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="media" name="media" placeholder="www.example.com/image.jpg" />
                       </div>
+                      <div class="hidden closing" id="tags-container">
+                        <label for="tags" class="text-white ms-2 pt-2">Tags</label>
+                        <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="tags" placeholder="#OhSoSocial!" name="tags" />
+                      </div>
+                    </div>
+                    <div class="p-2 d-flex justify-content-between">
+                      <button type="button" class="btn btn-info" id="img-btn">Image</button>
+                      <button type="button" class="btn btn-info mx-2" id="tags-btn">Tags</button>
+                      <input type="submit" class="btn btn-success d-block" value="Post" />
                     </div>
                   </form>
                 </div>
               </section>
               <!-- Friends Posts section -->
               <section>
-                <h2 class="mt-3">Your Friends Feed</h2>
-                <div class="card bg-secondary mb-3">
-                  <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0">Milo</p>
-                      <p class="mb-0">11:44 28/08/22</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                  </div>
-                  <div class="bg-tertiary">
-                    <p class="p-3 m-0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                      eget justo ornare posuere.
-                    </p>
-                  </div>
-                  <div class="card-body pb-2 pe-3">
-                    <div class="d-flex justify-content-end align-items-center fs-5">
-                      <i class="fa-solid fa-heart-crack me-1"></i>
-                      <span class="me-3">(1)</span>
-                      <i class="fa-solid fa-heart me-1"></i>
-                      <span class="me-3">(15)</span>
-                      <div class="position-relative">
-                        <i class="fa-solid fa-comments me-4"> </i>
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">2 <span class="visually-hidden">unread messages</span></span>
-                      </div>
-                      <i class="fa-solid fa-share-nodes me-3"></i>
-                      <button
-                        class="accordion-button w-auto"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#postComment-collapseOne"
-                        aria-expanded="true"
-                        aria-controls="postComment-collapseOne"
-                      >
-                        <i class="fa-solid fa-comment"></i>
-                      </button>
-                    </div>
-                    <div id="postComment-collapseOne" class="accordion-collapse collapse" aria-labelledby="postComment-formOne">
-                      <div class="accordion-body">
-                        <form>
-                          <div class="mb-3">
-                            <textarea
-                              class="form-control rounded-0 border-0 mt-2 bg-tertiary text-white place-text-light"
-                              id="exampleFormControlTextarea1"
-                              rows="3"
-                              placeholder="Post a comment?"
-                            ></textarea>
-                          </div>
-                          <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-success float-end">Comment</button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card bg-secondary mb-3">
-                  <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0">Milo</p>
-                      <p class="mb-0">11:44 28/08/22</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                  </div>
-                  <div class="bg-tertiary">
-                    <p class="p-3 m-0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                      eget justo ornare posuere.
-                    </p>
-                  </div>
-                  <div class="card-body pb-2 pe-3">
-                    <div class="d-flex justify-content-end align-items-center fs-5">
-                      <i class="fa-solid fa-heart-crack me-1"></i>
-                      <span class="me-4">(1)</span>
-                      <i class="fa-solid fa-heart me-1"></i>
-                      <span class="me-4">(15)</span>
-                      <i class="fa-solid fa-share-nodes me-4"></i>
-                      <button
-                        class="accordion-button w-auto"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#postComment-collapseTwo"
-                        aria-expanded="true"
-                        aria-controls="postComment-collapseTwo"
-                      >
-                        <i class="fa-solid fa-comment"></i>
-                      </button>
-                    </div>
-                    <div id="postComment-collapseTwo" class="accordion-collapse collapse" aria-labelledby="postComment-formTwo">
-                      <div class="accordion-body">
-                        <form>
-                          <div class="mb-3">
-                            <textarea
-                              class="form-control rounded-0 border-0 mt-2 bg-tertiary text-white place-text-light"
-                              id="exampleFormControlTextarea1"
-                              rows="3"
-                              placeholder="Post a comment?"
-                            ></textarea>
-                          </div>
-                          <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-success float-end">Comment</button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card bg-secondary mb-3">
-                  <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0">Milo</p>
-                      <p class="mb-0">11:44 28/08/22</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                  </div>
-                  <div class="bg-tertiary">
-                    <p class="p-3 m-0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                      eget justo ornare posuere.
-                    </p>
-                  </div>
-                  <div class="card-body pb-2 pe-3">
-                    <div class="d-flex justify-content-end align-items-center fs-5">
-                      <i class="fa-solid fa-heart-crack me-1"></i>
-                      <span class="me-3">(1)</span>
-                      <i class="fa-solid fa-heart me-1"></i>
-                      <span class="me-3">(15)</span>
-                      <i class="fa-solid fa-share-nodes me-4"></i>
-                      <button
-                        class="accordion-button w-auto"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#postComment-collapseThree"
-                        aria-expanded="true"
-                        aria-controls="postComment-collapseThree"
-                      >
-                        <i class="fa-solid fa-comment"></i>
-                      </button>
-                    </div>
-                    <div id="postComment-collapseThree" class="accordion-collapse collapse" aria-labelledby="postComment-formThree">
-                      <div class="accordion-body">
-                        <form>
-                          <div class="mb-3">
-                            <textarea
-                              class="form-control rounded-0 border-0 mt-2 bg-tertiary text-white place-text-light"
-                              id="exampleFormControlTextarea1"
-                              rows="3"
-                              placeholder="Post a comment?"
-                            ></textarea>
-                          </div>
-                          <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-success float-end">Comment</button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card bg-secondary mb-3">
-                  <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0">Milo</p>
-                      <p class="mb-0">11:44 28/08/22</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                  </div>
-                  <div class="bg-tertiary">
-                    <p class="p-3 m-0">Having an amazing time on my summer hols, look forward to seeing you all when I get back.</p>
-                    <img class="img-fluid px-3 pb-3" src="images/good_view.jpg" alt="nice view" />
-                  </div>
-                  <div class="card-body pb-2 pe-3">
-                    <div class="d-flex justify-content-end align-items-center fs-5">
-                      <i class="fa-solid fa-heart-crack me-1"></i>
-                      <span class="me-3">(1)</span>
-                      <i class="fa-solid fa-heart me-1"></i>
-                      <span class="me-3">(15)</span>
-                      <i class="fa-solid fa-share-nodes me-4"></i>
-                      <button
-                        class="accordion-button w-auto"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#postComment-collapseFour"
-                        aria-expanded="true"
-                        aria-controls="postComment-collapseFour"
-                      >
-                        <i class="fa-solid fa-comment"></i>
-                      </button>
-                    </div>
-                    <div id="postComment-collapseFour" class="accordion-collapse collapse" aria-labelledby="postComment-formFour">
-                      <div class="accordion-body">
-                        <form>
-                          <div class="mb-3">
-                            <textarea
-                              class="form-control rounded-0 border-0 mt-2 bg-tertiary text-white place-text-light"
-                              id="exampleFormControlTextarea1"
-                              rows="3"
-                              placeholder="Post a comment?"
-                            ></textarea>
-                          </div>
-                          <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-success float-end">Comment</button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card bg-secondary mb-3">
-                  <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0">Milo</p>
-                      <p class="mb-0">11:44 28/08/22</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                  </div>
-                  <div class="bg-tertiary">
-                    <p class="p-3 m-0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                      eget justo ornare posuere.
-                    </p>
-                  </div>
-                  <div class="card-body pb-2 pe-3">
-                    <div class="d-flex justify-content-end align-items-center fs-5">
-                      <i class="fa-solid fa-heart-crack me-1"></i>
-                      <span class="me-3">(1)</span>
-                      <i class="fa-solid fa-heart me-1"></i>
-                      <span class="me-3">(15)</span>
-                      <i class="fa-solid fa-share-nodes me-4"></i>
-                      <button
-                        class="accordion-button w-auto"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#postComment-collapseFive"
-                        aria-expanded="true"
-                        aria-controls="postComment-collapseFive"
-                      >
-                        <i class="fa-solid fa-comment"></i>
-                      </button>
-                    </div>
-                    <div id="postComment-collapseFive" class="accordion-collapse collapse" aria-labelledby="postComment-formFive">
-                      <div class="accordion-body">
-                        <form>
-                          <div class="mb-3">
-                            <textarea
-                              class="form-control rounded-0 border-0 mt-2 bg-tertiary text-white place-text-light"
-                              id="exampleFormControlTextarea1"
-                              rows="3"
-                              placeholder="Post a comment?"
-                            ></textarea>
-                          </div>
-                          <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-success float-end">Comment</button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <h2 class="mt-3">Post Feed</h2>
+                <div id="post-feed"></div>
                 <div class="text-center">
                   <button type="button" class="btn btn-lg btn-info">Show More</button>
                 </div>
@@ -483,5 +164,24 @@
       </ul>
       <p class="text-center text-white">© 2022 SoSocial</p>
     </footer>
+    <template id="postTemplate">
+      <div class="card bg-secondary mb-3">
+        <div class="m-3 post-header rounded-3 d-flex">
+          <img src="" onerror='this.src="images/default-avatar.png"' class="userAvatar img-fluid rounded-circle me-2" />
+          <div>
+            <p class="mb-0 userName"></p>
+            <p class="mb-0 postCreated"></p>
+          </div>
+        </div>
+        <div class="bg-tertiary">
+          <h3 class="px-3 py-2 postTitle"></h3>
+          <p class="px-3 pb-2 postBody"></p>
+          <div class="px-2 postImage"></div>
+        </div>
+        <div class="card-body pb-2 pe-3">
+          <span></span>
+        </div>
+      </div>
+    </template>
   </body>
 </html>
