@@ -118,19 +118,24 @@ async function updateProfile(submit){
  * @param {Event} submit 
  */
 async function postYourComment(submit){
-  submit.preventDefault();
-  const formDate = new FormData(submit.target);
-  const bodyData = Object.fromEntries(formDate.entries());
-  // const title = document.querySelector("#title");
-  // const body = document.querySelector("#body");
-  // const media = document.querySelector("#media");
-  // const tags = document.querySelector("#tags");
-  // const bodyData = new newPost(title.value, body.value, media.value, tags.value);
-  // const response = await postComment(API, JSON.stringify(bodyData.returnBody()))
-  const response = await postComment(API, JSON.stringify(bodyData));
-  console.log(response);
-  postCommentForm.reset();
-  getUsersPosts();
+  try{
+    submit.preventDefault();
+    const formDate = new FormData(submit.target);
+    const bodyData = Object.fromEntries(formDate.entries());
+    // const title = document.querySelector("#title");
+    // const body = document.querySelector("#body");
+    // const media = document.querySelector("#media");
+    // const tags = document.querySelector("#tags");
+    // const bodyData = new newPost(title.value, body.value, media.value, tags.value);
+    // const response = await postComment(API, JSON.stringify(bodyData.returnBody()))
+    const response = await API.createPost(JSON.stringify(bodyData));
+    console.log(response);
+    postCommentForm.reset();
+    getUsersPosts();
+  } catch(error){
+    console.log(error)
+  }
+
 }
 
 //------------------- Follower Btn Functionality  -----------------------
@@ -174,7 +179,6 @@ function renderProfileContent({banner, avatar, name, meta = ""}){
 async function getUsersPosts(){
   const postData = await API.getPosts(); 
   const yourPosts = postData.filter(post => post.author.name === user);
-  console.log(yourPosts.map((follower) => follower.id))
   postsContainer.innerHTML= "";
   // long form version but using template is easier.
   // yourPosts.forEach(post => {
