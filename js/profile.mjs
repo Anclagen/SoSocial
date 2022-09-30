@@ -1,4 +1,4 @@
-import {addEditProfileListeners, renderProfileContent, createBasicPost, makeAPostListener, showInput, isValidImgLink, createAvatar, API} from "./modules/main.mjs"
+import {addEditProfileListeners, renderProfileContent, createAPost, makeAPostListener, showInput, isValidImgLink, createAvatar, API} from "./modules/main.mjs"
 
 //-------------------page grabs-----------------------
 //post comment form
@@ -85,7 +85,7 @@ async function getUsersPosts(){
   const yourPosts = postData.filter(post => post.author.name === user);
   postsContainer.innerHTML= "";
   yourPosts.forEach(post => {
-  postsContainer.appendChild(createBasicPost(post));
+  postsContainer.appendChild(createAPost(post));
   });
 }
 

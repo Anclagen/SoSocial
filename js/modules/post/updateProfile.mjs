@@ -17,8 +17,11 @@ const editProfileForm = document.querySelector("#edit-profile-form");
  */
 async function updateProfile(submit){
   submit.preventDefault();
-  if(!isValidImgLink(editProfileForm.banner.value)){ editError.innerHTML="Invalid Image Link"}
-  if(!isValidImgLink(editProfileForm.avatar.value)){ editError.innerHTML="Invalid Image Link"}
+  if(!isValidImgLink(editProfileForm.banner.value)){ 
+    editError.innerHTML="Invalid Image Link"
+  }
+  if(!isValidImgLink(editProfileForm.avatar.value)){editError.innerHTML="Invalid Image Link"
+  }
   if(isValidImgLink(editProfileForm.avatar.value) && isValidImgLink(editProfileForm.banner.value)){
     editError.innerHTML=""
     const body = JSON.stringify({banner:editProfileForm.banner.value, avatar:editProfileForm.avatar.value});
@@ -38,7 +41,5 @@ async function updateProfile(submit){
 export function addEditProfileListeners(){
   editContainer.classList.remove("hidden");
   editBtn.addEventListener("click", showProfileForm);
-  // editProfileForm.banner.value.value = banner;
-  // editProfileForm.avatar.value.value = avatar;
   editProfileForm.addEventListener("submit", updateProfile);
 }
