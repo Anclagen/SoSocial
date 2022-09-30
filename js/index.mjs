@@ -1,7 +1,7 @@
-import {initialiseAPIHandler, createAPost, showInput, createAvatar, isValidImgLink} from "./components/main.mjs"
+import {initialiseAPIHandler, createAPost, showInput, createAvatar, isValidImgLink, API} from "./components/main.mjs"
 
 //-------------------Create API handler -----------------------
-const API = initialiseAPIHandler();
+//const API = initialiseAPIHandler();
 
 //-------------------page grabs-----------------------
 //post comment form
@@ -44,12 +44,8 @@ function renderPosts(data){
     });
 }
 //------------------- Followers -----------------------
-
 //------------------- Search -----------------------
 //------------------- Filter -----------------------
-
-
-
 //------------------- Initalise Page -----------------------
 
 async function createPage(){
