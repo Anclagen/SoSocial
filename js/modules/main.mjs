@@ -2,8 +2,10 @@ import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValid
 import {createBasicPost, renderPost, renderPosts} from "./render/post_cards.mjs"
 import {createAvatar} from "./render/user_avatar.mjs"
 import {showInput} from "./functionality/accordion.mjs"
-import {newPost} from "./api/post_comments.mjs"
-import {handleAPI} from "./api/handler.mjs"
+import {handleAPI} from "./api/api_handler.mjs"
+import {makeAPostListener} from "./post/createPost.mjs"
+import {addEditProfileListeners} from "./post/updateProfile.mjs"
+import {renderProfileContent} from "./render/profile_head.mjs";
 
 /**
  * Checks for "user" in local storage,
@@ -32,8 +34,11 @@ import {handleAPI} from "./api/handler.mjs"
 };
 
 export const API = initialiseAPIHandler();
+
+export * from "./render/profile_head.mjs";
 export * from "./api/authentication.mjs"
-export * from "./api/post_comments.mjs"
+export * from "./post/createPost.mjs"
+export * from "./post/updateProfile.mjs"
 export * from "./render/post_cards.mjs"
 export * from "./render/user_avatar.mjs"
 export * from "./functionality/accordion.mjs"
