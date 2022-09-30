@@ -1,15 +1,18 @@
-export function showInput(input, height){
-  if(input.classList.contains("hidden")){
-    input.classList.toggle('hidden')
+export function showInput(container, height){
+  const input = container.querySelector("input")
+  if(container.classList.contains("hidden")){
+    container.classList.toggle('hidden')
     setTimeout(function () {
-      input.classList.toggle('open');
-      input.style.height = `${height}px`;
+      container.classList.toggle('open');
+      container.style.height = `${height}px`;
+      input.removeAttribute('disabled')
       }, 20);
   } else {
-    input.classList.toggle('open')
-    input.style.height = `0px`;
+    container.classList.toggle('open')
+    container.style.height = `0px`;
     setTimeout(function () {
-      input.classList.toggle('hidden');
+      container.classList.toggle('hidden');
+      input.setAttribute('disabled', '')
       }, 500);
   }
 }
