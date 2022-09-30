@@ -1,8 +1,9 @@
-import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValidUsername, handleAPI, isValidEmail, isValidInputLength, hasMatchingPasswords, isValidImgLink, login, register} from "./api/authentication.mjs"
-import {createBasicPost, createAPost} from "./render/post_cards.mjs"
+import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, isValidImgLink, login, register} from "./api/authentication.mjs"
+import {createBasicPost, renderPost, renderPosts} from "./render/post_cards.mjs"
 import {createAvatar} from "./render/user_avatar.mjs"
 import {showInput} from "./functionality/accordion.mjs"
 import {newPost} from "./api/post_comments.mjs"
+import {handleAPI} from "./api/handler.mjs"
 
 /**
  * Checks for "user" in local storage,
@@ -18,8 +19,6 @@ import {newPost} from "./api/post_comments.mjs"
   const pageURL = window.location.pathname;
   if(localStorage.user !== undefined){
     const userCredentials = getLocalItem("user");
-    console.log(userCredentials)
-
     return new handleAPI(userCredentials);
   } else if(pageURL !== "/entry.html"){
     location.href = `/entry.html?previous=${pageURL}`;
@@ -31,7 +30,6 @@ import {newPost} from "./api/post_comments.mjs"
   const logout = document.querySelector("#logout");
   logout.classList.add("d-none")
 };
-
 
 export const API = initialiseAPIHandler();
 export * from "./api/authentication.mjs"

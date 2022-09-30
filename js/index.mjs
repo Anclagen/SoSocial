@@ -1,4 +1,4 @@
-import {initialiseAPIHandler, createAPost, showInput, createAvatar, isValidImgLink, API} from "./components/main.mjs"
+import {initialiseAPIHandler, createBasicPost, showInput, createAvatar, isValidImgLink, API} from "./modules/main.mjs"
 
 //-------------------Create API handler -----------------------
 //const API = initialiseAPIHandler();
@@ -34,13 +34,12 @@ postCommentForm.addEventListener("submit", postYourComment);
 
 async function getPosts(){
   const dataPosts = await API.getPosts(); 
-  console.log(dataPosts);
   renderPosts(dataPosts);
 }
 
 function renderPosts(data){
   data.forEach(post => {
-    postsContainer.appendChild(createAPost(post));
+    postsContainer.appendChild(createBasicPost(post));
     });
 }
 //------------------- Followers -----------------------

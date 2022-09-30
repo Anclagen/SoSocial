@@ -1,4 +1,4 @@
-import {initialiseAPIHandler, createBasicPost, createAPost, showInput, postComment, newPost, isValidImgLink, createAvatar} from "./components/main.mjs"
+import {initialiseAPIHandler, createBasicPost, createAPost, showInput, newPost, isValidImgLink, createAvatar} from "./modules/main.mjs"
 
 //-------------------Create API handler -----------------------
 const API = initialiseAPIHandler();
@@ -67,7 +67,7 @@ async function initialiseProfileFunctionality({name, avatar, banner, followers})
     postCommentSection.classList.remove("hidden");
     imageBtn.addEventListener("click", function(){showInput(imageContainer, 84)});
     tagsBtn.addEventListener("click", function(){showInput(tagsContainer, 84)});
-    postCommentForm.addEventListener("submit", postYourComment);
+    //postCommentForm.addEventListener("submit", postYourComment);
   } else{
     //shows the follow button for your own profile
     followContainer.classList.remove("hidden");
@@ -185,7 +185,7 @@ async function getUsersPosts(){
   //   postsContainer.appendChild(createBasicPost(post));
   // });
   yourPosts.forEach(post => {
-  postsContainer.appendChild(createAPost(post));
+  postsContainer.appendChild(createBasicPost(post));
   });
 }
 
