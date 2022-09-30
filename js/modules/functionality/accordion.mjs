@@ -16,3 +16,19 @@ export function showInput(container, height){
       }, 500);
   }
 }
+
+export function showContainer(container, height){
+  if(container.classList.contains("hidden")){
+    container.classList.toggle('hidden')
+    setTimeout(function () {
+      container.classList.toggle('open');
+      container.style.height = `${height}px`;
+      }, 20);
+  } else {
+    container.classList.toggle('open')
+    container.style.height = `0px`;
+    setTimeout(function () {
+      container.classList.toggle('hidden');
+      }, 500);
+  }
+}
