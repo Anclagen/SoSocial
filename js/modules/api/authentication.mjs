@@ -2,7 +2,6 @@ import {callAPI, MyOptions} from "./api.mjs"
 import {setLocalItem, deleteLocalItem, getLocalItem} from "../local_storage/localStorage.mjs"
 import {isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername, isValidImgLink} from "../validation/validation.mjs"
 
-
 /**
  * Logs user in and returns response object.
  * @param {String} email 
@@ -33,7 +32,6 @@ import {isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername,
     console.log(response);
   }
 }
-
 
 /**
  * 

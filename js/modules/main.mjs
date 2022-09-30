@@ -1,5 +1,5 @@
 import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, isValidImgLink, login, register} from "./api/authentication.mjs"
-import {createBasicPost, renderPost, renderPosts} from "./render/post_cards.mjs"
+import {createAPost, renderPost, renderPosts} from "./render/post_cards.mjs"
 import {createAvatar} from "./render/user_avatar.mjs"
 import {showInput} from "./functionality/accordion.mjs"
 import {handleAPI} from "./api/api_handler.mjs"
