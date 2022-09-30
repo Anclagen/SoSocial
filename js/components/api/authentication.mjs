@@ -108,7 +108,7 @@ export class handleAPI {
    */
   logout(){
     deleteLocalItem("user");
-    location.href = "/login.html"
+    location.href = "/entry.html"
   }
 
   /**

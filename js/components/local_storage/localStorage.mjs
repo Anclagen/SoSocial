@@ -6,8 +6,8 @@
  * const cartItems = getLocalItem("Cart");
  */
 export function getLocalItem(key){
-  const item = localStorage.getItem(key);
-  return JSON.parse(item);
+  const item = JSON.parse(localStorage.getItem(key));
+  return item;
 }
 
 /**

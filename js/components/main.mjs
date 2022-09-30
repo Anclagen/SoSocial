@@ -17,10 +17,12 @@ import {newPost} from "./api/post_comments.mjs"
  export function initialiseAPIHandler(){
   const pageURL = window.location.pathname;
   if(localStorage.user !== undefined){
-    const userCredentials = JSON.parse(getLocalItem("user"));
+    const userCredentials = getLocalItem("user");
+    console.log(userCredentials)
+
     return new handleAPI(userCredentials);
-  } else if(pageURL !== "/login.html"){
-    location.href = `/login.html?previous=${pageURL}`;
+  } else if(pageURL !== "/entry.html"){
+    location.href = `/entry.html?previous=${pageURL}`;
   } else {
     const logout = document.querySelector("#logout");
     logout.classList.add("d-none");
@@ -30,6 +32,8 @@ import {newPost} from "./api/post_comments.mjs"
   logout.classList.add("d-none")
 };
 
+
+export const API = initialiseAPIHandler();
 export * from "./api/authentication.mjs"
 export * from "./api/post_comments.mjs"
 export * from "./render/post_cards.mjs"

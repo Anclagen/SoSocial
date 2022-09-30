@@ -54,7 +54,7 @@ async function validateLoginSignUp(submit){
           const response = await login(email.value, password.value);
           const loginDetails = await response.json();
           if(response.ok){
-            setLocalItem("user", JSON.stringify(loginDetails));
+            setLocalItem("user", loginDetails);
             location.href = `/profile.html`
           } else {
             loginFormError.innerHTML = loginDetails.message;
