@@ -4,8 +4,10 @@ import {createAvatar} from "./render/user_avatar.mjs"
 import {showInput} from "./functionality/accordion.mjs"
 import {handleAPI} from "./api/api_handler.mjs"
 import {makeAPostListener} from "./post/createPost.mjs"
+import {getPosts, getUsersPosts} from "./post/getPosts.mjs"
 import {addEditProfileListeners} from "./post/updateProfile.mjs"
 import {renderProfileContent} from "./render/profile_head.mjs";
+import { followUserBtn, renderFollowers} from "./functionality/followers.mjs"
 
 /**
  * Checks for "user" in local storage,
@@ -35,6 +37,24 @@ import {renderProfileContent} from "./render/profile_head.mjs";
 
 export const API = initialiseAPIHandler();
 
+/**
+ * Checks if a query string is present to define a user.
+ * @param {Class} API insert defined handleAPI class into this.
+ * @returns {String} Username returned for fetch request.
+ */
+ function defineUser(){
+  let user = API.name;
+  const qstring = new URLSearchParams(window.location.search);
+  if(qstring.has("profile")){
+    user = qstring.get("profile");
+  } 
+  return user
+}
+//defines the owner of the profile
+export const user = defineUser();
+
+export * from "./functionality/followers.mjs"
+export * from "./post/getPosts.mjs"
 export * from "./render/profile_head.mjs";
 export * from "./api/authentication.mjs"
 export * from "./post/createPost.mjs"

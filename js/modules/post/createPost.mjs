@@ -1,28 +1,45 @@
 import {showInput} from "../functionality/accordion.mjs"
 import { API } from "../main.mjs";
-import { getPosts } from "./getPosts.mjs";
+import { getPosts, getUsersPosts } from "./getPosts.mjs";
+import { user } from "../main.mjs";
 
-export async function createNewPost(submit) {
-  submit.preventDefault()
+export async function createNewPost(form, postFunction) {
   const errorReporting = document.querySelector("#post-comment-form-error");
-  const formData = new FormData(submit.target);
+  const formData = new FormData(form);
   const bodyData = Object.fromEntries(formData.entries());
   const response = await API.createPost(JSON.stringify(bodyData));
   console.log(response)
   if(response.statusCode){
-    errorReporting.innerHTML = response.message
+    errorReporting.innerHTML = response.message;
   } else {
     errorReporting.innerHTML = "";
-    submit.target.reset();
-    getPosts()
+    form.reset();
+    postFunction();
   }
 }
 
-export function makeAPostListener(){
+function createNewPostForm(submit){
+  submit.preventDefault();
+  createNewPost(submit.target, getPosts);
+}
+
+function createNewPostFormYourProfile(submit){
+  submit.preventDefault();
+  function yourPost(){
+    getUsersPosts(user)
+  }
+  createNewPost(submit.target, yourPost);
+}
+
+export function makeAPostListener(boolean = false){
   //the form
   const postForm = document.querySelector("#post-comment-form");
-  postForm.addEventListener("submit", createNewPost);
-
+  if(boolean){
+    postForm.addEventListener("submit", createNewPostFormYourProfile);
+  } else {
+    postForm.addEventListener("submit", createNewPostForm);
+  }
+  
   //some form functionality
   const imageContainer = document.querySelector("#image-container");
   const imageBtn = document.querySelector("#img-btn");
