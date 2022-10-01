@@ -1,89 +1,20 @@
 import {callAPI, MyOptions} from "./api.mjs"
-import {setLocalItem, deleteLocalItem, getLocalItem} from "../local_storage/localStorage.mjs"
-import {isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername, isValidImgLink} from "../validation/validation.mjs"
-
-/**
- * Logs user in and returns response object.
- * @param {String} email 
- * @param {String} password 
- * @return {Object} Object {name, email, avatar, token}
- */
- export async function login(email, password){
-  try{
-    const url = "https://nf-api.onrender.com/api/v1/social/auth/login";
-    let myHeaders = new Headers();
-    myHeaders.append("content-type", "application/json");
-    
-    let body = JSON.stringify({
-      "email": email,
-      "password": password
-    });
-    
-    const requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: body,
-    };
-    
-    const response = await fetch(url, requestOptions);
-    return response;
-  }
-  catch(error){
-    console.log(response);
-  }
-}
-
-/**
- * 
- * @param {*} name 
- * @param {*} email 
- * @param {*} password 
- * @param {*} avatar 
- * @param {*} banner 
- * @returns 
- */
-export async function register(name, email, password, avatar="", banner=""){
-  try{
-    const url = "https://nf-api.onrender.com/api/v1/social/auth/register";
-
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-  
-    let body = JSON.stringify({
-      "name": name,
-      "email": email,
-      "password": password,
-      "avatar": avatar,
-      "banner": banner
-    });
-  
-    const requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: body,
-    };
-  
-    const response = await callAPI(url, requestOptions)
-    console.log(response);
-    return response;
-  }
-  catch(error){
-    console.log(error);
-  }
-}
+import {deleteLocalItem} from "../local_storage/localStorage.mjs"
 
 /**
  * Handler class for API, constructed with login response,
  * this encompasses all the functions to get posts and profiles
  * as well as create/update and delete posts.
  */
-export class handleAPI {
+ export class handleAPI {
   baseURL = "https://nf-api.onrender.com/api/v1/social/";
   pathPosts = "https://nf-api.onrender.com/api/v1/social/posts";
   pathProfile = "https://nf-api.onrender.com/api/v1/social/profiles";
 
   moreDetail = "?_author=true&_comments=true&_reactions=true";
   moreProfileDetail = "?_posts=true&_following=true&_followers=true";
+  //offset by 100 to show next items 101-200, and offset by 200 to show 201-300 etc..
+  offset = "&offset="
 
   headers = {"Content-Type": "application/json", "Authorization":""};
   headersNoContent = {"Authorization":""};
@@ -106,8 +37,10 @@ export class handleAPI {
    */
   logout(){
     deleteLocalItem("user");
-    location.href = "/login.html"
+    location.href = "/entry.html"
   }
+
+   //------------------- Get/Update Posts(s) -----------------------
 
   /**
    * Returns all the posts in an array.
@@ -128,6 +61,8 @@ export class handleAPI {
     return await callAPI(`${this.pathPosts}/${id}${this.moreDetail}`, options);
   }
 
+  //------------------- Get/Update Profile(s) -----------------------
+
   /**
    * Gets all the users profiles
    * @returns [array] returns an array of user data objects.
@@ -136,6 +71,8 @@ export class handleAPI {
     const options = new MyOptions("GET", this.headers);
     return await callAPI(this.pathProfile, options);
   }
+
+  
 
   /**
    * Returns the past usernames profile data
@@ -157,6 +94,8 @@ export class handleAPI {
     return await callAPI(`${this.pathProfile}/${this.name}/media`, options)
   }
 
+  //------------------- Follow/Unfollow -----------------------
+
   /**
  * Follows a user
  * @param {String} username
@@ -177,6 +116,7 @@ export class handleAPI {
     return await callAPI(`${this.pathProfile}/${name}/unfollow`, options)
   }
 
+  //------------------- Create/Update/Delete Posts -----------------------
 
   /**
    * Creates a post with the passed body object
@@ -220,6 +160,7 @@ export class handleAPI {
     return await callAPI(this.pathPosts + "/" + id + "/comment", options)
   }
 
+  //------------------- Reactions -----------------------
   /**
    * Allows a user to react to a post with a symbol
    * @param {Number} id Primary posts ID
@@ -231,7 +172,3 @@ export class handleAPI {
     return await callAPI(`${this.pathPosts}/${id}/react/${symbol}`, options)
   }
 }
-
-
-
-export {setLocalItem, deleteLocalItem, getLocalItem, isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, isValidImgLink, MyOptions, callAPI}  

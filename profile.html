@@ -45,7 +45,7 @@
                   <a class="nav-link active" href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="login.html"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
+                  <a class="nav-link" href="entry.html"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
                 </li>
               </ul>
             </div>
@@ -122,10 +122,12 @@
           <div class="row flex-column-reverse flex-lg-row col-md-8">
             <!-- Post and your posts sections -->
             <div class="col-lg-8">
+              <!-- Post comment section -->
               <section id="post-comment" class="hidden">
                 <h2 class="text-white">Post A Comment</h2>
                 <div class="card bg-secondary mb-4">
                   <form id="post-comment-form" class="mx-2">
+                    <div class="error text-danger text-center" id="post-comment-form-error"></div>
                     <div class="d-flex-column">
                       <label for="title" class="text-white ms-2 pt-2">Title</label>
                       <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="title" placeholder="Click Bait Title?" name="title" required />
@@ -140,11 +142,18 @@
                       ></textarea>
                       <div class="hidden closing" id="image-container">
                         <label for="media" class="text-white ms-2 pt-2">Image Link</label>
-                        <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="media" name="media" placeholder="www.example.com/image.jpg" />
+                        <input
+                          type="text"
+                          class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light"
+                          id="media"
+                          name="media"
+                          placeholder="www.example.com/image.jpg"
+                          disabled
+                        />
                       </div>
                       <div class="hidden closing" id="tags-container">
                         <label for="tags" class="text-white ms-2 pt-2">Tags</label>
-                        <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="tags" placeholder="#OhSoSocial!" name="tags" />
+                        <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="tags" placeholder="#OhSoSocial!" name="tags" disabled />
                       </div>
                     </div>
                     <div class="p-2 d-flex justify-content-between">
@@ -186,31 +195,12 @@
       <ul class="nav justify-content-center pb-3 mb-3 fs-5">
         <li class="nav-item"><a href="index.html" class="nav-link px-2 text-white">Home</a></li>
         <li class="nav-item"><a href="profile.html" class="nav-link px-2 text-white">Profile</a></li>
-        <li class="nav-item"><a href="login.html" class="nav-link px-2 text-white">Login/Sign-Up</a></li>
+        <li class="nav-item"><a href="entry.html" class="nav-link px-2 text-white">Login/Sign-Up</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Privacy</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Contact</a></li>
       </ul>
       <p class="text-center text-white">© 2022 SoSocial</p>
     </footer>
-    <template id="postTemplate">
-      <div class="card bg-secondary mb-3">
-        <div class="m-3 post-header rounded-3 d-flex">
-          <img src="" onerror='this.src="images/default-avatar.png"' class="userAvatar img-fluid rounded-circle me-2" />
-          <div>
-            <p class="mb-0 userName"></p>
-            <p class="mb-0 postCreated"></p>
-          </div>
-        </div>
-        <div class="bg-tertiary">
-          <h3 class="px-3 py-2 postTitle"></h3>
-          <p class="px-3 pb-2 postBody"></p>
-          <div class="px-2 postImage"></div>
-        </div>
-        <div class="card-body pb-2 pe-3">
-          <span></span>
-        </div>
-      </div>
-    </template>
   </body>
 </html>

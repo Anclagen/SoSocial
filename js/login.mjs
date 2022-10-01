@@ -1,4 +1,4 @@
-import {initialiseAPIHandler, setLocalItem, login, register,isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords} from "./components/main.mjs"
+import {initialiseAPIHandler, setLocalItem, login, register,isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords} from "./modules/main.mjs"
 
 let API = initialiseAPIHandler();
 // const logout = document.querySelector("#logout");
@@ -44,17 +44,17 @@ toggleBtn.addEventListener("click", toggleForm);
 
 async function validateLoginSignUp(submit){
   submit.preventDefault();
-  console.log("I work")
-  //checks if form is login or sign up
+  //validate email and password
   const emailCorrect = isValidEmail(email, emailError);
   const passwordCorrect = isValidInputLength(password, 8, passwordError);
+   //checks if form is login or sign up
   if(submitBtn.textContent === "Login"){
       if(emailCorrect && passwordCorrect){
         try{
           const response = await login(email.value, password.value);
           const loginDetails = await response.json();
           if(response.ok){
-            setLocalItem("user", JSON.stringify(loginDetails));
+            setLocalItem("user", loginDetails);
             location.href = `/profile.html`
           } else {
             loginFormError.innerHTML = loginDetails.message;

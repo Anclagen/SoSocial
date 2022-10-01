@@ -64,7 +64,6 @@ export function isValidInputLength(input, length, errorContainer) {
   }
 }
 
-
 /**
  * Checks inputs values match and are a minimum length, returns error message to error container if false.
  * @param {Input Element} input1 
