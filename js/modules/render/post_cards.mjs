@@ -1,16 +1,23 @@
 import {isValidImgLink} from "../validation/validation.mjs"
 import {API} from "../main.mjs";
 import {createNewReply} from "../post/createReply.mjs";
-import {showContainer} from "../functionality/accordion.mjs";
+import {showContainer, showContainerNoHeight} from "../functionality/accordion.mjs";
+import { editPost } from "../post/updatePost.mjs";
 
-export function createAPost({id, author, title, body, media, _count, created, updated, tags, reactions, comments}){
+export function createAPost({id, author = API.name, title, body, media, _count, created, updated, tags, reactions, comments}){
   const post = document.createElement("div");
   post.classList = "card bg-secondary mb-3";
 
   //------------ post header -----------------
+
+  const postHeadContainer = document.createElement("div");
+  postHeadContainer.classList = "m-3 post-header rounded-3";
+  postHeadContainer.setAttribute("id", id)
+  post.appendChild(postHeadContainer);
+
   const postHead = document.createElement("div");
-  postHead.classList = "m-3 post-header rounded-3 d-flex";
-  post.appendChild(postHead);
+  postHead.classList= "d-flex";
+  postHeadContainer.appendChild(postHead);
 
   const avatar = document.createElement("img");
   if(!isValidImgLink(author.avatar)){
@@ -42,6 +49,7 @@ export function createAPost({id, author, title, body, media, _count, created, up
     postHeadOptions.classList="ms-auto";
     postHead.appendChild(postHeadOptions);
 
+    //creates options dropdown
     const optionsDropdown = document.createElement("div");
     optionsDropdown.classList = "dropdown";
     postHeadOptions.appendChild(optionsDropdown);
@@ -57,6 +65,7 @@ export function createAPost({id, author, title, body, media, _count, created, up
     optionsDropdownMenu.classList = "dropdown-menu bg-primary";
     optionsDropdown.appendChild(optionsDropdownMenu);
 
+    //edit this post
     const optionsDropdownEdit = document.createElement("li");
     optionsDropdownMenu.appendChild(optionsDropdownEdit);
 
@@ -65,7 +74,108 @@ export function createAPost({id, author, title, body, media, _count, created, up
     optionsDropdownEditBtn.innerText = "Edit";
     optionsDropdownEdit.appendChild(optionsDropdownEditBtn);
 
+    //---- edit form ----
+    const errorReportingEdit = document.createElement("div");
+    errorReportingEdit.classList = "error text-danger text-center pt-2"
+    postHeadContainer.appendChild(errorReportingEdit);
 
+    const editForm = document.createElement("form");
+    editForm.setAttribute("data-postID", id);
+    editForm.classList = "mx-2 closing hidden";
+    postHeadContainer.appendChild(editForm);
+    
+
+    const editFormHeading = document.createElement("h3");
+    editFormHeading.classList = "pt-2 pb-1"
+    editFormHeading.innerText = "Edit Your Post";
+    editForm.appendChild(editFormHeading);
+
+
+
+    const formBody = document.createElement("div");
+    formBody.classList = "d-flex flex-column"
+    editForm.appendChild(formBody);
+
+    const titleEditLabel = document.createElement("label");
+    titleEditLabel.innerText = "Title";
+    titleEditLabel.classList = "text-white ms-2 pt-2";
+    titleEditLabel.setAttribute("for", "title");
+    formBody.appendChild(titleEditLabel);
+
+    const titleEditInput = document.createElement("input");
+    titleEditInput.classList = "form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light";
+    titleEditInput.setAttribute("name", "title");
+    titleEditInput.setAttribute("type", "text");
+    titleEditInput.value = title;
+    formBody.appendChild(titleEditInput);
+
+    const bodyEditLabel = document.createElement("label");
+    bodyEditLabel.innerText = "Body";
+    bodyEditLabel.classList = "text-white ms-2 pt-2";
+    bodyEditLabel.setAttribute("for", "body");
+    formBody.appendChild(bodyEditLabel);
+
+    const bodyEditInput = document.createElement("textarea");
+    bodyEditInput.classList = "form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light";
+    bodyEditInput.setAttribute("name", "body");
+    bodyEditInput.setAttribute("type", "text");
+    bodyEditInput.value = body;
+    formBody.appendChild(bodyEditInput);
+
+    const mediaEditLabel = document.createElement("label");
+    mediaEditLabel.innerText = "Image";
+    mediaEditLabel.classList = "text-white ms-2 pt-2";
+    mediaEditLabel.setAttribute("for", "media");
+    formBody.appendChild(mediaEditLabel);
+
+    const mediaEditInput = document.createElement("input");
+    mediaEditInput.classList = "form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light";
+    mediaEditInput.setAttribute("name", "media");
+    mediaEditInput.setAttribute("type", "url");
+    mediaEditInput.value = media;
+    formBody.appendChild(mediaEditInput);
+
+    const tagsEditLabel = document.createElement("label");
+    tagsEditLabel.innerText = "Tags";
+    tagsEditLabel.classList = "text-white ms-2 pt-2";
+    tagsEditLabel.setAttribute("for", "tags");
+    formBody.appendChild(tagsEditLabel);
+
+    const tagsEditInput = document.createElement("input");
+    tagsEditInput.classList = "form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light";
+    tagsEditInput.setAttribute("name", "tags");
+    tagsEditInput.setAttribute("type", "text");
+    tagsEditInput.value = tags;
+    formBody.appendChild(tagsEditInput);
+
+    const submitEditFormBtn = document.createElement("input");
+    submitEditFormBtn.classList = "btn btn-success d-block mt-2 ms-auto";
+    submitEditFormBtn.value = "Update Post";
+    submitEditFormBtn.setAttribute("type", "submit")
+    formBody.appendChild(submitEditFormBtn);
+
+    function editThisPost(submit){
+      submit.preventDefault();
+      if(tagsEditInput.value === ""){
+        tagsEditInput.setAttribute("disabled", true);
+      }
+      if(mediaEditInput.value === ""){
+        mediaEditInput.setAttribute("disabled", true);
+      }
+
+      editPost(id, errorReportingEdit, submit.target);
+      mediaEditInput.removeAttribute("disabled");
+      tagsEditInput.removeAttribute("disabled");
+    }
+    editForm.addEventListener("submit", editThisPost);
+
+    function showEditPostForm(){
+      showContainerNoHeight(editForm);
+    }
+
+    optionsDropdownEditBtn.addEventListener("click", showEditPostForm);
+
+    //Delete this post
     const optionsDropdownDelete = document.createElement("li");
     optionsDropdownMenu.appendChild(optionsDropdownDelete);
 
@@ -74,8 +184,12 @@ export function createAPost({id, author, title, body, media, _count, created, up
     optionsDropdownDeleteBtn.innerText = "Delete";
     optionsDropdownDelete.appendChild(optionsDropdownDeleteBtn);
 
+    function deleteThisPost(){
+      API.deletePost(id);
+      post.innerHTML = "<div class='p-2 text-center'><h3 class='m-0'>Post Deleted</h3></div>";
+    }
 
-
+    optionsDropdownDeleteBtn.addEventListener("click", deleteThisPost)
   }
 
 
@@ -103,6 +217,13 @@ export function createAPost({id, author, title, body, media, _count, created, up
   postBodyContent.classList = "px-3 pb-2";
   postBodyContent.innerText = body;
   postBody.appendChild(postBodyContent);
+
+  if(updated !== created){
+    const updatedDate = document.createElement("div");
+    updatedDate.innerText = `Updated: ${updated}`;
+    updatedDate.classList = "text-right px-3 pb-1 ms-auto ";
+    postBody.appendChild(updatedDate);
+  }
   
   //------------ post footer ----------------
   const postFooter = document.createElement("div");
@@ -149,7 +270,7 @@ export function createAPost({id, author, title, body, media, _count, created, up
   commentFormContainer.classList = "card-body pt-0 pe-3 closing hidden"
   post.appendChild(commentFormContainer);
 
-  postFooterCommentBtn.addEventListener("click", function(){showContainer(commentFormContainer, 229)} )
+  postFooterCommentBtn.addEventListener("click", function(){showContainerNoHeight(commentFormContainer)} )
 
   const commentForm = document.createElement("form");
   commentForm.setAttribute("data-postID", id);
@@ -170,9 +291,9 @@ export function createAPost({id, author, title, body, media, _count, created, up
   commentInput.setAttribute("required", "");
   commentForm.appendChild(commentInput);
 
-  const commentSubmit = document.createElement("button");
+  const commentSubmit = document.createElement("input");
   commentSubmit.classList = "btn btn-success d-block mt-2 ms-auto"
-  commentSubmit.innerText = "Post A Comment";
+  commentSubmit.value = "Post A Comment";
   commentSubmit.setAttribute("type", "submit");
   commentForm.appendChild(commentSubmit);
 
@@ -192,5 +313,6 @@ export function renderPost(postData, container) {
 }
 
 export function renderPosts(postsData, container) {
+  container.innerHTML= "";
   container.append(...postsData.map(createAPost))
 }

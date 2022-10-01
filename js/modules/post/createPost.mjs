@@ -1,12 +1,21 @@
 import {showInput} from "../functionality/accordion.mjs"
 import { API } from "../main.mjs";
+import { getPosts } from "./getPosts.mjs";
 
 export async function createNewPost(submit) {
   submit.preventDefault()
+  const errorReporting = document.querySelector("#post-comment-form-error");
   const formData = new FormData(submit.target);
   const bodyData = Object.fromEntries(formData.entries());
   const response = await API.createPost(JSON.stringify(bodyData));
-  console.log(response);
+  console.log(response)
+  if(response.statusCode){
+    errorReporting.innerHTML = response.message
+  } else {
+    errorReporting.innerHTML = "";
+    submit.target.reset();
+    getPosts()
+  }
 }
 
 export function makeAPostListener(){
