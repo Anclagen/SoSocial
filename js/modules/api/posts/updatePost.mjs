@@ -1,5 +1,5 @@
 import { API } from "../../main.mjs";
-import { getPosts } from "./getPosts.mjs";
+import { getPostsFeed } from "./getPosts.mjs";
 
 export async function editPost(id, errorReporting, form) {
   const formData = new FormData(form);
@@ -16,7 +16,7 @@ export async function editPost(id, errorReporting, form) {
     setTimeout(function () {
       form.classList.toggle('hidden');
       }, 500);
-    await getPosts();
+    await getPostsFeed();
   }
 }
 

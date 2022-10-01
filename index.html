@@ -36,12 +36,6 @@
             </div>
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li class="mx-auto nav-item">
-                  <form class="d-flex input-group" role="search">
-                    <input class="form-control" type="search" placeholder="Search for friend or posts" aria-label="Search" />
-                    <button class="btn btn-success btn-lg" type="submit">Search</button>
-                  </form>
-                </li>
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="index.html"><i class="fa-solid fa-house"></i> Home</a>
                 </li>
@@ -51,21 +45,6 @@
                 <li class="nav-item">
                   <a class="nav-link" href="entry.html"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
                 </li>
-                <!-- Probably put login/profile/sign-out in a drop down with a profile pic/username in future-->
-                <!-- <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-user"></i>
-                    Leopold
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-dark">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Login</a></li>
-                    <li>
-                      <hr class="dropdown-divider" />
-                    </li>
-                    <li><a class="dropdown-item" href="#">Sign Out</a></li>
-                  </ul>
-                </li> -->
               </ul>
             </div>
           </div>
@@ -89,10 +68,10 @@
               <div>
                 <!---- Search Users ---->
                 <h3>Find A Friend</h3>
-                <input type="text" id="search-users" />
-                <div id="search-users-results"></div>
+                <input type="search" id="search-users" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" placeholder="Find A Friend..." />
+                <div id="search-users-results" class="my-2"></div>
                 <h3>Might Know?</h3>
-                <div id="might-know"></div>
+                <div id="you-might-know"></div>
               </div>
             </div>
           </div>
@@ -142,9 +121,44 @@
                   </form>
                 </div>
               </section>
+              <!-- Search Posts section -->
+              <section>
+                <h2 class="mt-3">Looking For Something?</h2>
+                <div class="card bg-secondary p-2">
+                  <input type="search" id="search-posts" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" placeholder="You wanted something in particular?" />
+                </div>
+                <div id="search-post-feed" class="pb-3 pt-2"></div>
+              </section>
               <!-- Friends Posts section -->
               <section>
                 <h2 class="mt-3">Post Feed</h2>
+                <div class="row pb-2">
+                  <div class="col">
+                    <label for="sort">Sort:</label>
+                    <select name="sort" id="sort-posts">
+                      <option value="Newest">Newest</option>
+                      <option value="Oldest">Oldest</option>
+                      <option value="Reacted">Most Reacted</option>
+                      <option value="Commented">Most Commented</option>
+                      <option value="TitleAZ">TitleA-Z</option>
+                      <option value="TitleZA">TitleZ-A</option>
+                      <option value="AuthorAZ">AuthorA-Z</option>
+                      <option value="AuthorZA">AuthorZ-A</option>
+                      <!-- Not sure further sorts are required here, sort itself seems a redundant feature too-->
+                    </select>
+                  </div>
+                  <div class="col">
+                    <label for="filter-time">Time Manipulation:</label>
+                    <select name="filter-time" id="filter-time">
+                      <option value="All">All</option>
+                      <option value="Yesterday">Yesterday</option>
+                      <option value="7days">Last 7 Days</option>
+                      <option value="14days">Last 14 Days</option>
+                      <option value="28days">Last 30 Days</option>
+                      <!-- Not sure further sorts are required here, sort itself seems a redundant feature too-->
+                    </select>
+                  </div>
+                </div>
                 <div id="post-feed"></div>
                 <div class="text-center">
                   <button type="button" class="btn btn-lg btn-info">Show More</button>

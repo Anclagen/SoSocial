@@ -10976,6 +10976,10 @@ body {
   opacity: 1;
 }
 
+input:disabled {
+  opacity: 0.4 !important;
+}
+
 .navbar-brand img {
   max-width: 5rem;
 }

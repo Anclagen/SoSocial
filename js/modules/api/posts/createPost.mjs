@@ -1,6 +1,6 @@
 import {showInput} from "../../functionality/accordion.mjs"
 import { API, user} from "../../main.mjs";
-import { getPosts, getUsersPosts  } from "./getPosts.mjs";
+import { getPostsFeed, getUsersPosts  } from "./getPosts.mjs";
 
 export async function createNewPost(form, postFunction) {
   const errorReporting = document.querySelector("#post-comment-form-error");
@@ -19,7 +19,7 @@ export async function createNewPost(form, postFunction) {
 
 function createNewPostForm(submit){
   submit.preventDefault();
-  createNewPost(submit.target, getPosts);
+  createNewPost(submit.target, getPostsFeed);
 }
 
 function createNewPostFormYourProfile(submit){

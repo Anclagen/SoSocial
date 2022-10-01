@@ -3,7 +3,7 @@ import { API} from "../../main.mjs";
 
 const postFeedContainer = document.querySelector("#post-feed")
 
-export async function getPosts(){
+export async function getPostsFeed(){
   const dataPosts = await API.getPosts(); 
   renderPosts(dataPosts, postFeedContainer);
 }

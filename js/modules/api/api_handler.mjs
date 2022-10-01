@@ -61,6 +61,45 @@ import {deleteLocalItem} from "../local_storage/localStorage.mjs"
     return await callAPI(`${this.pathPosts}/${id}${this.moreDetail}`, options);
   }
 
+  /**
+   * Returns all the posts in an array.
+   * @returns [Array] returns an array of posts
+   */
+    async getAllPosts(){
+    const options = new MyOptions("GET", this.headers);
+    const path = this.pathPosts + this.moreDetail + this.offset;
+    let allResults = [];
+    const initialResults = await callAPI(this.pathPosts + this.moreDetail + this.offset + 0, options);
+        
+    /**
+     * Keeps on calling the api till we get everything
+     * (The Bad Idea function is probably a terrible way to do this.)
+     * @param {Array} data an array of results from the api
+     * @param {Number} offset The current page of the results 0 = 1, 100 = 2 etc...
+     */
+    async function getAllResults (data, offset = 0){
+      if(data.length === 100){
+        allResults.push.apply(allResults, data);
+        const newOffset = offset + 100;
+        const moreResults = await callAPI(path + newOffset, options);
+        await getAllResults(moreResults, newOffset);
+      } else {
+        console.log("fin")
+        allResults.push.apply(allResults, data);
+      }
+    }
+
+    if(initialResults.length === 100){
+      const start = performance.now()
+      await getAllResults(initialResults, 0);
+      const end =  performance.now()
+      console.log(start - end)
+      return allResults;
+    } else {
+      return initialResults
+    }
+  }
+
   //------------------- Get/Update Profile(s) -----------------------
 
   /**
@@ -70,6 +109,37 @@ import {deleteLocalItem} from "../local_storage/localStorage.mjs"
   async getProfiles(){
     const options = new MyOptions("GET", this.headers);
     return await callAPI(this.pathProfile, options);
+  }
+
+  async getAllProfiles(){
+    const options = new MyOptions("GET", this.headers);
+    let allResults = [];
+    const path = this.pathProfile + this.moreProfileDetail + this.offset;
+    const initialResults = await callAPI(this.pathProfile + this.moreProfileDetail + this.offset + 0, options);
+    
+    /**
+     * Keeps on calling the api till we get everything
+     * (The Bad Idea function is probably a terrible way to do this.)
+     * @param {Array} data an array of results from the api
+     * @param {Number} offset The current page of the results 0 = 1, 100 = 2 etc...
+     */
+    async function getAllResults (data, offset = 0){
+      if(data.length === 100){
+        allResults.push.apply(allResults, data);
+        const newOffset = offset + 100;
+        const moreResults = await callAPI(path + newOffset, options);
+        await getAllResults(moreResults, newOffset);
+      } else {
+        allResults.push.apply(allResults, data);
+      }
+    }
+
+    if(initialResults.length === 100){
+      await getAllResults(initialResults, 0);
+      return allResults;
+    } else {
+      return initialResults
+    }
   }
 
   

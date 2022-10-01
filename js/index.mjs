@@ -1,20 +1,15 @@
-import {makeAPostListener, createAPost, getPosts, API} from "./modules/main.mjs"
-
-//-------------------page grabs-----------------------
-//post comment form
-const postsContainer = document.querySelector("#post-feed");
-//followers
-const mightKnowContainer = document.querySelector("#you-might-know");
+import {makeAPostListener, loadPostSearch, getPostsFeed, getFollowersAddSearch} from "./modules/main.mjs"
 
 async function createPage(){
   try{
     makeAPostListener();
-    await getPosts()
-   // await getFollowers()
-
+    getPostsFeed();
+    getFollowersAddSearch();
+    loadPostSearch()
   } catch(error) {
     console.log(error)
   }
 };
+
 createPage()
 

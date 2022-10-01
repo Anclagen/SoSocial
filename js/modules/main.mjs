@@ -1,13 +1,14 @@
 import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, isValidImgLink, login, register} from "./api/authentication.mjs"
+import {handleAPI} from "./api/api_handler.mjs"
+import {makeAPostListener} from "./api/posts/createPost.mjs"
+import {getPostsFeed, getUsersPosts} from "./api/posts/getPosts.mjs"
 import {createAPost, renderPost, renderPosts} from "./render/post_cards.mjs"
 import {createAvatar} from "./render/user_avatar.mjs"
 import {showInput} from "./functionality/accordion.mjs"
-import {handleAPI} from "./api/api_handler.mjs"
-import {makeAPostListener} from "./api/posts/createPost.mjs"
-import {getPosts, getUsersPosts} from "./api/posts/getPosts.mjs"
 import {addEditProfileListeners} from "./api/profile/updateProfile.mjs"
 import {renderProfileContent} from "./render/profile_head.mjs";
 import { followUserBtn, renderFollowers} from "./functionality/followers.mjs"
+import { getFollowersAddSearch } from "./sort_search_filter/search.mjs"
 
 /**
  * Checks for "user" in local storage,
@@ -27,12 +28,12 @@ import { followUserBtn, renderFollowers} from "./functionality/followers.mjs"
   } else if(pageURL !== "/entry.html"){
     location.href = `/entry.html?previous=${pageURL}`;
   } else {
-    const logout = document.querySelector("#logout");
-    logout.classList.add("d-none");
+    // const logout = document.querySelector("#logout");
+    // logout.classList.add("d-none");
     return {};
   }
-  const logout = document.querySelector("#logout");
-  logout.classList.add("d-none")
+  // const logout = document.querySelector("#logout");
+  // logout.classList.add("d-none")
 };
 
 export const API = initialiseAPIHandler();
@@ -62,4 +63,5 @@ export * from "./api/profile/updateProfile.mjs"
 export * from "./render/post_cards.mjs"
 export * from "./render/user_avatar.mjs"
 export * from "./functionality/accordion.mjs"
+export * from "./sort_search_filter/search.mjs"
 
