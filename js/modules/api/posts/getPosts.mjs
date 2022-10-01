@@ -1,5 +1,5 @@
-import { renderPosts } from "../render/post_cards.mjs";
-import { API} from "../main.mjs";
+import { renderPosts } from "../../render/post_cards.mjs";
+import { API} from "../../main.mjs";
 
 const postFeedContainer = document.querySelector("#post-feed")
 

@@ -1,8 +1,8 @@
 import {isValidImgLink} from "../validation/validation.mjs"
 import {API} from "../main.mjs";
-import {createNewReply} from "../post/createReply.mjs";
+import {createNewReply} from "../api/posts/createReply.mjs";
 import {showContainer, showContainerNoHeight} from "../functionality/accordion.mjs";
-import { editPost } from "../post/updatePost.mjs";
+import { editPost } from "../api/posts/updatePost.mjs";
 
 export function createAPost({id, author = API.name, title, body, media, _count, created, updated, tags, reactions, comments}){
   const post = document.createElement("div");

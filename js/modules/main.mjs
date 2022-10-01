@@ -3,9 +3,9 @@ import {createAPost, renderPost, renderPosts} from "./render/post_cards.mjs"
 import {createAvatar} from "./render/user_avatar.mjs"
 import {showInput} from "./functionality/accordion.mjs"
 import {handleAPI} from "./api/api_handler.mjs"
-import {makeAPostListener} from "./post/createPost.mjs"
-import {getPosts, getUsersPosts} from "./post/getPosts.mjs"
-import {addEditProfileListeners} from "./post/updateProfile.mjs"
+import {makeAPostListener} from "./api/posts/createPost.mjs"
+import {getPosts, getUsersPosts} from "./api/posts/getPosts.mjs"
+import {addEditProfileListeners} from "./api/profile/updateProfile.mjs"
 import {renderProfileContent} from "./render/profile_head.mjs";
 import { followUserBtn, renderFollowers} from "./functionality/followers.mjs"
 
@@ -54,11 +54,11 @@ export const API = initialiseAPIHandler();
 export const user = defineUser();
 
 export * from "./functionality/followers.mjs"
-export * from "./post/getPosts.mjs"
+export * from "./api/posts/getPosts.mjs"
 export * from "./render/profile_head.mjs";
 export * from "./api/authentication.mjs"
-export * from "./post/createPost.mjs"
-export * from "./post/updateProfile.mjs"
+export * from "./api/posts/createPost.mjs"
+export * from "./api/profile/updateProfile.mjs"
 export * from "./render/post_cards.mjs"
 export * from "./render/user_avatar.mjs"
 export * from "./functionality/accordion.mjs"

@@ -1,7 +1,6 @@
-import {showInput} from "../functionality/accordion.mjs"
-import { API } from "../main.mjs";
-import { getPosts, getUsersPosts } from "./getPosts.mjs";
-import { user } from "../main.mjs";
+import {showInput} from "../../functionality/accordion.mjs"
+import { API, user} from "../../main.mjs";
+import { getPosts, getUsersPosts  } from "./getPosts.mjs";
 
 export async function createNewPost(form, postFunction) {
   const errorReporting = document.querySelector("#post-comment-form-error");
