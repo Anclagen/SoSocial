@@ -8,7 +8,8 @@ import {showInput} from "./functionality/accordion.mjs"
 import {addEditProfileListeners} from "./api/profile/updateProfile.mjs"
 import {renderProfileContent} from "./render/profile_head.mjs";
 import { followUserBtn, renderFollowers} from "./functionality/followers.mjs"
-import { getFollowersAddSearch, loadPostSearch} from "./sort_search_filter/search.mjs"
+import { loadPostSearch} from "./sort_search_filter/search.mjs"
+import { getFollowersAddSearch } from "./sort_search_filter/search_followers.mjs"
 
 /**
  * Checks for "user" in local storage,
@@ -43,7 +44,7 @@ export const API = initialiseAPIHandler();
  * @param {Class} API insert defined handleAPI class into this.
  * @returns {String} Username returned for fetch request.
  */
- function defineUser(){
+ export function defineUser(){
   let user = API.name;
   const qstring = new URLSearchParams(window.location.search);
   if(qstring.has("profile")){
@@ -64,4 +65,5 @@ export * from "./render/post_cards.mjs"
 export * from "./render/user_avatar.mjs"
 export * from "./functionality/accordion.mjs"
 export * from "./sort_search_filter/search.mjs"
+export * from "./sort_search_filter/search_followers.mjs"
 

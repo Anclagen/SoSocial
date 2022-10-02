@@ -74,7 +74,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     optionsDropdownEditBtn.innerText = "Edit";
     optionsDropdownEdit.appendChild(optionsDropdownEditBtn);
 
-    //---- edit form ----
+    //--------------- edit post form ------------------------
     const errorReportingEdit = document.createElement("div");
     errorReportingEdit.classList = "error text-danger text-center pt-2"
     postHeadContainer.appendChild(errorReportingEdit);
@@ -84,13 +84,10 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     editForm.classList = "mx-2 closing hidden";
     postHeadContainer.appendChild(editForm);
     
-
     const editFormHeading = document.createElement("h3");
     editFormHeading.classList = "pt-2 pb-1"
     editFormHeading.innerText = "Edit Your Post";
     editForm.appendChild(editFormHeading);
-
-
 
     const formBody = document.createElement("div");
     formBody.classList = "d-flex flex-column"
@@ -154,7 +151,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     submitEditFormBtn.setAttribute("type", "submit")
     formBody.appendChild(submitEditFormBtn);
 
-    function editThisPost(submit){
+    async function editThisPost(submit){
       submit.preventDefault();
       if(tagsEditInput.value === ""){
         tagsEditInput.setAttribute("disabled", true);
@@ -163,10 +160,27 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
         mediaEditInput.setAttribute("disabled", true);
       }
 
-      editPost(id, errorReportingEdit, submit.target);
+      const response = await editPost(id, errorReportingEdit, submit.target);
+      if(response !== false){
+        //updated, title, body, tags, media 
+        //postBodyContent
+        postBodyTitle.innerText = response.title;
+        postBodyContent.innerText = response.body;
+        postFooterTags.innerText = response.tags;
+        updatedDate.innerText = `Updated: ${response.updated}`;
+        updatedDate.classList = "text-right px-3 pb-1 ms-auto ";
+        if(media){
+          postBodyImg.src = response.media;
+        } else if(response.media){
+          postBodyImg.src = response.media;
+          postBody.appendChild(postBodyImg);
+        }
+        showContainerNoHeight(editForm)
+      }
       mediaEditInput.removeAttribute("disabled");
       tagsEditInput.removeAttribute("disabled");
     }
+
     editForm.addEventListener("submit", editThisPost);
 
     function showEditPostForm(){
@@ -203,13 +217,12 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postBodyTitle.innerText = title;
   postBody.appendChild(postBodyTitle);
 
-  //if statement here?
-  if(media){ //works so far
-    const postBodyImg = document.createElement("img");
-    postBodyImg.src = media;
-    postBodyImg.classList = "px-3 w-100";
-    postBodyImg.setAttribute("loading", "lazy");
-    postBodyImg.setAttribute("onerror", `this.src="images/404.jpg"`);
+  const postBodyImg = document.createElement("img");
+  postBodyImg.src = media;
+  postBodyImg.classList = "px-3 w-100";
+  postBodyImg.setAttribute("loading", "lazy");
+  postBodyImg.setAttribute("onerror", `this.src="images/404.jpg"`);
+  if(media){
     postBody.appendChild(postBodyImg);
   }
 
@@ -218,11 +231,11 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postBodyContent.innerText = body;
   postBody.appendChild(postBodyContent);
 
+  const updatedDate = document.createElement("div");
+  postBody.appendChild(updatedDate);
   if(updated !== created){
-    const updatedDate = document.createElement("div");
     updatedDate.innerText = `Updated: ${updated}`;
     updatedDate.classList = "text-right px-3 pb-1 ms-auto ";
-    postBody.appendChild(updatedDate);
   }
   
   //------------ post footer ----------------
@@ -302,10 +315,6 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   }
 
   return post
-}
-
-export function createReply(data){
-
 }
 
 export function renderPost(postData, container) {

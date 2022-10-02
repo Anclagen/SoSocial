@@ -23,6 +23,7 @@
   </head>
   <body class="bg-dark d-flex flex-column min-vh-100">
     <header>
+      <!------ Navigation ------->
       <nav class="navbar navbar-dark bg-primary navbar-expand-lg fs-5">
         <div class="container-xxl">
           <a class="navbar-brand pe-5 me-5" href="index.html"><img src="/images/logo/logo_full_light.png" alt="SoSocial Logo" /></a>
@@ -55,7 +56,7 @@
       <div class="container-xxl text-white">
         <h1 class="border-bottom border-white text-center">Welcome Back Leopold</h1>
         <div class="row">
-          <!---- Secondary side navigation ----->
+          <!------ Follower content (side column)------->
           <div class="col-md-4 mb-2">
             <div class="bg-secondary rounded-3 p-2">
               <div class="text-center">
@@ -66,21 +67,22 @@
               </div>
 
               <div>
-                <!---- Search Users ---->
+                <!--------- Search Users ---------->
                 <h3>Find A Friend</h3>
                 <input type="search" id="search-users" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" placeholder="Find A Friend..." />
                 <div id="search-users-results" class="my-2"></div>
+                <!--------- Related Users To Your Following ---------->
                 <h3>Might Know?</h3>
                 <div id="you-might-know"></div>
               </div>
             </div>
           </div>
-          <!-- Main Page Content -->
+          <!------ Main Page Content (main column)--------->
           <div class="col-md-8">
             <div class="m-1">
-              <!-- Make a post section -->
+              <!----- Make a post section ----->
               <section>
-                <h2>Make a post</h2>
+                <h2>Make A Post</h2>
                 <div class="card bg-secondary">
                   <form id="post-comment-form" class="mx-2">
                     <div class="error text-danger text-center" id="post-comment-form-error"></div>
@@ -121,7 +123,7 @@
                   </form>
                 </div>
               </section>
-              <!-- Search Posts section -->
+              <!----- Search Posts section ----->
               <section>
                 <h2 class="mt-3">Looking For Something?</h2>
                 <div class="card bg-secondary p-2">
@@ -129,7 +131,7 @@
                 </div>
                 <div id="search-post-feed" class="pb-3 pt-2"></div>
               </section>
-              <!-- Friends Posts section -->
+              <!------ Friends Posts section ------>
               <section>
                 <h2 class="mt-3">Post Feed</h2>
                 <div class="row pb-2">

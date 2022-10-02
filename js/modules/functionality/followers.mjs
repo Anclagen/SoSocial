@@ -1,13 +1,15 @@
-import { API } from "../main.mjs";
-import { createAvatar } from "../render/user_avatar.mjs";
+import {API, defineUser} from "../main.mjs";
+import {createAvatar } from "../render/user_avatar.mjs";
+
+const followersContainer = document.querySelector("#followers");
+const followingContainer = document.querySelector("#following");
+
 
 /**
  * Creates avatars and fills the follower/following containers
  * @param {*} data API profile response, takes followers/following arrays
- * @param {*} followersContainer followers output div for created avatars
- * @param {*} followingContainer following output div for created avatars
  */
-export function renderFollowers({following, followers}, followersContainer, followingContainer ){ //might reuse on other pages good to have containers
+export function renderFollowers({following, followers}){ //might reuse on other pages good to have containers
   followingContainer.innerHTML = "";
   followersContainer.innerHTML = "";
     following.forEach(following => {
@@ -20,8 +22,10 @@ export function renderFollowers({following, followers}, followersContainer, foll
 
 /**
  * follows or unfollows the user depending on the button state.
+ * On the profile page.
  */
  export async function followUserBtn(){
+  const user = defineUser();
   try{
     if(this.innerText === "Follow"){
       await API.followProfile(user);
@@ -31,7 +35,7 @@ export function renderFollowers({following, followers}, followersContainer, foll
       this.innerText = "Follow";
     }
     const newFollowers = await API.getProfile(user);
-    renderFollowers(newFollowers, followersContainer, followingContainer);
+    renderFollowers(newFollowers);
   } catch(error){
     console.log(error);
   }
