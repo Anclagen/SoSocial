@@ -8,7 +8,7 @@ import {showInput} from "./functionality/accordion.mjs"
 import {addEditProfileListeners} from "./api/profile/updateProfile.mjs"
 import {renderProfileContent} from "./render/profile_head.mjs";
 import { followUserBtn, renderFollowers} from "./functionality/followers.mjs"
-import { getFollowersAddSearch } from "./sort_search_filter/search.mjs"
+import { getFollowersAddSearch, loadPostSearch} from "./sort_search_filter/search.mjs"
 
 /**
  * Checks for "user" in local storage,
