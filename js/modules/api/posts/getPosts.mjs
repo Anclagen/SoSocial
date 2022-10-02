@@ -5,18 +5,20 @@ import { sortPosts } from "../../sort_search_filter/sort.mjs";
 
 const postFeedContainer = document.querySelector("#post-feed")
 
+/**
+ * Gets all the posts sorts and filters the data as needed
+ * and assigns listeners to the page for sorting.
+ */
 export async function getPostsFeed(){
   addLoader(postFeedContainer);
   const dataPosts = await API.getAllPosts(); 
   const sortedData = await sortPosts(dataPosts);
   console.log(sortedData);
-  renderPosts(sortedData, postFeedContainer);
+  renderPosts(sortedData, postFeedContainer, false);
 
   async function filterFeed(){
-    console.log(dataPosts)
-    const sortedData =  await sortPosts( dataPosts);
-    console.log(sortedData)
-    renderPosts(sortedData, postFeedContainer);
+    const sortedData =  await sortPosts(dataPosts);
+    renderPosts(sortedData, postFeedContainer, false);
   }
 
   const timeManipulator = document.querySelector("#filter-time");

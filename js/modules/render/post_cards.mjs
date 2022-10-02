@@ -2,8 +2,10 @@ import {API} from "../main.mjs";
 import {createNewReply} from "../api/posts/createReply.mjs";
 import {showContainerNoHeight} from "../functionality/accordion.mjs";
 import {editPost} from "../api/posts/updatePost.mjs";
+import { openPostModal} from "../functionality/modal.mjs";
+import { renderReplies, createAReply } from "./post_replies.mjs";
 
-export function createAPost({id, author = API.name, title, body, media, _count, created, updated, tags, reactions, comments}){
+export function createAPost({id, author = API.name, title, body, media, _count, created, updated, tags, reactions, comments}, modal = false){
   const post = document.createElement("div");
   post.classList = "card bg-secondary mb-3";
 
@@ -18,11 +20,15 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postHead.classList= "d-flex";
   postHeadContainer.appendChild(postHead);
 
+  const profileLink = document.createElement("a");
+  profileLink.setAttribute("href", `profile.html?profile=${author.name}`)
+  postHead.appendChild(profileLink);
+
   const avatar = document.createElement("img");
   avatar.src = author.avatar;
   avatar.setAttribute("onerror", `this.src="images/default-avatar.png"`);
   avatar.classList = "img-fluid rounded-circle me-2";
-  postHead.appendChild(avatar);
+  profileLink.appendChild(avatar);
 
   const postHeadDetails = document.createElement("div");
   postHead.appendChild(postHeadDetails);
@@ -202,8 +208,21 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
 
   //------------ post body ---------------------
   const postBody = document.createElement("div");
-  postBody.classList = "bg-tertiary";
+  postBody.classList = "bg-tertiary post-body";
   post.appendChild(postBody);
+
+  function openModal(){
+  openPostModal({id, author, title, body, media, _count, created, updated, tags, reactions, comments}, true);
+  };
+
+  postBody.addEventListener("click", openModal);
+
+  
+  // applies to first then ignores the rest??? 
+  // when switched doesn't apply to the first but all the rest???
+  // if(!modal){ 
+  //   postBody.addEventListener("click", openModal);
+  // }
 
   const postBodyTitle = document.createElement("h3")
   postBodyTitle.classList = "px-3 py-2";
@@ -282,6 +301,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   commentForm.setAttribute("data-postID", id);
   commentForm.classList = "mx-2";
   commentFormContainer.appendChild(commentForm);
+  
   commentForm.addEventListener("submit", createNewReply)
 
   const commentBodyLabel = document.createElement("label");
@@ -303,18 +323,27 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   commentSubmit.setAttribute("type", "submit");
   commentForm.appendChild(commentSubmit);
 
-  if(comments.length > 0){
+  const commentsContainer = document.createElement("div");
+  commentsContainer.classList = "replies-container bg-tertiary"
+  post.appendChild(commentsContainer);
 
+  if(modal){
+    if(comments){
+      renderReplies(comments, commentsContainer);
+    }
   }
 
   return post
 }
 
-export function renderPost(postData, container) {
-  container.append(createAPost(postData))
+export function renderPost(postData, container, modal) {
+  container.append(createAPost(postData, modal))
 }
 
 export function renderPosts(postsData, container) {
   container.innerHTML= "";
-  container.append(...postsData.map(createAPost))
+  postsData.forEach((post) => container.append(createAPost(post, false))
+  )
+  //cause of bug mapping the function onto data seems to change the boolean default
+ // container.append(...postsData.map(createAPost))
 }

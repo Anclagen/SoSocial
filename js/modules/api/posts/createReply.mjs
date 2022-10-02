@@ -1,4 +1,5 @@
 import { API } from "../../main.mjs";
+import { createAReply } from "../../render/post_replies.mjs";
 
 export async function createNewReply(submit) {
   const id = submit.target.getAttribute('data-postID');
@@ -14,4 +15,6 @@ export async function createNewReply(submit) {
   setTimeout(function () {
     submit.target.parentNode.classList.toggle('hidden');
     }, 500);
+  const reply = submit.target.parentNode.parentNode.querySelector(".replies-container");
+  reply.appendChild(createAReply(response))
 }
