@@ -44,7 +44,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postHeadDetails.appendChild(postHeadTime);
 
   // add post edit options you your posts only
-  if(author.name === API.name){
+  if(author.name === API.name && !modal){
     const postHeadOptions = document.createElement("div");
     postHeadOptions.classList="ms-auto";
     postHead.appendChild(postHeadOptions);
