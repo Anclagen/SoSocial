@@ -1,4 +1,4 @@
-import { API } from "../main.mjs";
+import { API } from "../../main.mjs";
 
 export async function createNewReply(submit) {
   const id = submit.target.getAttribute('data-postID');

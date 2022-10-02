@@ -1,12 +1,9 @@
-import {addEditProfileListeners, getUsersPosts, renderProfileContent, createAPost, makeAPostListener, followUserBtn, renderFollowers, API, user} from "./modules/main.mjs"
+import {addEditProfileListeners, getUsersPosts, renderProfileContent, makeAPostListener, followUserBtn, renderFollowers, API, user} from "./modules/main.mjs"
 
 //-------------------page grabs-----------------------
 //post comment form
-const postsContainer = document.querySelector("#post-feed");
 const postCommentSection = document.querySelector("#post-comment");
 //followers
-const followersContainer = document.querySelector("#followers");
-const followingContainer = document.querySelector("#following");
 const followContainer = document.querySelector("#follow-user");
 const followBtn = document.querySelector("#follow-btn");
 
@@ -36,20 +33,6 @@ async function initialiseProfileFunctionality({name, followers}){
   }
 }
 
-//------------------- Render and Edit html -----------------------
-
-// /**
-//  * Gets users posts and renders them on the page.
-//  */
-// async function getUsersPosts(){
-//   const postData = await API.getPosts(); 
-//   const yourPosts = postData.filter(post => post.author.name === user);
-//   postsContainer.innerHTML= "";
-//   yourPosts.forEach(post => {
-//   postsContainer.appendChild(createAPost(post));
-//   });
-// }
-
 //------------------- Page Initaliser Function -----------------------
 
 /**
@@ -60,7 +43,7 @@ async function createPage(){
     const data = await API.getProfile(user); 
     renderProfileContent(data);
     initialiseProfileFunctionality(data);
-    renderFollowers(data, followersContainer, followingContainer);
+    renderFollowers(data);
     await getUsersPosts(user);
 
   } catch(error) {

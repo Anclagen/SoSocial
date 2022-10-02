@@ -1,0 +1,48 @@
+/*----------------- Loader -------------------*/
+
+.loader{
+  padding: 30px;
+  position: relative;
+  text-align: center;
+}
+
+.inner-loader,
+.outer-loader {
+  display: inline-block;
+  border: 16px solid #495057;
+  border-top: 16px solid $primary;
+  border-bottom: 16px solid $primary;
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+  animation: inner-spin 2s linear infinite;
+}
+
+.inner-loader {
+  border: 12px solid $primary;
+  border-top: 12px solid #495057;
+  border-bottom: 12px solid #495057;
+  width: 60px;
+  height: 60px;
+  animation: outer-spin 2s linear infinite;
+  margin-bottom: 30px;
+  margin-left: -94px;
+}
+
+@keyframes inner-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes outer-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}

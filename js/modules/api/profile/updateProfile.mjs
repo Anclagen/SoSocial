@@ -1,7 +1,7 @@
-import {showInput} from "../functionality/accordion.mjs"
-import {API} from "../main.mjs";
-import {renderProfileContent} from "../render/profile_head.mjs";
-import {isValidImgLink} from "../validation/validation.mjs"
+import {showInput} from "../../functionality/accordion.mjs"
+import {API} from "../../main.mjs";
+import {renderProfileContent} from "../../render/profile_head.mjs";
+import {isValidImgLink} from "../../validation/validation.mjs"
 
 //------------------- Edit Form -----------------------
 const editContainer = document.querySelector("#edit");

@@ -33,6 +33,8 @@ export function showContainer(container, height){
   }
 }
 
+//testing no height needed 
+
 //https://frontendcoding.com/getting-the-height-of-a-hidden-element/
 function getHiddenHeight(container) {
   const clone = container.cloneNode(true);
@@ -51,6 +53,7 @@ function getHiddenHeight(container) {
   clone.remove();
   return height;
 }
+
 
 export function showContainerNoHeight(container){
   if(container.classList.contains("hidden")){
