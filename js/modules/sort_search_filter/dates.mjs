@@ -7,3 +7,8 @@ export function getPastDate(days) {
   return previous;
 }
 
+export function isDateAfter({created}, daysAgo){
+  const dateToCheck = new Date(created);
+  const datePast = getPastDate(daysAgo)
+  return dateToCheck >= datePast
+}

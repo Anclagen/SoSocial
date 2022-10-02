@@ -4,8 +4,6 @@ import {addEditProfileListeners, getUsersPosts, renderProfileContent, makeAPostL
 //post comment form
 const postCommentSection = document.querySelector("#post-comment");
 //followers
-const followersContainer = document.querySelector("#followers");
-const followingContainer = document.querySelector("#following");
 const followContainer = document.querySelector("#follow-user");
 const followBtn = document.querySelector("#follow-btn");
 
@@ -45,7 +43,7 @@ async function createPage(){
     const data = await API.getProfile(user); 
     renderProfileContent(data);
     initialiseProfileFunctionality(data);
-    renderFollowers(data, followersContainer, followingContainer);
+    renderFollowers(data);
     await getUsersPosts(user);
 
   } catch(error) {

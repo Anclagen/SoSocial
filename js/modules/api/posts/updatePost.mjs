@@ -1,5 +1,4 @@
 import { API } from "../../main.mjs";
-import { getPostsFeed } from "./getPosts.mjs";
 
 export async function editPost(id, errorReporting, form) {
   try{

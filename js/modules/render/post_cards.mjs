@@ -1,8 +1,7 @@
-import {isValidImgLink} from "../validation/validation.mjs"
 import {API} from "../main.mjs";
 import {createNewReply} from "../api/posts/createReply.mjs";
-import {showContainer, showContainerNoHeight} from "../functionality/accordion.mjs";
-import { editPost } from "../api/posts/updatePost.mjs";
+import {showContainerNoHeight} from "../functionality/accordion.mjs";
+import {editPost} from "../api/posts/updatePost.mjs";
 
 export function createAPost({id, author = API.name, title, body, media, _count, created, updated, tags, reactions, comments}){
   const post = document.createElement("div");
@@ -20,12 +19,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postHeadContainer.appendChild(postHead);
 
   const avatar = document.createElement("img");
-  if(!isValidImgLink(author.avatar)){
-    avatar.src = "images/default-avatar.png";
-  } else {
-    avatar.src = author.avatar;
-  }
-  
+  avatar.src = author.avatar;
   avatar.setAttribute("onerror", `this.src="images/default-avatar.png"`);
   avatar.classList = "img-fluid rounded-circle me-2";
   postHead.appendChild(avatar);
@@ -39,7 +33,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postHeadDetails.appendChild(postHeadUser);
 
   const postHeadTime = document.createElement("p");
-  postHeadTime.innerText = created;
+  postHeadTime.innerText = new Date(created).toLocaleString();
   postHeadTime.classList = "mb-0";
   postHeadDetails.appendChild(postHeadTime);
 
@@ -167,7 +161,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
         postBodyTitle.innerText = response.title;
         postBodyContent.innerText = response.body;
         postFooterTags.innerText = response.tags;
-        updatedDate.innerText = `Updated: ${response.updated}`;
+        updatedDate.innerText = `Updated: ${new Date(response.updated).toLocaleString()}`;
         updatedDate.classList = "text-right px-3 pb-1 ms-auto ";
         if(media){
           postBodyImg.src = response.media;
@@ -206,7 +200,6 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     optionsDropdownDeleteBtn.addEventListener("click", deleteThisPost)
   }
 
-
   //------------ post body ---------------------
   const postBody = document.createElement("div");
   postBody.classList = "bg-tertiary";
@@ -219,7 +212,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
 
   const postBodyImg = document.createElement("img");
   postBodyImg.src = media;
-  postBodyImg.classList = "px-3 w-100";
+  postBodyImg.classList = "px-3 w-100 pb-2 post-image";
   postBodyImg.setAttribute("loading", "lazy");
   postBodyImg.setAttribute("onerror", `this.src="images/404.jpg"`);
   if(media){
@@ -234,7 +227,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   const updatedDate = document.createElement("div");
   postBody.appendChild(updatedDate);
   if(updated !== created){
-    updatedDate.innerText = `Updated: ${updated}`;
+    updatedDate.innerText = `Updated: ${new Date(updated).toLocaleString()}`;
     updatedDate.classList = "text-right px-3 pb-1 ms-auto ";
   }
   

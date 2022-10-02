@@ -10989,4 +10989,88 @@ input:disabled {
   right: 0;
 }
 
+/*----------------- Loader -------------------*/
+.loader {
+  padding: 30px;
+  position: relative;
+  text-align: center;
+}
+
+.inner-loader,
+.outer-loader {
+  display: inline-block;
+  border: 16px solid #495057;
+  border-top: 16px solid black;
+  border-bottom: 16px solid black;
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+  animation: inner-spin 2s linear infinite;
+}
+
+.inner-loader {
+  border: 12px solid black;
+  border-top: 12px solid #495057;
+  border-bottom: 12px solid #495057;
+  width: 60px;
+  height: 60px;
+  animation: outer-spin 2s linear infinite;
+  margin-bottom: 30px;
+  margin-left: -94px;
+}
+
+@keyframes inner-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes outer-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+.post-image {
+  object-fit: contain;
+  max-height: 500px;
+}
+@media only screen and (max-width: 765px) {
+  .post-image {
+    max-height: 400px;
+  }
+}
+
+.modal-open {
+  overflow: hidden;
+}
+.modal-open .post-specific-modal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 10;
+  overflow: hidden;
+}
+.modal-open .post-specific-feed {
+  margin: 0 auto;
+  width: 96%;
+  max-width: 900px;
+  height: 100%;
+  overflow-y: auto;
+  background-color: black;
+  z-index: 11;
+}
+.modal-open .post-specific-content {
+  margin: 1rem;
+  width: 96%;
+  background-color: #212529;
+}
+
 /*# sourceMappingURL=styles.css.map */
