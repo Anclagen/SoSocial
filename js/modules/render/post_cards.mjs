@@ -2,8 +2,18 @@ import {API} from "../main.mjs";
 import {createNewReply} from "../api/posts/createReply.mjs";
 import {showContainerNoHeight} from "../functionality/accordion.mjs";
 import {editPost} from "../api/posts/updatePost.mjs";
+import { openPostModal} from "../functionality/modal.mjs";
+import { renderReplies} from "./post_replies.mjs";
 
-export function createAPost({id, author = API.name, title, body, media, _count, created, updated, tags, reactions, comments}){
+
+/**
+ * Takes post data and creates a html for appending to page.
+ * Also include listeners for forms, menus and container visibility.
+ * @param {Object} postData Post data object
+ * @param {boolean} modal if true generates replies.
+ * @returns HTML to be appended
+ */
+export function createAPost({id, author = API.name, title, body, media, _count, created, updated, tags, reactions, comments}, modal = false){
   const post = document.createElement("div");
   post.classList = "card bg-secondary mb-3";
 
@@ -15,14 +25,18 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   post.appendChild(postHeadContainer);
 
   const postHead = document.createElement("div");
-  postHead.classList= "d-flex";
+  postHead.classList= "d-flex text-white";
   postHeadContainer.appendChild(postHead);
+
+  const profileLink = document.createElement("a");
+  profileLink.setAttribute("href", `profile.html?profile=${author.name}`)
+  postHead.appendChild(profileLink);
 
   const avatar = document.createElement("img");
   avatar.src = author.avatar;
   avatar.setAttribute("onerror", `this.src="images/default-avatar.png"`);
   avatar.classList = "img-fluid rounded-circle me-2";
-  postHead.appendChild(avatar);
+  profileLink.appendChild(avatar);
 
   const postHeadDetails = document.createElement("div");
   postHead.appendChild(postHeadDetails);
@@ -38,7 +52,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postHeadDetails.appendChild(postHeadTime);
 
   // add post edit options you your posts only
-  if(author.name === API.name){
+  if(author.name === API.name && !modal){
     const postHeadOptions = document.createElement("div");
     postHeadOptions.classList="ms-auto";
     postHead.appendChild(postHeadOptions);
@@ -145,38 +159,49 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     submitEditFormBtn.setAttribute("type", "submit")
     formBody.appendChild(submitEditFormBtn);
 
+    /**
+     * Edit post form function for event listener
+     * @param {Event} submit submits post edits and updated post is successful
+     */
     async function editThisPost(submit){
-      submit.preventDefault();
-      if(tagsEditInput.value === ""){
-        tagsEditInput.setAttribute("disabled", true);
-      }
-      if(mediaEditInput.value === ""){
-        mediaEditInput.setAttribute("disabled", true);
+      try{
+        submit.preventDefault();
+        if(tagsEditInput.value === ""){
+          tagsEditInput.setAttribute("disabled", true);
+        }
+        if(mediaEditInput.value === ""){
+          mediaEditInput.setAttribute("disabled", true);
+        }
+  
+        const response = await editPost(id, errorReportingEdit, submit.target);
+        if(response.ok !== false){
+          postBodyTitle.innerText = response.title;
+          postBodyContent.innerText = response.body;
+          postFooterTags.innerText = response.tags;
+          updatedDate.innerText = `Updated: ${new Date(response.updated).toLocaleString()}`;
+          updatedDate.classList = "text-right px-3 pb-1 ms-auto ";
+          if(media){
+            postBodyImg.src = response.media;
+          } else if(response.media){
+            postBodyImg.src = response.media;
+            postBody.appendChild(postBodyImg);
+          }
+          showContainerNoHeight(editForm)
+        }
+        mediaEditInput.removeAttribute("disabled");
+        tagsEditInput.removeAttribute("disabled");
+      } catch(error){
+        console.log(error);
+
       }
 
-      const response = await editPost(id, errorReportingEdit, submit.target);
-      if(response !== false){
-        //updated, title, body, tags, media 
-        //postBodyContent
-        postBodyTitle.innerText = response.title;
-        postBodyContent.innerText = response.body;
-        postFooterTags.innerText = response.tags;
-        updatedDate.innerText = `Updated: ${new Date(response.updated).toLocaleString()}`;
-        updatedDate.classList = "text-right px-3 pb-1 ms-auto ";
-        if(media){
-          postBodyImg.src = response.media;
-        } else if(response.media){
-          postBodyImg.src = response.media;
-          postBody.appendChild(postBodyImg);
-        }
-        showContainerNoHeight(editForm)
-      }
-      mediaEditInput.removeAttribute("disabled");
-      tagsEditInput.removeAttribute("disabled");
     }
 
     editForm.addEventListener("submit", editThisPost);
 
+    /**
+     * show edit form for event listener
+     */
     function showEditPostForm(){
       showContainerNoHeight(editForm);
     }
@@ -202,8 +227,23 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
 
   //------------ post body ---------------------
   const postBody = document.createElement("div");
-  postBody.classList = "bg-tertiary";
+  postBody.classList = "bg-tertiary post-body text-white";
   post.appendChild(postBody);
+
+  /**
+   * gets post data opens modal and renders, for event listener
+   */
+  async function openModal(){
+    try{
+      const postData = await API.getPost(id);
+      console.log(postData)
+      openPostModal(postData, true); 
+    } catch(error){
+    }
+  };
+
+  postBody.addEventListener("click", openModal);
+
 
   const postBodyTitle = document.createElement("h3")
   postBodyTitle.classList = "px-3 py-2";
@@ -282,6 +322,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   commentForm.setAttribute("data-postID", id);
   commentForm.classList = "mx-2";
   commentFormContainer.appendChild(commentForm);
+  
   commentForm.addEventListener("submit", createNewReply)
 
   const commentBodyLabel = document.createElement("label");
@@ -303,18 +344,37 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   commentSubmit.setAttribute("type", "submit");
   commentForm.appendChild(commentSubmit);
 
-  if(comments.length > 0){
+  const commentsContainer = document.createElement("div");
+  commentsContainer.classList = "replies-container bg-tertiary"
+  post.appendChild(commentsContainer);
 
+  //------------- replies -----------------------
+  if(modal){
+    if(comments){
+      renderReplies(comments, commentsContainer);
+    }
   }
 
   return post
 }
 
-export function renderPost(postData, container) {
-  container.append(createAPost(postData))
+/**
+ * renders a single post to a page
+ * @param {Object} postData Post data object
+ * @param {Element} container element to append Html to
+ * @param {Boolean} modal true if displaying in modal
+ */
+export function renderPost(postData, container, modal) {
+  container.append(createAPost(postData, modal))
 }
 
+/**
+ * renders an array of post objects to an element
+ * @param {Object} postsData Post data object
+ * @param {Element} container element to append Html to
+ */
 export function renderPosts(postsData, container) {
   container.innerHTML= "";
-  container.append(...postsData.map(createAPost))
+  postsData.forEach((post) => container.append(createAPost(post, false))
+  )
 }

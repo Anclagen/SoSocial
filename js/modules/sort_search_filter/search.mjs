@@ -26,9 +26,9 @@ import { createAPost } from "../render/post_cards.mjs";
     const body = post.body.toLowerCase()
     if(author.startsWith(query.toLowerCase())){
       return true;
-    } else if(title.indexOf(query.toLowerCase()) >= 0){
+    } else if(input.value.length > 1 && title.indexOf(query.toLowerCase()) >= 0){
       return true;
-    } else if(body.indexOf(query.toLowerCase()) >= 0){
+    } else if(input.value.length > 2 && body.indexOf(query.toLowerCase()) >= 0){
       return true;
     } 
   });
@@ -38,7 +38,9 @@ import { createAPost } from "../render/post_cards.mjs";
   return filteredPosts
 }
 
-
+/**
+ * Sets up post search data and listener.
+ */
 export async function loadPostSearch(){
 
   const searchFeedContainer = document.querySelector("#search-post-feed");

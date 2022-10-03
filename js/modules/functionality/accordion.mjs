@@ -1,3 +1,9 @@
+
+/**
+ * toggles the displaying of an input, disables when hidden.
+ * @param {input} container 
+ * @param {Number} height 
+ */
 export function showInput(container, height){
   const input = container.querySelector("input")
   if(container.classList.contains("hidden")){
@@ -17,6 +23,11 @@ export function showInput(container, height){
   }
 }
 
+/**
+ * opens and closes a container.
+ * @param {Element} container container to open/close
+ * @param {Number} height height of container when open
+ */
 export function showContainer(container, height){
   if(container.classList.contains("hidden")){
     container.classList.toggle('hidden')
@@ -36,6 +47,12 @@ export function showContainer(container, height){
 //testing no height needed 
 
 //https://frontendcoding.com/getting-the-height-of-a-hidden-element/
+
+/**
+ * creates an invisible clone measures its height and returns it
+ * @param {Element} container element you want height of.
+ * @returns Number
+ */
 function getHiddenHeight(container) {
   const clone = container.cloneNode(true);
 
@@ -54,7 +71,10 @@ function getHiddenHeight(container) {
   return height;
 }
 
-
+/**
+ * opens and closes a container.
+ * @param {Element} container container to open/close
+ */
 export function showContainerNoHeight(container){
   if(container.classList.contains("hidden")){
     container.classList.toggle('hidden')

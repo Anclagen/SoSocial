@@ -1,5 +1,12 @@
 import { API } from "../../main.mjs";
 
+/**
+ * Function to handle parameters for edit post request
+ * @param {Number} id post id 
+ * @param {Element} errorReporting Container for error messaging
+ * @param {Element} form Form to be submitted.
+ * @returns fetch response.
+ */
 export async function editPost(id, errorReporting, form) {
   try{
   const formData = new FormData(form);
