@@ -12,9 +12,6 @@
 
 [GitHub Project Link](https://github.com/users/Anclagen/projects/1)
 
-Originally made a trello board but after some experimenting switched to github projects.
-[Trello Board Link](https://trello.com/b/uy380e5p/sosocial-js2-ca)
-
 > ## Design <a id="design"></a>
 
 [XD design link](#)
@@ -47,10 +44,9 @@ The following user stories are optional:
 > ## Task Outlines <a id="TaskOutlines"></a>
 
 1. Setup
-   - Create Trello plan.
+   - Create GitHub project plan.
    - Create Repository.
    - Create JS2 development branch.
-   - Import Frameworks CA.
    - Finalise design colours/typography/etc..
 2. Create login/sign-up page.
    - Update SoSocial login page to include sign-up form.
@@ -58,6 +54,7 @@ The following user stories are optional:
    - Registration users.
    - Login users.
    - Setup local storage functions for access-token.
+   - Toggler to switch forms.
 3. Create profile page.
    - Modify SoSocial profile page to conform to profile data.
    - Get user profile data.
