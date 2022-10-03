@@ -13,9 +13,11 @@ export async function getPostsFeed(){
   addLoader(postFeedContainer);
   const dataPosts = await API.getAllPosts(); 
   const sortedData = await sortPosts(dataPosts);
-  console.log(sortedData);
   renderPosts(sortedData, postFeedContainer, false);
 
+  /**
+   * Listener function when using sort options
+   */
   async function filterFeed(){
     const sortedData =  await sortPosts(dataPosts);
     renderPosts(sortedData, postFeedContainer, false);
@@ -27,8 +29,12 @@ export async function getPostsFeed(){
   timeManipulator.addEventListener("change", filterFeed)
 }
 
+/**
+ * Gets posts for a particular user and renders them on there profile feed
+ * @param {String} user Username
+ */
 export async function getUsersPosts(user){
-  const dataPosts = await API.getPosts(); 
+  const dataPosts = await API.getAllPosts(); 
   const yourPosts = dataPosts.filter(post => post.author.name === user);
   renderPosts(yourPosts, postFeedContainer);
 }

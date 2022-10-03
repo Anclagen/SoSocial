@@ -71,32 +71,32 @@ import {deleteLocalItem} from "../local_storage/localStorage.mjs"
     let allResults = [];
     const initialResults = await callAPI(this.pathPosts + this.moreDetail + this.offset + 0, options);
         
-    /**
-     * Keeps on calling the api till we get everything
-     * (The Bad Idea function is probably a terrible way to do this.)
-     * @param {Array} data an array of results from the api
-     * @param {Number} offset The current page of the results 0 = 1, 100 = 2 etc...
-     */
-    async function getAllResults (data, offset = 0){
-      if(data.length === 100){
-        allResults.push.apply(allResults, data);
-        const newOffset = offset + 100;
-        const moreResults = await callAPI(path + newOffset, options);
-        await getAllResults(moreResults, newOffset);
-      } else {
-        console.log("fin")
-        allResults.push.apply(allResults, data);
+      /**
+       * Keeps on calling the api till we get everything
+       * (The Bad Idea function is probably a terrible way to do this.)
+       * @param {Array} data an array of results from the api
+       * @param {Number} offset The current page of the results 0 = 1, 100 = 2 etc...
+       */
+      async function getAllResults (data, offset = 0){
+        if(data.length === 100){
+          allResults.push.apply(allResults, data);
+          const newOffset = offset + 100;
+          const moreResults = await callAPI(path + newOffset, options);
+          await getAllResults(moreResults, newOffset);
+        } else {
+          console.log("fin")
+          allResults.push.apply(allResults, data);
+        }
       }
-    }
 
-    if(initialResults.length === 100){
-      const start = performance.now()
-      await getAllResults(initialResults, 0);
-      const end =  performance.now()
-      console.log(start - end)
-      return allResults;
-    } else {
-      return initialResults
+      if(initialResults.length === 100){
+        const start = performance.now()
+        await getAllResults(initialResults, 0);
+        const end =  performance.now()
+        console.log(start - end);
+        return allResults;
+      } else {
+        return initialResults
     }
   }
 

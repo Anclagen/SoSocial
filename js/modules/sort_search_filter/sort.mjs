@@ -1,6 +1,10 @@
 import {isDateAfter} from "./dates.mjs"
 
-
+/**
+ * The great filter! sorts and filters based on drop down values
+ * @param {Array} postData array of posts
+ * @returns Array of filtered and sorted results
+ */
 export async function sortPosts(postData){
   const timeManipulator = document.querySelector("#filter-time");
   const postSorter = document.querySelector("#sort-posts");
@@ -14,22 +18,22 @@ export async function sortPosts(postData){
       filteredData = newArray;
     break;
     case "Yesterday":
-      filteredData = postData.filter(
+      filteredData = newArray.filter(
         (post) => isDateAfter(post, 1),
         );
     break;
     case "7days":
-      filteredData = postData.filter(
+      filteredData = newArray.filter(
         (post) => isDateAfter(post, 7),
         );
     break;
     case "14days":
-      filteredData = postData.filter(
+      filteredData = newArray.filter(
         (post) => isDateAfter(post, 14),
         );
     break;
     case "30days":
-      filteredData = postData.filter(
+      filteredData = newArray.filter(
         (post) => isDateAfter(post, 30),
         );
     break;

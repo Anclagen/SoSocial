@@ -11,6 +11,7 @@ const followBtn = document.querySelector("#follow-btn");
 
 /**
  * Checks profile data matches logged in user to enable profile editing.
+ * or if another users profile enables following/unfollowing
  * @param {Object} UserData a single profile object.
  */
 async function initialiseProfileFunctionality({name, followers}){

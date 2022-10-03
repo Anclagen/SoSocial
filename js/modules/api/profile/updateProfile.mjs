@@ -38,6 +38,9 @@ async function updateProfile(submit){
   showInput(editProfileForm, 210);
 }
 
+/**
+ * shows edit container and enables show form button and submission button
+ */
 export function addEditProfileListeners(){
   editContainer.classList.remove("hidden");
   editBtn.addEventListener("click", showProfileForm);
