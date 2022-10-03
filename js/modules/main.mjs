@@ -41,6 +41,7 @@ export const API = initialiseAPIHandler();
 
 /**
  * Checks if a query string is present to define a user.
+ * for profile page
  * @param {Class} API insert defined handleAPI class into this.
  * @returns {String} Username returned for fetch request.
  */

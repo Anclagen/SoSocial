@@ -40,7 +40,7 @@ export function createAReply({body, owner, created, replies}){
 /**
  * Creates a reply tree from replies array
  * @param {Array} replyData the reply data array
- * @returns Array of
+ * @returns Array of primary replies to post, with nested replies to them and so on.
  */
 function createReplyTree(replyData){
   const primaryReplies = []
