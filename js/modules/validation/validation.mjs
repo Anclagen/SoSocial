@@ -55,7 +55,7 @@ export function isValidUsername(username, errorContainer) {
  * //True or False
  */
 export function isValidInputLength(input, length, errorContainer) {
-  if (input.value.trim().length > length) {
+  if (input.value.trim().length >= length) {
     errorContainer.innerHTML = "";
     return true;
   } else {

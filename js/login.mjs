@@ -14,13 +14,11 @@ const emailError = document.querySelector("#email-error");
 const password = document.querySelector("#password");
 const passwordError = document.querySelector("#password-error");
 const passwordConfirm = document.querySelector("#password-confirm");
-const avatar = document.querySelector("#avatar");
-const banner = document.querySelector("#banner");
 const submitBtn = document.querySelector("#submit-btn");
 const toggleText = document.querySelector("#toggle-text");
 const toggleBtn = document.querySelector("#toggle-btn");
 const signUpInputs = document.querySelectorAll(".signup");
-
+console.log(loginForm.email)
 /**
  * Toggles between login and signup forms.
  */
@@ -45,6 +43,7 @@ toggleBtn.addEventListener("click", toggleForm);
 async function validateLoginSignUp(submit){
   submit.preventDefault();
   //validate email and password
+  
   const emailCorrect = isValidEmail(email, emailError);
   const passwordCorrect = isValidInputLength(password, 8, passwordError);
    //checks if form is login or sign up
@@ -69,7 +68,7 @@ async function validateLoginSignUp(submit){
       if(emailCorrect && passwordCorrect && usersNameCorrect && passwordConfirmed){
         loginFormError.innerText = "";
         try{
-          const response = await register(usersName.value, email.value, password.value,  avatar.value, banner.value)
+          const response = await register(usersName.value, email.value, password.value)
           if(response.statusCode === 400){
             loginFormError.innerText = response.message;
           } else {

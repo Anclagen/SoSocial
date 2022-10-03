@@ -42,7 +42,7 @@ import {isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername,
  * @param {*} banner 
  * @returns 
  */
-export async function register(name, email, password, avatar="", banner=""){
+export async function register(name, email, password){
   try{
     const url = "https://nf-api.onrender.com/api/v1/social/auth/register";
 
@@ -53,8 +53,6 @@ export async function register(name, email, password, avatar="", banner=""){
       "name": name,
       "email": email,
       "password": password,
-      "avatar": avatar,
-      "banner": banner
     });
   
     const requestOptions = {
