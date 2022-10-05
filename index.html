@@ -54,22 +54,24 @@
     </header>
     <main class="my-4">
       <div class="container-xxl text-white">
-        <h1 class="border-bottom border-white text-center">Welcome Back Leopold</h1>
+        <h1 class="border-bottom border-white text-center heading">Welcome Back</h1>
         <div class="row">
           <!------ Follower content (side column)------->
           <div class="col-md-4 mb-2">
             <div class="bg-secondary rounded-3 p-2">
               <div class="text-center">
                 <div class="m-1 side-nav">
-                  <img class="img-fluid rounded-circle p-2" src="/images/leo_bow_tie_square.jpg" alt="users profile picture" />
+                  <img class="img-fluid rounded-circle p-2 avatar" src="/images/leo_bow_tie_square.jpg" alt="users profile picture" />
                 </div>
-                <h2 class="px-3 text-center">Leopold the Fluff</h2>
+                <h2 class="px-3 text-center heading"></h2>
               </div>
 
               <div>
                 <!--------- Search Users ---------->
-                <h3>Find A Friend</h3>
-                <input type="search" id="search-users" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" placeholder="Find A Friend..." />
+                <form>
+                  <h3><label for="search-users"> A Friend</label></h3>
+                  <input type="search" id="search-users" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" name="search-users" placeholder="Find A Friend..." />
+                </form>
                 <div id="search-users-results" class="my-2"></div>
                 <!--------- Related Users To Your Following ---------->
                 <h3>Might Know?</h3>
@@ -135,9 +137,16 @@
               <!----- Search Posts section ----->
               <section>
                 <h2 class="mt-3">Looking For Something?</h2>
-                <div class="card bg-secondary p-2">
-                  <input type="search" id="search-posts" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" placeholder="You wanted something in particular?" />
-                </div>
+                <form class="card bg-secondary p-2">
+                  <label for="search-posts">Search</label>
+                  <input
+                    type="search"
+                    id="search-posts"
+                    class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light"
+                    name="search-posts"
+                    placeholder="You wanted something in particular?"
+                  />
+                </form>
                 <div id="search-post-feed" class="pb-3 pt-2"></div>
               </section>
               <!------ Posts Feed section ------>
@@ -146,8 +155,8 @@
                 <!----- Sort and Filters ----->
                 <div class="row pb-2">
                   <div class="col">
-                    <label for="sort">Sort:</label>
-                    <select name="sort" id="sort-posts">
+                    <label for="sort-posts">Sort:</label>
+                    <select name="sort-posts" id="sort-posts">
                       <option value="Newest">Newest</option>
                       <option value="Oldest">Oldest</option>
                       <option value="Reacted">Most Reacted</option>
