@@ -1,4 +1,6 @@
-const modalContainer = document.querySelector(".post-specific-modal")
+import { showContainerNoHeight } from "../functionality/accordion.mjs";
+import { createCommentForm } from "./comment_form.mjs";
+import { createReplyTree } from "../sort_search_filter/reply_tree.mjs";
 
 /**
  * Creates a reply, as well as creating nested replies
@@ -6,28 +8,52 @@ const modalContainer = document.querySelector(".post-specific-modal")
  * @param {Array} repliesArray array of reply objects 
  * @returns Html to be appended to page.
  */
-export function createAReply({body, owner, created, replies}){
+export function createAReply({body, owner, created, replies, postId, id}){
   const replyContainer = document.createElement("div");
-  replyContainer.classList = "bg-tertiary post-body text-white py-2 reply";
+  replyContainer.classList = "position-relative post-body ";
+
+  //------------- container body ----------------------------
+  const replyContentContainer = document.createElement("div");
+  replyContentContainer.classList = "bg-tertiary text-white pt-2 reply";
+  replyContainer.appendChild(replyContentContainer);
   
   const replyOwner = document.createElement("a");
   replyOwner.innerText = owner;
   replyOwner.setAttribute("href", `profile.html?profile=${owner}`);
-  replyContainer.appendChild(replyOwner);
+  replyContentContainer.appendChild(replyOwner);
   
   const replyCreated = document.createElement("p");
+  replyCreated.classList = "created-date"
   replyCreated.innerText = `Created: ${new Date(created).toLocaleString()}`;
-  replyCreated.setAttribute("href", `profile.html?profile=${owner}`);
-  replyContainer.appendChild(replyCreated);
+  replyContentContainer.appendChild(replyCreated);
 
   const replyBody = document.createElement("p");
-  replyBody.classList = "py-1";
+  replyBody.classList = "py-1 post-paragraph";
   replyBody.innerText = body;
-  replyContainer.appendChild(replyBody);
+  replyContentContainer.appendChild(replyBody);
 
+  //reply form 
+  const postFooterCommentBtn = document.createElement("button");
+  postFooterCommentBtn.classList = "btn btn-info ms-auto d-block me-2 mb-2";
+  postFooterCommentBtn.setAttribute("type", "button");
+  postFooterCommentBtn.innerText = "Comment";
+  replyContentContainer.appendChild(postFooterCommentBtn)
+  
+  //------------- Comment Form ---------------------------
+  const commentFormContainer = document.createElement("div");
+  commentFormContainer.classList = "card-body pt-1 pe-3 closing hidden bg-secondary"
+  replyContentContainer.appendChild(commentFormContainer);
+
+  postFooterCommentBtn.addEventListener("click", function(){showContainerNoHeight(commentFormContainer)} )
+  
+  commentFormContainer.appendChild(createCommentForm(id, postId));
+
+  //container for replies of the reply.
   const replyToThisContainer = document.createElement("div");
-  replyContainer.appendChild(replyToThisContainer);
+  replyToThisContainer.classList = "replies-container"
+  replyContentContainer.appendChild(replyToThisContainer);
 
+  //----------- replies to this comment ------------------
   if(replies){
     replies.forEach(reply => {
       replyToThisContainer.append(createAReply(reply));
@@ -35,26 +61,6 @@ export function createAReply({body, owner, created, replies}){
   }
 
   return replyContainer
-}
-
-/**
- * Creates a reply tree from replies array
- * @param {Array} replyData the reply data array
- * @returns Array of primary replies to post, with nested replies to them and so on.
- */
-function createReplyTree(replyData){
-  const primaryReplies = []
-  replyData.forEach(reply => {
-    //checks all the replies against one reply and if reply id and id matches 
-    reply.replies = replyData.filter(rep => rep.replyToId === reply.id);
-
-    /** pushes the comments primary replies to an array */
-    if(reply.replyToId === 0){
-      primaryReplies.push(reply);
-    }
-  })
-  
-  return primaryReplies
 }
 
 /**
@@ -70,4 +76,4 @@ export function renderReplies(replyData, container) {
   replyTree.forEach(reply => {
     container.append(createAReply(reply));
   });
-}
+}  
