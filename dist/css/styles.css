@@ -10900,6 +10900,16 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+.created-date,
+.updated-date {
+  font-size: 0.85rem;
+}
+
+.username {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
 .side-nav .img-fluid {
   width: 100%;
   max-width: 300px;
@@ -11063,7 +11073,7 @@ input:disabled {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 10;
   overflow: hidden;
 }
@@ -11102,8 +11112,7 @@ input:disabled {
   display: none;
 }
 .modal-open .replies-container {
-  max-width: 95%;
-  margin-left: 5%;
+  margin-left: 1rem;
 }
 .modal-open .replies-container a {
   color: white;
@@ -11113,7 +11122,69 @@ input:disabled {
 .modal-open .replies-container .reply {
   padding-left: 1rem;
   border-left: solid 2px white;
-  border-bottom: solid 1rem #212529;
+  border-bottom: solid 1px white;
+  border-top: solid 1rem #212529;
+}
+.modal-open .replies-container .reply::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  border-left: solid 2px white;
+  display: block;
+  background-color: #212529;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+@media only screen and (max-width: 400px) {
+  .modal-open .replies-container .replies-container .replies-container .replies-container {
+    margin-left: 0;
+  }
+  .modal-open .replies-container .replies-container .replies-container .replies-container .reply {
+    padding-left: 0;
+    border-left: none;
+    border-bottom: none;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container {
+    margin-left: 0;
+  }
+  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .reply {
+    padding-left: 0;
+    border-left: none;
+    border-bottom: none;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container {
+    margin-left: 0;
+  }
+  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .reply {
+    padding-left: 0;
+    border-left: none;
+    border-bottom: none;
+  }
+}
+@media only screen and (max-width: 990px) {
+  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container {
+    margin-left: 0;
+  }
+  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .reply {
+    padding-left: 0;
+    border-left: none;
+    border-bottom: none;
+  }
+}
+@media only screen and (min-width: 991px) {
+  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container {
+    margin-left: 0;
+  }
+  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .reply {
+    padding-left: 0;
+    border-left: none;
+    border-bottom: none;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */
