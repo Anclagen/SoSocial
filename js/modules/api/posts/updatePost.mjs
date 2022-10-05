@@ -11,6 +11,12 @@ export async function editPost(id, errorReporting, form) {
   try{
   const formData = new FormData(form);
   const bodyData = Object.fromEntries(formData.entries());
+  if(bodyData.media === ""){
+    delete bodyData.media;
+  }
+  if(bodyData.tags){
+    bodyData.tags.split(",").map(tag => tag.trim());
+  }
   const response = await API.updatePost(JSON.stringify(bodyData), id);
   console.log(response);
   if(response.statusCode){
@@ -18,7 +24,6 @@ export async function editPost(id, errorReporting, form) {
     return false
   } else {
     errorReporting.innerHTML = "";
-    form.reset();
     return response
   }}catch (error){
     console.log(error);
