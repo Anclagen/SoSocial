@@ -1,5 +1,6 @@
 import {setLocalItem, deleteLocalItem, getLocalItem, callAPI, MyOptions, isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, isValidImgLink, login, register} from "./api/authentication.mjs"
 import {handleAPI} from "./api/api_handler.mjs"
+import {reportError} from "./api/error_reporting.mjs"
 import {makeAPostListener} from "./api/posts/createPost.mjs"
 import {getPostsFeed, getUsersPosts} from "./api/posts/getPosts.mjs"
 import {createAPost, renderPost, renderPosts} from "./render/post_cards.mjs"
@@ -21,20 +22,15 @@ import { getFollowersAddSearch } from "./sort_search_filter/search_followers.mjs
  * @example
  * const APIhandler = initialiseAPIHandler();
  */
- export function initialiseAPIHandler(){
+  function initialiseAPIHandler(){
   const pageURL = window.location.pathname;
   if(localStorage.user !== undefined){
     const userCredentials = getLocalItem("user");
     return new handleAPI(userCredentials);
   } else if(pageURL !== "/entry.html"){
     location.href = `/entry.html?previous=${pageURL}`;
-  } else {
-    // const logout = document.querySelector("#logout");
-    // logout.classList.add("d-none");
-    return {};
-  }
-  // const logout = document.querySelector("#logout");
-  // logout.classList.add("d-none")
+  } 
+    return false;
 };
 
 export const API = initialiseAPIHandler();
@@ -46,20 +42,26 @@ export const API = initialiseAPIHandler();
  * @returns {String} Username returned for fetch request.
  */
  export function defineUser(){
-  let user = API.name;
+  let user = "";
+  if(API){
+    user = API.name;
+  } 
   const qstring = new URLSearchParams(window.location.search);
   if(qstring.has("profile")){
-    user = qstring.get("profile");
-  } 
+  user = qstring.get("profile");
+  }
+
   return user
 }
 //defines the owner of the profile
+
 export const user = defineUser();
 
 export * from "./functionality/followers.mjs"
 export * from "./api/posts/getPosts.mjs"
 export * from "./render/profile_head.mjs";
 export * from "./api/authentication.mjs"
+export * from "./api/error_reporting.mjs"
 export * from "./api/posts/createPost.mjs"
 export * from "./api/profile/updateProfile.mjs"
 export * from "./render/post_cards.mjs"
