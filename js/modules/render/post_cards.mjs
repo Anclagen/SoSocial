@@ -226,21 +226,60 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postFooterCommentCount.innerText = `Comments: ${_count.comments}`;
   commentCounterContainer.appendChild(postFooterCommentCount);
 
+  //----------------- Like/Dislike Reactions ---------------------
   const reactionCounterContainer = document.createElement("div");
   reactionCounterContainer.classList = "pt-1";
   statsContainer.appendChild(reactionCounterContainer);
+  
+  let likes = 0;
+  let dislikes = 0;
+  if(reactions.length > 0){
+    reactions.forEach((entry) => {
+      if(entry.symbol.includes("👍")){
+        likes = entry.count
+      }
+      if(entry.symbol.includes("👎")){
+        dislikes = entry.count
+      }
+    })
+  }
 
-  const postFooterReactCount = document.createElement("span");
-  postFooterReactCount.innerText = `Reactions: ${_count.reactions}`;
-  reactionCounterContainer.appendChild(postFooterReactCount);
+  const likeReactBtn = document.createElement("button");
+  likeReactBtn.classList = "p-1 btn bg-tertiary border-rounded text-white";
+  likeReactBtn.innerText = `Likes: 👍 (${likes})`;
+  likeReactBtn.setAttribute("type", "button");
+  reactionCounterContainer.appendChild(likeReactBtn);
+  
+
+  async function likePost(){
+    const response = await API.likePost(id);
+    likeReactBtn.innerText = `Likes: 👍 (${response.count})`;
+    console.log("yes")
+  }
+
+  likeReactBtn.addEventListener("click", likePost)
+
+  const dislikeReactBtn = document.createElement("button");
+  dislikeReactBtn.classList = "p-1 ms-2 btn bg-tertiary border-rounded text-white";
+  dislikeReactBtn.innerText = `Dislikes: 👎 (${dislikes})`;
+  dislikeReactBtn.setAttribute("type", "button");
+  reactionCounterContainer.appendChild(dislikeReactBtn);
+
+  async function dislikePost(){
+    const response = await API.dislikePost(id);
+    dislikeReactBtn.innerText = `Dislikes: 👎 (${response.count})`;
+    console.log("no")
+  }
+
+  dislikeReactBtn.addEventListener("click", dislikePost)
 
   const postFooterCommentBtn = document.createElement("button");
-  postFooterCommentBtn.classList = "btn btn-info ms-auto d-block";
+  postFooterCommentBtn.classList = "btn btn-info ms-auto d-block mt-2";
   postFooterCommentBtn.setAttribute("type", "button");
   postFooterCommentBtn.innerText = "Comment";
   postFooter.appendChild(postFooterCommentBtn)
   
-  //------------ Comment Form -----------------
+  //----------------- Comment Form ---------------------
   const commentFormContainer = document.createElement("div");
   commentFormContainer.classList = "card-body pt-0 pe-3 closing hidden";
   post.appendChild(commentFormContainer);
@@ -257,7 +296,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   commentsContainer.classList = "replies-container bg-tertiary";
   post.appendChild(commentsContainer);
 
-  //------------- replies -----------------------
+  //--------------------- replies -----------------------
   if(modal){
     if(comments){
       renderReplies(comments, commentsContainer);
