@@ -15,7 +15,7 @@ export async function createNewPost(form, postFunction) {
     const formData = new FormData(form);
     const bodyData = Object.fromEntries(formData.entries());
     if(bodyData.tags){
-      bodyData.tags.split(",").map(tag => tag.trim());
+      bodyData.tags = bodyData.tags.split(",").map(tag => tag.trim());
     }
     const response = await API.createPost(JSON.stringify(bodyData));
     if(response.statusCode){

@@ -146,6 +146,7 @@
                     class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light"
                     name="search-posts"
                     placeholder="You wanted something in particular?"
+                    disabled
                   />
                 </form>
                 <div id="search-post-feed" class="pb-3 pt-2"></div>
@@ -160,12 +161,11 @@
                     <select name="sort-posts" id="sort-posts">
                       <option value="Newest">Newest</option>
                       <option value="Oldest">Oldest</option>
-                      <option value="Reacted">Most Reacted</option>
                       <option value="Commented">Most Commented</option>
-                      <option value="TitleAZ">TitleA-Z</option>
-                      <option value="TitleZA">TitleZ-A</option>
-                      <option value="AuthorAZ">AuthorA-Z</option>
-                      <option value="AuthorZA">AuthorZ-A</option>
+                      <option value="TitleAsc">TitleA-Z</option>
+                      <option value="TitleDesc">TitleZ-A</option>
+                      <option value="AuthorAsc">AuthorA-Z</option>
+                      <option value="AuthorDesc">AuthorZ-A</option>
                       <!-- Not sure further sorts are required here, sort itself seems a redundant feature too-->
                     </select>
                   </div>
@@ -176,7 +176,7 @@
                       <option value="Yesterday">Yesterday</option>
                       <option value="7days">Last 7 Days</option>
                       <option value="14days">Last 14 Days</option>
-                      <option value="28days">Last 30 Days</option>
+                      <option value="30days">Last 30 Days</option>
                       <!-- Not sure further sorts are required here, sort itself seems a redundant feature too-->
                     </select>
                   </div>

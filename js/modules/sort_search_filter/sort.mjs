@@ -13,6 +13,7 @@ export async function sortPosts(postData){
   let filteredData = [];
   let sortedData = [];
 
+  //this feels kinda pointless at the moment
   switch (timeManipulator.value){
     case "All":
       filteredData = newArray;
@@ -46,28 +47,22 @@ export async function sortPosts(postData){
     case "Oldest":
       sortedData = filteredData.sort((a,b) => new Date(a.created) - new Date(b.created));
     break;
-    case "Reacted":
-      sortedData = filteredData.sort((a,b) => (b._count.reactions) - (a._count.reactions));
-    break;
     case "Commented":
       sortedData = filteredData.sort((a,b) => (b._count.comments) - (a._count.comments));
     break;
-    case "TitleAZ":
+    case "TitleAsc":
       sortedData = filteredData.sort((a,b) => (a.title) > (b.title));
     break;
-    case "TitleZA":
+    case "TitleDesc":
       sortedData = filteredData.sort((a,b) => (a.title) < (b.title));
     break;
-    case "AuthorAZ":
+    case "AuthorAsc":
       sortedData = filteredData.sort((a,b) => (a.author.name) > (b.author.name));
     break;
-    case "AuthorZA":
-      sortedData = filteredData.sort((a,b) => (a.author.name) < (b.author.name));
+    case "AuthorDesc":
+      sortedData = filteredData.sort((a,b) => (a.author.name.toLowerCase()) < (b.author.name.toLowerCase()));
     break;
-
-    console.log(filteredData);
-    console.log(sortedData);
   }
-
+  console.log(sortedData);
   return sortedData
 }
