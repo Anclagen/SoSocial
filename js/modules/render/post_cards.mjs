@@ -254,7 +254,6 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   async function likePost(){
     const response = await API.likePost(id);
     likeReactBtn.innerText = `Likes: 👍 (${response.count})`;
-    console.log("yes")
   }
 
   likeReactBtn.addEventListener("click", likePost)
@@ -268,7 +267,6 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   async function dislikePost(){
     const response = await API.dislikePost(id);
     dislikeReactBtn.innerText = `Dislikes: 👎 (${response.count})`;
-    console.log("no")
   }
 
   dislikeReactBtn.addEventListener("click", dislikePost)

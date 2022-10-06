@@ -10,9 +10,8 @@ async function createPage(){
       avatar.src = API.avatar
       headings.forEach(heading=> heading.innerText += " " + API.name);
       makeAPostListener();
-      getPostsFeed();
+      getPostsFeed(true);
       getFollowersAddSearch();
-      loadPostSearch()
     } catch(error) {
       console.log(error)
     }

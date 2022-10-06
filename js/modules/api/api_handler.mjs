@@ -229,10 +229,10 @@ import {deleteLocalItem} from "../local_storage/localStorage.mjs"
   }
 
   //------------------- Reactions -----------------------
+  
   /**
-   * Allows a user to react to a post with a symbol
+   * Allows a user to react to a post like symbol
    * @param {Number} id Primary posts ID
-   * @param {Symbol} symbol Symbol you want to react to the post with
    * @returns 
    */
   async likePost(id){ //maybe add body to allow reactions to replies?
@@ -241,9 +241,8 @@ import {deleteLocalItem} from "../local_storage/localStorage.mjs"
   }
 
     /**
-   * Allows a user to react to a post with a symbol
+   * Allows a user to react to a post dislike symbol
    * @param {Number} id Primary posts ID
-   * @param {Symbol} symbol Symbol you want to react to the post with
    * @returns 
    */
      async dislikePost(id){ //maybe add body to allow reactions to replies?
