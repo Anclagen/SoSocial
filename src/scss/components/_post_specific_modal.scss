@@ -12,7 +12,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgb(0, 0, 0, 0.9);
+    background-color: rgb(0, 0, 0, 0.8);
     z-index: 10;
     overflow: hidden;
   }
@@ -59,8 +59,7 @@
   }
 
   .replies-container{
-    max-width: 95%;
-    margin-left: 5%;
+    margin-left: 1rem;
 
     a {
       color: white;
@@ -71,9 +70,64 @@
     .reply{
       padding-left: 1rem;
       border-left: solid 2px white;
-      border-bottom: solid 1rem $secondary;
+      border-bottom: solid 1px white;
+      border-top: solid 1rem $secondary;
     }
-  }
 
+    .reply::before{
+      content: "";
+      width: 1rem;
+      height: 1rem;
+      border-left: solid 2px white;
+      display: block;
+      background-color: #212529;
+      position: absolute;
+      top:0;
+      left: 0;
+    }
+
+    @mixin replyNestCap {
+      margin-left: 0;
+
+      .reply{
+        padding-left: 0;
+        border-left: none;
+        border-bottom: none;
+      }
+    }
+
+    
+    // I know this looks bad but I had no other choice.. I promise you JS wouldn't solve the problem.
+    @media only screen and (max-width: 400px){
+      .replies-container .replies-container .replies-container{
+        @include replyNestCap;
+      }
+    }
+
+    @media only screen and (max-width: 500px){
+      .replies-container .replies-container .replies-container .replies-container {
+        @include replyNestCap;
+      }
+    }
+
+    @media only screen and (max-width: 700px){
+      .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container {
+        @include replyNestCap;
+      }
+    }
+    
+    @media only screen and (max-width: 990px){
+      .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container {
+        @include replyNestCap;
+      }
+    }
+    
+    @media only screen and (min-width: 991px){
+      .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container {
+        @include replyNestCap;
+      }
+    }
+  
+  }
 }
 

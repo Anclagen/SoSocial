@@ -9,7 +9,7 @@
  */
 export function isValidEmail(email, errorContainer) {
   const emailRegEx = /^[\w\-.]+@(stud.)?noroff.no$/g;
-  const validateEmail = emailRegEx.test(email.value);
+  const validateEmail = emailRegEx.test(email);
   if (validateEmail){ 
     errorContainer.innerHTML = "";
     return true;
@@ -33,7 +33,7 @@ export function isValidUsername(username, errorContainer) {
   //probably a nicer way to build this regex
   //const userRegEx = /^[A-Za-z0-9_]{1,}$/g;
   const userRegEx = /^[\w]+$/g;
-  const validateUser = userRegEx.test(username.value);
+  const validateUser = userRegEx.test(username);
   if (validateUser){ 
     errorContainer.innerHTML = "";
     return true;
@@ -55,11 +55,11 @@ export function isValidUsername(username, errorContainer) {
  * //True or False
  */
 export function isValidInputLength(input, length, errorContainer) {
-  if (input.value.trim().length > length) {
+  if (input.trim().length >= length) {
     errorContainer.innerHTML = "";
     return true;
   } else {
-    errorContainer.innerHTML = `Your ${input.id} needs to be at least ${length} characters long.`;
+    errorContainer.innerHTML = `This needs to be at least ${length} characters long.`;
     return false;
   }
 }
@@ -79,10 +79,10 @@ export function isValidInputLength(input, length, errorContainer) {
  * returns true or false
  */
 export function hasMatchingPasswords(input1, input2, length, errorContainer){
-  if(input1.value === input2.value && input1.value.length >= length){
+  if(input1 === input2 && input1.length >= length){
     errorContainer.innerHTML = "";
     return true
-  } else if(input1.value.length < length){
+  } else if(input1.length <= length){
     errorContainer.innerText = `Your passwords must be more than 8 characters`
     return false
   } else {

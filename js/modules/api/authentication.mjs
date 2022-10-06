@@ -8,21 +8,16 @@ import {isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername,
  * @param {String} password 
  * @return {Object} Object {name, email, avatar, token}
  */
- export async function login(email, password){
+ export async function login(bodyData){
   try{
     const url = "https://nf-api.onrender.com/api/v1/social/auth/login";
     let myHeaders = new Headers();
     myHeaders.append("content-type", "application/json");
-    
-    let body = JSON.stringify({
-      "email": email,
-      "password": password
-    });
-    
+
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,
-      body: body,
+      body: JSON.stringify(bodyData),
     };
     
     const response = await fetch(url, requestOptions);
@@ -34,33 +29,23 @@ import {isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername,
 }
 
 /**
- * 
- * @param {*} name 
- * @param {*} email 
- * @param {*} password 
- * @param {*} avatar 
- * @param {*} banner 
- * @returns 
+ * Register a new user
+ * @param {String} name 
+ * @param {String} email 
+ * @param {String} password 
+ * @returns {Object} response object
  */
-export async function register(name, email, password, avatar="", banner=""){
+export async function register(bodyData){
   try{
     const url = "https://nf-api.onrender.com/api/v1/social/auth/register";
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-  
-    let body = JSON.stringify({
-      "name": name,
-      "email": email,
-      "password": password,
-      "avatar": avatar,
-      "banner": banner
-    });
-  
+
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,
-      body: body,
+      body: JSON.stringify(bodyData),
     };
   
     const response = await callAPI(url, requestOptions)

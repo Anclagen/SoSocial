@@ -1,10 +1,10 @@
 import {API} from "../main.mjs";
-import {createNewReply} from "../api/posts/createReply.mjs";
+import { createCommentForm } from "./comment_form.mjs";
 import {showContainerNoHeight} from "../functionality/accordion.mjs";
 import {editPost} from "../api/posts/updatePost.mjs";
 import { openPostModal} from "../functionality/modal.mjs";
 import { renderReplies} from "./post_replies.mjs";
-
+import { createEditForm } from "./edit_form.mjs";
 
 /**
  * Takes post data and creates a html for appending to page.
@@ -14,6 +14,10 @@ import { renderReplies} from "./post_replies.mjs";
  * @returns HTML to be appended
  */
 export function createAPost({id, author = API.name, title, body, media, _count, created, updated, tags, reactions, comments}, modal = false){
+  if(title.trim() === ""){
+    title = "Untitled"
+  }
+
   const post = document.createElement("div");
   post.classList = "card bg-secondary mb-3";
 
@@ -35,6 +39,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   const avatar = document.createElement("img");
   avatar.src = author.avatar;
   avatar.setAttribute("onerror", `this.src="images/default-avatar.png"`);
+  avatar.setAttribute("alt", `Profile image of ${author}`);
   avatar.classList = "img-fluid rounded-circle me-2";
   profileLink.appendChild(avatar);
 
@@ -43,14 +48,15 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
 
   const postHeadUser = document.createElement("p");
   postHeadUser.innerText = author.name;
-  postHeadUser.classList = "mb-0";
+  postHeadUser.classList = "mb-0 username";
   postHeadDetails.appendChild(postHeadUser);
 
   const postHeadTime = document.createElement("p");
   postHeadTime.innerText = new Date(created).toLocaleString();
-  postHeadTime.classList = "mb-0";
+  postHeadTime.classList = "mb-0 created-date";
   postHeadDetails.appendChild(postHeadTime);
 
+   //--------------- Edit and Delete Options ------------------------
   // add post edit options you your posts only
   if(author.name === API.name && !modal){
     const postHeadOptions = document.createElement("div");
@@ -80,125 +86,8 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     const optionsDropdownEditBtn = document.createElement("button");
     optionsDropdownEditBtn.classList= "btn-sm btn btn-info d-block w-100 mb-1";
     optionsDropdownEditBtn.innerText = "Edit";
-    optionsDropdownEdit.appendChild(optionsDropdownEditBtn);
-
-    //--------------- edit post form ------------------------
-    const errorReportingEdit = document.createElement("div");
-    errorReportingEdit.classList = "error text-danger text-center pt-2"
-    postHeadContainer.appendChild(errorReportingEdit);
-
-    const editForm = document.createElement("form");
-    editForm.setAttribute("data-postID", id);
-    editForm.classList = "mx-2 closing hidden";
-    postHeadContainer.appendChild(editForm);
+    optionsDropdownEdit.appendChild(optionsDropdownEditBtn);   
     
-    const editFormHeading = document.createElement("h3");
-    editFormHeading.classList = "pt-2 pb-1"
-    editFormHeading.innerText = "Edit Your Post";
-    editForm.appendChild(editFormHeading);
-
-    const formBody = document.createElement("div");
-    formBody.classList = "d-flex flex-column"
-    editForm.appendChild(formBody);
-
-    const titleEditLabel = document.createElement("label");
-    titleEditLabel.innerText = "Title";
-    titleEditLabel.classList = "text-white ms-2 pt-2";
-    titleEditLabel.setAttribute("for", "title");
-    formBody.appendChild(titleEditLabel);
-
-    const titleEditInput = document.createElement("input");
-    titleEditInput.classList = "form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light";
-    titleEditInput.setAttribute("name", "title");
-    titleEditInput.setAttribute("type", "text");
-    titleEditInput.value = title;
-    formBody.appendChild(titleEditInput);
-
-    const bodyEditLabel = document.createElement("label");
-    bodyEditLabel.innerText = "Body";
-    bodyEditLabel.classList = "text-white ms-2 pt-2";
-    bodyEditLabel.setAttribute("for", "body");
-    formBody.appendChild(bodyEditLabel);
-
-    const bodyEditInput = document.createElement("textarea");
-    bodyEditInput.classList = "form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light";
-    bodyEditInput.setAttribute("name", "body");
-    bodyEditInput.setAttribute("type", "text");
-    bodyEditInput.value = body;
-    formBody.appendChild(bodyEditInput);
-
-    const mediaEditLabel = document.createElement("label");
-    mediaEditLabel.innerText = "Image";
-    mediaEditLabel.classList = "text-white ms-2 pt-2";
-    mediaEditLabel.setAttribute("for", "media");
-    formBody.appendChild(mediaEditLabel);
-
-    const mediaEditInput = document.createElement("input");
-    mediaEditInput.classList = "form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light";
-    mediaEditInput.setAttribute("name", "media");
-    mediaEditInput.setAttribute("type", "url");
-    mediaEditInput.value = media;
-    formBody.appendChild(mediaEditInput);
-
-    const tagsEditLabel = document.createElement("label");
-    tagsEditLabel.innerText = "Tags";
-    tagsEditLabel.classList = "text-white ms-2 pt-2";
-    tagsEditLabel.setAttribute("for", "tags");
-    formBody.appendChild(tagsEditLabel);
-
-    const tagsEditInput = document.createElement("input");
-    tagsEditInput.classList = "form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light";
-    tagsEditInput.setAttribute("name", "tags");
-    tagsEditInput.setAttribute("type", "text");
-    tagsEditInput.value = tags;
-    formBody.appendChild(tagsEditInput);
-
-    const submitEditFormBtn = document.createElement("input");
-    submitEditFormBtn.classList = "btn btn-success d-block mt-2 ms-auto";
-    submitEditFormBtn.value = "Update Post";
-    submitEditFormBtn.setAttribute("type", "submit")
-    formBody.appendChild(submitEditFormBtn);
-
-    /**
-     * Edit post form function for event listener
-     * @param {Event} submit submits post edits and updated post is successful
-     */
-    async function editThisPost(submit){
-      try{
-        submit.preventDefault();
-        if(tagsEditInput.value === ""){
-          tagsEditInput.setAttribute("disabled", true);
-        }
-        if(mediaEditInput.value === ""){
-          mediaEditInput.setAttribute("disabled", true);
-        }
-  
-        const response = await editPost(id, errorReportingEdit, submit.target);
-        if(response.ok !== false){
-          postBodyTitle.innerText = response.title;
-          postBodyContent.innerText = response.body;
-          postFooterTags.innerText = response.tags;
-          updatedDate.innerText = `Updated: ${new Date(response.updated).toLocaleString()}`;
-          updatedDate.classList = "text-right px-3 pb-1 ms-auto ";
-          if(media){
-            postBodyImg.src = response.media;
-          } else if(response.media){
-            postBodyImg.src = response.media;
-            postBody.appendChild(postBodyImg);
-          }
-          showContainerNoHeight(editForm)
-        }
-        mediaEditInput.removeAttribute("disabled");
-        tagsEditInput.removeAttribute("disabled");
-      } catch(error){
-        console.log(error);
-
-      }
-
-    }
-
-    editForm.addEventListener("submit", editThisPost);
-
     /**
      * show edit form for event listener
      */
@@ -208,7 +97,42 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
 
     optionsDropdownEditBtn.addEventListener("click", showEditPostForm);
 
-    //Delete this post
+    //--------------- edit post form ------------------------
+    const errorReportingEdit = document.createElement("div");
+    errorReportingEdit.classList = "error text-danger text-center pt-2";
+    postHeadContainer.appendChild(errorReportingEdit);
+    
+    const editForm = createEditForm(id, title, body, media, tags)
+    postHeadContainer.appendChild(editForm);
+
+    /**
+     * Edit post form function for event listener
+     * @param {Event} submit submits post edits and updated post is successful
+     */
+    async function editThisPost(submit){
+      try{
+        submit.preventDefault();
+        const response = await editPost(id, errorReportingEdit, submit.target);
+        postBodyTitle.innerText = response.title;
+        postBodyContent.innerText = response.body;
+        postFooterTags.innerText = response.tags;
+        updatedDate.innerText = `Updated: ${new Date(response.updated).toLocaleString()}`;
+        updatedDate.classList = "text-right px-3 pb-1 ms-auto ";
+        if(media){
+          postBodyImg.src = response.media;
+        } else if(response.media){
+          postBodyImg.src = response.media;
+          postBody.appendChild(postBodyImg);
+        }
+        showContainerNoHeight(editForm)
+      } catch(error){
+        console.log(error);
+      }
+    }
+
+    editForm.addEventListener("submit", editThisPost);
+
+    //-------------- Delete this post -------------------------------------
     const optionsDropdownDelete = document.createElement("li");
     optionsDropdownMenu.appendChild(optionsDropdownDelete);
 
@@ -236,15 +160,17 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   async function openModal(){
     try{
       const postData = await API.getPost(id);
-      console.log(postData)
-      openPostModal(postData, true); 
+      openPostModal(postData); 
     } catch(error){
+      console.log(error)
     }
   };
 
-  postBody.addEventListener("click", openModal);
-
-
+  // if in modal remove listener to body
+  if(!modal){
+    postBody.addEventListener("click", openModal);
+  }
+  
   const postBodyTitle = document.createElement("h3")
   postBodyTitle.classList = "px-3 py-2";
   postBodyTitle.innerText = title;
@@ -254,6 +180,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postBodyImg.src = media;
   postBodyImg.classList = "px-3 w-100 pb-2 post-image";
   postBodyImg.setAttribute("loading", "lazy");
+  postBodyImg.setAttribute("alt", title);
   postBodyImg.setAttribute("onerror", `this.src="images/404.jpg"`);
   if(media){
     postBody.appendChild(postBodyImg);
@@ -268,87 +195,106 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postBody.appendChild(updatedDate);
   if(updated !== created){
     updatedDate.innerText = `Updated: ${new Date(updated).toLocaleString()}`;
-    updatedDate.classList = "text-right px-3 pb-1 ms-auto ";
+    updatedDate.classList = "text-right px-3 pb-1 ms-auto updated-date";
   }
   
   //------------ post footer ----------------
   const postFooter = document.createElement("div");
-  postFooter.classList = "card-body pb-2 pe-3"
+  postFooter.classList = "card-body pb-2 pe-3";
   post.appendChild(postFooter);
 
-  //change this!!!!!
-  const statsContainer = document.createElement("div");
-  statsContainer.classList = "p-2 d-flex"
-  postFooter.appendChild(statsContainer);
-
   const tagsContainer = document.createElement("div");
-  statsContainer.appendChild(tagsContainer);
+  postFooter.appendChild(tagsContainer);
 
   const postFooterTags = document.createElement("span");
-  postFooterTags.innerText = tags;
+  if(tags.length === 0 || tags[0] === ""){
+    postFooterTags.innerText = "Tags: None";
+  } else {
+    postFooterTags.innerText = "Tags: " + tags.join(", ");
+  }
   tagsContainer.appendChild(postFooterTags);
 
+  const statsContainer = document.createElement("div");
+  statsContainer.classList = "";
+  postFooter.appendChild(statsContainer);
+
   const commentCounterContainer = document.createElement("div");
-  commentCounterContainer.classList = "px-2"
+  commentCounterContainer.classList = "pe-2 pt-1";
   statsContainer.appendChild(commentCounterContainer);
 
   const postFooterCommentCount = document.createElement("span");
-  postFooterTags.innerText = `Comments: ${_count.comments}`;
+  postFooterCommentCount.innerText = `Comments: ${_count.comments}`;
   commentCounterContainer.appendChild(postFooterCommentCount);
 
+  //----------------- Like/Dislike Reactions ---------------------
   const reactionCounterContainer = document.createElement("div");
+  reactionCounterContainer.classList = "pt-1";
   statsContainer.appendChild(reactionCounterContainer);
+  
+  let likes = 0;
+  let dislikes = 0;
+  if(reactions.length > 0){
+    reactions.forEach((entry) => {
+      if(entry.symbol.includes("👍")){
+        likes = entry.count
+      }
+      if(entry.symbol.includes("👎")){
+        dislikes = entry.count
+      }
+    })
+  }
 
-  const postFooterReactCount = document.createElement("span");
-  postFooterReactCount.innerText = `Reactions: ${_count.reactions}`;
-  reactionCounterContainer.appendChild(postFooterReactCount);
+  const likeReactBtn = document.createElement("button");
+  likeReactBtn.classList = "p-1 btn bg-tertiary border-rounded text-white";
+  likeReactBtn.innerText = `Likes: 👍 (${likes})`;
+  likeReactBtn.setAttribute("type", "button");
+  reactionCounterContainer.appendChild(likeReactBtn);
+  
 
+  async function likePost(){
+    const response = await API.likePost(id);
+    likeReactBtn.innerText = `Likes: 👍 (${response.count})`;
+  }
+
+  likeReactBtn.addEventListener("click", likePost)
+
+  const dislikeReactBtn = document.createElement("button");
+  dislikeReactBtn.classList = "p-1 ms-2 btn bg-tertiary border-rounded text-white";
+  dislikeReactBtn.innerText = `Dislikes: 👎 (${dislikes})`;
+  dislikeReactBtn.setAttribute("type", "button");
+  reactionCounterContainer.appendChild(dislikeReactBtn);
+
+  async function dislikePost(){
+    const response = await API.dislikePost(id);
+    dislikeReactBtn.innerText = `Dislikes: 👎 (${response.count})`;
+  }
+
+  dislikeReactBtn.addEventListener("click", dislikePost)
 
   const postFooterCommentBtn = document.createElement("button");
-  postFooterCommentBtn.classList = "btn btn-info ms-auto d-block";
+  postFooterCommentBtn.classList = "btn btn-info ms-auto d-block mt-2";
   postFooterCommentBtn.setAttribute("type", "button");
   postFooterCommentBtn.innerText = "Comment";
   postFooter.appendChild(postFooterCommentBtn)
   
-
-  //------------ Comment Form -----------------
+  //----------------- Comment Form ---------------------
   const commentFormContainer = document.createElement("div");
-  commentFormContainer.classList = "card-body pt-0 pe-3 closing hidden"
+  commentFormContainer.classList = "card-body pt-0 pe-3 closing hidden";
   post.appendChild(commentFormContainer);
 
-  postFooterCommentBtn.addEventListener("click", function(){showContainerNoHeight(commentFormContainer)} )
-
-  const commentForm = document.createElement("form");
-  commentForm.setAttribute("data-postID", id);
-  commentForm.classList = "mx-2";
-  commentFormContainer.appendChild(commentForm);
-  
-  commentForm.addEventListener("submit", createNewReply)
-
-  const commentBodyLabel = document.createElement("label");
-  commentBodyLabel.classList = "text-white ms-2";
-  commentBodyLabel.setAttribute("for", "body");
-  commentBodyLabel.innerText = "Post A Comment";
-  commentForm.appendChild(commentBodyLabel);
-
-  const commentInput = document.createElement("textarea");
-  commentInput.classList = "form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light"
-  commentInput.setAttribute("name", "body");
-  commentInput.setAttribute("rows", "3");
-  commentInput.setAttribute("required", "");
-  commentForm.appendChild(commentInput);
-
-  const commentSubmit = document.createElement("input");
-  commentSubmit.classList = "btn btn-success d-block mt-2 ms-auto"
-  commentSubmit.value = "Post A Comment";
-  commentSubmit.setAttribute("type", "submit");
-  commentForm.appendChild(commentSubmit);
+  postFooterCommentBtn.addEventListener("click", function(){
+    //stop multiple forms being produced
+    if(commentFormContainer.innerHTML=== ""){
+      commentFormContainer.appendChild(createCommentForm(id));
+    }
+    showContainerNoHeight(commentFormContainer);
+  })
 
   const commentsContainer = document.createElement("div");
-  commentsContainer.classList = "replies-container bg-tertiary"
+  commentsContainer.classList = "replies-container bg-tertiary";
   post.appendChild(commentsContainer);
 
-  //------------- replies -----------------------
+  //--------------------- replies -----------------------
   if(modal){
     if(comments){
       renderReplies(comments, commentsContainer);

@@ -8,7 +8,6 @@ const followContainer = document.querySelector("#follow-user");
 const followBtn = document.querySelector("#follow-btn");
 
 //-------------------Defining the profile owner-----------------------
-
 /**
  * Checks profile data matches logged in user to enable profile editing.
  * or if another users profile enables following/unfollowing
@@ -35,20 +34,21 @@ async function initialiseProfileFunctionality({name, followers}){
 }
 
 //------------------- Page Initaliser Function -----------------------
-
 /**
  * Calls all functions to setup the page
  */
 async function createPage(){
-  try{
-    const data = await API.getProfile(user); 
-    renderProfileContent(data);
-    initialiseProfileFunctionality(data);
-    renderFollowers(data);
-    await getUsersPosts(user);
+  if(API){
+    try{
+      const data = await API.getProfile(user); 
+      renderProfileContent(data);
+      initialiseProfileFunctionality(data);
+      renderFollowers(data);
+      await getUsersPosts(user);
 
-  } catch(error) {
-    console.log(error)
+    } catch(error) {
+      console.log(error)
+    }
   }
 };
 

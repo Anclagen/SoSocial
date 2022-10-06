@@ -1,21 +1,8 @@
-import {initialiseAPIHandler, setLocalItem, login, register,isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords} from "./modules/main.mjs"
-
-let API = initialiseAPIHandler();
-// const logout = document.querySelector("#logout");
-// logout.addEventListener("click", API.logout);
+import {setLocalItem, login, register,isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, showInput, API, reportError} from "./modules/main.mjs"
 
 //Page element grabs
 const loginForm = document.querySelector("#login-form");
-const loginFormError = document.querySelector("#login-form-error");
-const usersName = document.querySelector("#username");
-const usersNameError = document.querySelector("#username-error");
-const email = document.querySelector("#email");
-const emailError = document.querySelector("#email-error");
-const password = document.querySelector("#password");
-const passwordError = document.querySelector("#password-error");
-const passwordConfirm = document.querySelector("#password-confirm");
-const avatar = document.querySelector("#avatar");
-const banner = document.querySelector("#banner");
+const ErrorContainers = document.querySelectorAll(".error-reporting")
 const submitBtn = document.querySelector("#submit-btn");
 const toggleText = document.querySelector("#toggle-text");
 const toggleBtn = document.querySelector("#toggle-btn");
@@ -29,58 +16,75 @@ function toggleForm(){
     submitBtn.innerText = "Login";
     toggleText.innerText = "Not a member?"
     toggleBtn.innerText = "Sign Up"
+    ErrorContainers[2].innerText = "";
+    ErrorContainers[3].innerText = "";
   } else {
     submitBtn.innerText = "Sign Up"
     toggleText.innerText = "Already have an account?"
     toggleBtn.innerText = "Login"
   }
   signUpInputs.forEach(input => {
-    input.classList.toggle("hidden");
+    showInput(input, 84);
   });
 }
 
 toggleBtn.addEventListener("click", toggleForm);
 
 
+/**
+ * Runs validation, and submit form data, based form state.
+ * @param {Event} submit form submission
+ */
 async function validateLoginSignUp(submit){
   submit.preventDefault();
-  //validate email and password
-  const emailCorrect = isValidEmail(email, emailError);
-  const passwordCorrect = isValidInputLength(password, 8, passwordError);
-   //checks if form is login or sign up
+  // getting form data, hidden inputs are disabled so not added depending on state.
+  const formData = new FormData(submit.target);
+  const bodyData = Object.fromEntries(formData.entries());
+  //validation
+  const emailCorrect = isValidEmail(bodyData.email, ErrorContainers[1]);
+  const passwordCorrect = isValidInputLength(bodyData.password, 8, ErrorContainers[3]);
+  //checks if form is login or signup state
   if(submitBtn.textContent === "Login"){
+
+    //--------------- Login --------------------
       if(emailCorrect && passwordCorrect){
         try{
-          const response = await login(email.value, password.value);
+          const response = await login(bodyData);
           const loginDetails = await response.json();
+          //check response, and send user to profile or return message on error
           if(response.ok){
             setLocalItem("user", loginDetails);
             location.href = `/profile.html`
           } else {
-            loginFormError.innerHTML = loginDetails.message;
+            ErrorContainers[0].innerHTML = loginDetails.message;
           }
         } catch (error){
-          console.log(error.message);
+          reportError(error, ErrorContainers[0]);
         }
       }
+
   } else if(submitBtn.textContent === "Sign Up"){
-    const usersNameCorrect = isValidUsername(usersName, usersNameError);
-    const passwordConfirmed = hasMatchingPasswords(password, passwordConfirm, 8, passwordError);
+
+    //---------------- Signup -----------------
+    const usersNameCorrect = isValidUsername(bodyData.name, ErrorContainers[2]);
+    const passwordConfirmed = hasMatchingPasswords(bodyData.password, bodyData.passwordConfirm, 8, ErrorContainers[3]);
       if(emailCorrect && passwordCorrect && usersNameCorrect && passwordConfirmed){
-        loginFormError.innerText = "";
+        ErrorContainers[0].innerText = "";
         try{
-          const response = await register(usersName.value, email.value, password.value,  avatar.value, banner.value)
+          //remove confirm password from body
+          delete bodyData.passwordConfirm
+          const response = await register(bodyData)
           if(response.statusCode === 400){
-            loginFormError.innerText = response.message;
+            ErrorContainers[0].innerText = response.message;
           } else {
-            loginFormError.innerHTML = `<span class="text-success">Account Created</span>`
+            ErrorContainers[0].innerHTML = `<span class="text-success">Account Created</span>`
             loginForm.reset();
-            email.value = response.email;
+            submit.target.email.value = bodyData.email;
+            submit.target.password.value = bodyData.password;
             toggleForm()
           }
-          
         } catch (error){
-          console.log(error.message);
+          reportError(error, ErrorContainers[0]);
         }
       }
   }

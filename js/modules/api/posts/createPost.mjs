@@ -2,6 +2,8 @@ import {showInput} from "../../functionality/accordion.mjs"
 import {API, user} from "../../main.mjs";
 import {getPostsFeed, getUsersPosts} from "./getPosts.mjs";
 
+const errorReporting = document.querySelector("#post-comment-form-error");
+
 /**
  * Creates a new post, then renders the post feed.
  * @param {Element} form the form your submitting on the page
@@ -12,6 +14,9 @@ export async function createNewPost(form, postFunction) {
     const errorReporting = document.querySelector("#post-comment-form-error");
     const formData = new FormData(form);
     const bodyData = Object.fromEntries(formData.entries());
+    if(bodyData.tags){
+      bodyData.tags = bodyData.tags.split(",").map(tag => tag.trim());
+    }
     const response = await API.createPost(JSON.stringify(bodyData));
     if(response.statusCode){
       errorReporting.innerHTML = response.message;

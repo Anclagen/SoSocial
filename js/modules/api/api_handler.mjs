@@ -84,20 +84,18 @@ import {deleteLocalItem} from "../local_storage/localStorage.mjs"
           const moreResults = await callAPI(path + newOffset, options);
           await getAllResults(moreResults, newOffset);
         } else {
-          console.log("fin")
           allResults.push.apply(allResults, data);
         }
       }
-
+        
       if(initialResults.length === 100){
-        const start = performance.now()
         await getAllResults(initialResults, 0);
-        const end =  performance.now()
-        console.log(start - end);
+        console.log(allResults)
         return allResults;
       } else {
         return initialResults
     }
+   
   }
 
   //------------------- Get/Update Profile(s) -----------------------
@@ -231,14 +229,24 @@ import {deleteLocalItem} from "../local_storage/localStorage.mjs"
   }
 
   //------------------- Reactions -----------------------
+  
   /**
-   * Allows a user to react to a post with a symbol
+   * Allows a user to react to a post like symbol
    * @param {Number} id Primary posts ID
-   * @param {Symbol} symbol Symbol you want to react to the post with
    * @returns 
    */
-  async reactToPost(id, symbol){ //maybe add body to allow reactions to replies?
-    const options = new MyOptions("PUT", this.headers);
-    return await callAPI(`${this.pathPosts}/${id}/react/${symbol}`, options)
+  async likePost(id){ //maybe add body to allow reactions to replies?
+    const options = new MyOptions("PUT", this.headersNoContent);
+    return await callAPI(`${this.pathPosts}/${id}/react/👍`, options)
   }
+
+    /**
+   * Allows a user to react to a post dislike symbol
+   * @param {Number} id Primary posts ID
+   * @returns 
+   */
+     async dislikePost(id){ //maybe add body to allow reactions to replies?
+      const options = new MyOptions("PUT", this.headersNoContent);
+      return await callAPI(`${this.pathPosts}/${id}/react/👎`, options)
+    }
 }
