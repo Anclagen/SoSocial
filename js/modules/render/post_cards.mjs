@@ -15,7 +15,7 @@ import { createEditForm } from "./edit_form.mjs";
  */
 export function createAPost({id, author = API.name, title, body, media, _count, created, updated, tags, reactions, comments}, modal = false){
   if(title.trim() === ""){
-    title = "Untitled"
+    title = "Untitled";
   }
 
   const post = document.createElement("div");
@@ -102,7 +102,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     errorReportingEdit.classList = "error text-danger text-center pt-2";
     postHeadContainer.appendChild(errorReportingEdit);
     
-    const editForm = createEditForm(id, title, body, media, tags)
+    const editForm = createEditForm(id, title, body, media, tags);
     postHeadContainer.appendChild(editForm);
 
     /**
@@ -124,7 +124,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
           postBodyImg.src = response.media;
           postBody.appendChild(postBodyImg);
         }
-        showContainerNoHeight(editForm)
+        showContainerNoHeight(editForm);
       } catch(error){
         console.log(error);
       }
@@ -146,7 +146,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
       post.innerHTML = "<div class='p-2 text-center'><h3 class='m-0'>Post Deleted</h3></div>";
     }
 
-    optionsDropdownDeleteBtn.addEventListener("click", deleteThisPost)
+    optionsDropdownDeleteBtn.addEventListener("click", deleteThisPost);
   }
 
   //------------ post body ---------------------
@@ -162,7 +162,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
       const postData = await API.getPost(id);
       openPostModal(postData); 
     } catch(error){
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -236,10 +236,10 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   if(reactions.length > 0){
     reactions.forEach((entry) => {
       if(entry.symbol.includes("👍")){
-        likes = entry.count
+        likes = entry.count;
       }
       if(entry.symbol.includes("👎")){
-        dislikes = entry.count
+        dislikes = entry.count;
       }
     })
   }
@@ -256,7 +256,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     likeReactBtn.innerText = `Likes: 👍 (${response.count})`;
   }
 
-  likeReactBtn.addEventListener("click", likePost)
+  likeReactBtn.addEventListener("click", likePost);
 
   const dislikeReactBtn = document.createElement("button");
   dislikeReactBtn.classList = "p-1 ms-2 btn bg-tertiary border-rounded text-white";
@@ -269,13 +269,13 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     dislikeReactBtn.innerText = `Dislikes: 👎 (${response.count})`;
   }
 
-  dislikeReactBtn.addEventListener("click", dislikePost)
+  dislikeReactBtn.addEventListener("click", dislikePost);
 
   const postFooterCommentBtn = document.createElement("button");
   postFooterCommentBtn.classList = "btn btn-info ms-auto d-block mt-2";
   postFooterCommentBtn.setAttribute("type", "button");
   postFooterCommentBtn.innerText = "Comment";
-  postFooter.appendChild(postFooterCommentBtn)
+  postFooter.appendChild(postFooterCommentBtn);
   
   //----------------- Comment Form ---------------------
   const commentFormContainer = document.createElement("div");
@@ -301,7 +301,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     }
   }
 
-  return post
+  return post;
 }
 
 /**
@@ -311,7 +311,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
  * @param {Boolean} modal true if displaying in modal
  */
 export function renderPost(postData, container, modal) {
-  container.append(createAPost(postData, modal))
+  container.append(createAPost(postData, modal));
 }
 
 /**
@@ -321,6 +321,42 @@ export function renderPost(postData, container, modal) {
  */
 export function renderPosts(postsData, container) {
   container.innerHTML= "";
-  postsData.forEach((post) => container.append(createAPost(post, false))
-  )
+  postsData.forEach((post) => container.append(createAPost(post, false)));
 }
+
+
+let display = 0;
+
+function limitPostRender(posts, container, count = 0){
+  display = display + 25;
+  let stopRendering = false;
+  if(posts.length <= display){
+    display = posts.length;
+    stopRendering = true;
+  }
+
+  for(let i = count; i < display; i++){
+    container.append(createAPost(posts[i], false))
+  }
+  
+  window.addEventListener("scroll", () => {
+    if(stopRendering){ 
+      return 
+    }
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500){
+      console.log(display);
+      limitPostRender(posts, container, display);
+    }
+  })
+}
+
+/**
+ * renders an array of post objects to an element
+ * @param {Object} postsData Post data object
+ * @param {Element} container element to append Html to
+ */
+ export function scrollingRenderPosts(postsData, container) {
+  container.innerHTML= "";
+  limitPostRender(postsData, container);
+}
+

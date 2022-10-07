@@ -1,4 +1,4 @@
-import { renderPosts } from "../../render/post_cards.mjs";
+import { renderPosts, scrollingRenderPosts } from "../../render/post_cards.mjs";
 import { API} from "../../main.mjs";
 import { addLoader } from "../../render/loader.mjs";
 import { sortPosts } from "../../sort_search_filter/sort.mjs";
@@ -17,14 +17,14 @@ export async function getPostsFeed(search = false){
     loadPostSearch(dataPosts);
   }
   const sortedData = await sortPosts(dataPosts);
-  renderPosts(sortedData, postFeedContainer, false);
+  scrollingRenderPosts(sortedData, postFeedContainer, false);
 
   /**
    * Listener function when using sort options
    */
   async function filterFeed(){
     const sortedData =  await sortPosts(dataPosts);
-    renderPosts(sortedData, postFeedContainer, false);
+    scrollingRenderPosts(sortedData, postFeedContainer, false);
   }
 
   const timeManipulator = document.querySelector("#filter-time");
@@ -41,5 +41,4 @@ export async function getUsersPosts(user){
   const dataPosts = await API.getAllPosts(); 
   const yourPosts = dataPosts.filter(post => post.author.name === user);
   renderPosts(yourPosts, postFeedContainer);
-
 }
