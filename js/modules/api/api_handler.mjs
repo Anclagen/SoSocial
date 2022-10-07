@@ -90,7 +90,6 @@ import {deleteLocalItem} from "../local_storage/localStorage.mjs"
         
       if(initialResults.length === 100){
         await getAllResults(initialResults, 0);
-        console.log(allResults)
         return allResults;
       } else {
         return initialResults

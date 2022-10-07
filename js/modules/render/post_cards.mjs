@@ -159,6 +159,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
    */
   async function openModal(){
     try{
+      console.log("yes")
       const postData = await API.getPost(id);
       openPostModal(postData); 
     } catch(error){
@@ -325,10 +326,29 @@ export function renderPosts(postsData, container) {
 }
 
 
-
+/**
+ * Displays first 25 posts and sets up the scrolling event listener to show more.
+ * @param {Array} posts Array of posts
+ * @param {Element} container place for posts to be rendered
+ */
 function limitPostRender(posts, container){
+  //displayed posts and stop boolean for when all results on page or filter change.
   let display = 0;
   let stopRendering = false;
+
+  //only reliable way I found to stop instances of the scroll event listener overlapping when changing filter settings.
+  const timeManipulator = document.querySelector("#filter-time");
+  const postSorter = document.querySelector("#sort-posts");
+  postSorter.addEventListener("change",() => {
+    stopRendering = true;});
+  timeManipulator.addEventListener("change",() => {
+    stopRendering = true;});
+
+  /**
+   * Adds 25 posts to the feed at a time.
+   * @param {Array} posts Array of posts.
+   * @param {Element} container Element to render html for posts.
+   */
   function renderPosts(posts, container){
     let count = display + 25;
     if(posts.length <= count){
@@ -341,18 +361,25 @@ function limitPostRender(posts, container){
     display = display + 25;
   }
 
+  //initial run to show first 25 posts
   renderPosts(posts, container);
 
+
+  /**
+   * Function to use in event listener on scroll if the bottom of the page is nearly reached loads more posts if all posts displayed removes the listener.
+   */
   function getMorePost(){
       if(stopRendering){ 
-        this.removeEventListener("scroll", getMorePost);
-        console.log("done!");
+        //if all post showing or filter changed stops this instance of the listener.
+        window.removeEventListener("scroll", getMorePost);
+        console.log("Event Lister Removed");
       } else if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 500){
-        console.log(display);
         renderPosts(posts, container);
+        window.addEventListener("scroll", getMorePost);
       }
     }
 
+  //sets up scroll listener to load more results
   window.addEventListener("scroll", getMorePost);
 }
 
@@ -361,9 +388,9 @@ function limitPostRender(posts, container){
  * @param {Object} postsData Post data object
  * @param {Element} container element to append Html to
  */
- export function scrollingRenderPosts(postsData, container) {
+ export function scrollingRenderPosts(postsData, container, reset) {
   container.innerHTML= "";
-  limitPostRender(postsData, container);
+  limitPostRender(postsData, container, reset);
   
 }
 

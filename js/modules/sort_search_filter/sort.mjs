@@ -63,6 +63,5 @@ export async function sortPosts(postData){
       sortedData = filteredData.sort((a,b) => (a.author.name.toLowerCase()) < (b.author.name.toLowerCase()));
     break;
   }
-  console.log(sortedData);
   return sortedData
 }

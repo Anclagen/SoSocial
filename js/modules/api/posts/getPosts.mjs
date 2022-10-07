@@ -6,6 +6,8 @@ import { loadPostSearch } from "../../sort_search_filter/search.mjs";
 
 const postFeedContainer = document.querySelector("#post-feed")
 
+
+
 /**
  * Gets all the posts sorts and filters the data as needed
  * and assigns listeners to the page for sorting.
@@ -17,14 +19,14 @@ export async function getPostsFeed(search = false){
     loadPostSearch(dataPosts);
   }
   const sortedData = await sortPosts(dataPosts);
-  scrollingRenderPosts(sortedData, postFeedContainer, false);
+  scrollingRenderPosts(sortedData, postFeedContainer);
 
   /**
    * Listener function when using sort options
    */
   async function filterFeed(){
     const sortedData =  await sortPosts(dataPosts);
-    scrollingRenderPosts(sortedData, postFeedContainer, false);
+    scrollingRenderPosts(sortedData, postFeedContainer);
   }
 
   const timeManipulator = document.querySelector("#filter-time");
@@ -32,6 +34,7 @@ export async function getPostsFeed(search = false){
   postSorter.addEventListener("change", filterFeed)
   timeManipulator.addEventListener("change", filterFeed)
 }
+
 
 /**
  * Gets posts for a particular user and renders them on there profile feed
