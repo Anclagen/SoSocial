@@ -325,29 +325,35 @@ export function renderPosts(postsData, container) {
 }
 
 
-let display = 0;
 
-function limitPostRender(posts, container, count = 0){
-  display = display + 25;
+function limitPostRender(posts, container){
+  let display = 0;
   let stopRendering = false;
-  if(posts.length <= display){
-    display = posts.length;
-    stopRendering = true;
+  function renderPosts(posts, container){
+    let count = display + 25;
+    if(posts.length <= count){
+      count = posts.length;
+      stopRendering = true;
+    }
+    for(let i = display; i < count; i++){
+      container.append(createAPost(posts[i], false))
+    }
+    display = display + 25;
   }
 
-  for(let i = count; i < display; i++){
-    container.append(createAPost(posts[i], false))
-  }
-  
-  window.addEventListener("scroll", () => {
-    if(stopRendering){ 
-      return 
+  renderPosts(posts, container);
+
+  function getMorePost(){
+      if(stopRendering){ 
+        this.removeEventListener("scroll", getMorePost);
+        console.log("done!");
+      } else if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 500){
+        console.log(display);
+        renderPosts(posts, container);
+      }
     }
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500){
-      console.log(display);
-      limitPostRender(posts, container, display);
-    }
-  })
+
+  window.addEventListener("scroll", getMorePost);
 }
 
 /**
@@ -358,5 +364,6 @@ function limitPostRender(posts, container, count = 0){
  export function scrollingRenderPosts(postsData, container) {
   container.innerHTML= "";
   limitPostRender(postsData, container);
+  
 }
 
