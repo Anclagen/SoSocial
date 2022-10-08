@@ -21,6 +21,7 @@ import {deleteLocalItem} from "../local_storage/localStorage.mjs"
   name = "";
   avatar = "";
 
+
   /**
    * Pass user object response from login.
    */
@@ -43,12 +44,12 @@ import {deleteLocalItem} from "../local_storage/localStorage.mjs"
    //------------------- Get/Update Posts(s) -----------------------
 
   /**
-   * Returns all the posts in an array.
+   * Gets posts from server, in request order and page number
    * @returns [Array] returns an array of posts
    */
-  async getPosts(){
+  async getPosts(sort="created", order="desc", offset = 0){
     const options = new MyOptions("GET", this.headers);
-    return await callAPI(this.pathPosts + this.moreDetail, options);
+    return await callAPI(`${this.pathPosts}${this.moreDetail}&sort=${sort}&sortOrder=${order}&offset=${offset}`, options);
   }
 
   /**
@@ -87,7 +88,7 @@ import {deleteLocalItem} from "../local_storage/localStorage.mjs"
           allResults.push.apply(allResults, data);
         }
       }
-        
+      
       if(initialResults.length === 100){
         await getAllResults(initialResults, 0);
         return allResults;

@@ -1,6 +1,6 @@
 import { API } from "../../main.mjs";
 import { createAReply } from "../../render/post_replies.mjs";
-import { showContainerNoHeight } from "../../main.mjs";
+import { showContainer } from "../../main.mjs";
 
 /**
  * Creates a reply to a post, taking post id from form data attribute for request
@@ -25,7 +25,7 @@ export async function createNewReply(submit) {
     const response = await API.replyToPost(id, JSON.stringify(bodyData));
     submit.target.reset();
     //close form
-    showContainerNoHeight(submit.target.parentNode);
+    showContainer(submit.target.parentNode);
     // add reply
     const reply = submit.target.parentNode.parentNode.querySelector(".replies-container");
     //check for reply to reply, parentId not provided   

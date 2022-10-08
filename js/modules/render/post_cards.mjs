@@ -1,6 +1,6 @@
 import {API} from "../main.mjs";
 import { createCommentForm } from "./comment_form.mjs";
-import {showContainerNoHeight} from "../functionality/accordion.mjs";
+import {showContainer} from "../functionality/accordion.mjs";
 import {editPost} from "../api/posts/updatePost.mjs";
 import { openPostModal} from "../functionality/modal.mjs";
 import { renderReplies} from "./post_replies.mjs";
@@ -20,6 +20,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
 
   const post = document.createElement("div");
   post.classList = "card bg-secondary mb-3";
+  post.setAttribute("data-page-post-id", id);
 
   //------------ post header -----------------
 
@@ -92,7 +93,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
      * show edit form for event listener
      */
     function showEditPostForm(){
-      showContainerNoHeight(editForm);
+      showContainer(editForm);
     }
 
     optionsDropdownEditBtn.addEventListener("click", showEditPostForm);
@@ -124,7 +125,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
           postBodyImg.src = response.media;
           postBody.appendChild(postBodyImg);
         }
-        showContainerNoHeight(editForm);
+        showContainer(editForm);
       } catch(error){
         console.log(error);
       }
@@ -288,7 +289,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     if(commentFormContainer.innerHTML=== ""){
       commentFormContainer.appendChild(createCommentForm(id));
     }
-    showContainerNoHeight(commentFormContainer);
+    showContainer(commentFormContainer);
   })
 
   const commentsContainer = document.createElement("div");
@@ -304,6 +305,9 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
 
   return post;
 }
+
+
+//--------------- adding posts to the page -----------------
 
 /**
  * renders a single post to a page
@@ -324,7 +328,6 @@ export function renderPosts(postsData, container) {
   container.innerHTML= "";
   postsData.forEach((post) => container.append(createAPost(post, false)));
 }
-
 
 /**
  * Displays first 25 posts and sets up the scrolling event listener to show more.

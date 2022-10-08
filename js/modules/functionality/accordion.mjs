@@ -23,26 +23,26 @@ export function showInput(container, height){
   }
 }
 
-/**
- * opens and closes a container.
- * @param {Element} container container to open/close
- * @param {Number} height height of container when open
- */
-export function showContainer(container, height){
-  if(container.classList.contains("hidden")){
-    container.classList.toggle('hidden')
-    setTimeout(function () {
-      container.classList.toggle('open');
-      container.style.height = `${height}px`;
-      }, 20);
-  } else {
-    container.classList.toggle('open')
-    container.style.height = `0px`;
-    setTimeout(function () {
-      container.classList.toggle('hidden');
-      }, 500);
-  }
-}
+// /**
+//  * opens and closes a container.
+//  * @param {Element} container container to open/close
+//  * @param {Number} height height of container when open
+//  */
+// export function showContainer(container, height){
+//   if(container.classList.contains("hidden")){
+//     container.classList.toggle('hidden')
+//     setTimeout(function () {
+//       container.classList.toggle('open');
+//       container.style.height = `${height}px`;
+//       }, 20);
+//   } else {
+//     container.classList.toggle('open')
+//     container.style.height = `0px`;
+//     setTimeout(function () {
+//       container.classList.toggle('hidden');
+//       }, 500);
+//   }
+// }
 
 //testing no height needed 
 
@@ -75,7 +75,7 @@ function getHiddenHeight(container) {
  * opens and closes a container.
  * @param {Element} container container to open/close
  */
-export function showContainerNoHeight(container){
+export function showContainer(container){
   if(container.classList.contains("hidden")){
     container.classList.toggle('hidden')
     setTimeout(function () {

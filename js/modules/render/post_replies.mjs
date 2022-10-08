@@ -1,4 +1,4 @@
-import { showContainerNoHeight } from "../functionality/accordion.mjs";
+import { showContainer } from "../functionality/accordion.mjs";
 import { createCommentForm } from "./comment_form.mjs";
 import { createReplyTree } from "../sort_search_filter/reply_tree.mjs";
 
@@ -44,7 +44,7 @@ export function createAReply({body, owner, created, replies, postId, id}){
   commentFormContainer.classList = "card-body pt-1 pe-3 closing hidden bg-secondary"
   replyContentContainer.appendChild(commentFormContainer);
 
-  postFooterCommentBtn.addEventListener("click", function(){showContainerNoHeight(commentFormContainer)} )
+  postFooterCommentBtn.addEventListener("click", function(){showContainer(commentFormContainer)} )
   
   commentFormContainer.appendChild(createCommentForm(id, postId));
 
