@@ -3,7 +3,7 @@
  * @param {String} url {API url}
  * @param {Object} options {method, body, headers}
  * @returns {Object} parsed response
- * @example 
+ * @example
  * const url = "wwww.example.com";
  * var myHeaders = new Headers();
  * myHeaders.append("Authorization", "token");
@@ -12,11 +12,11 @@
  *                  headers: myHeaders};
  * const details = callAPI(url, options);
  */
-export async function callAPI(url, options){
-  try{
+export async function callAPI(url, options) {
+  try {
     const response = await fetch(url, options);
     return response.json();
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 }
@@ -24,9 +24,9 @@ export async function callAPI(url, options){
 /**
  * takes url and fetch options to perform an API request.
  * returns an array with data and header info.
- * @param {*} url 
+ * @param {*} url
  * @param {Object} options
- * @return {Array} 
+ * @return {Array}
  * const url = "wwww.example.com";
  * var myHeaders = new Headers();
  * myHeaders.append("Authorization", "token");
@@ -36,7 +36,7 @@ export async function callAPI(url, options){
  * console.log(callAPI(url, options));
  * // [data, pages]
  */
-export async function callAPIPlusHeaders (url, options){
+export async function callAPIPlusHeaders(url, options) {
   const response = await fetch(url, options);
   const data = await response.json();
   const headers = response.headers.get("pages");
@@ -55,20 +55,18 @@ export class MyOptions {
    * @param {object} body can be empty if not needed.
    * @return {object} returns options object.
    */
-  constructor(method, headers, body ="") {
-    if(body === ""){
+  constructor(method, headers, body = "") {
+    if (body === "") {
       return {
         method: method,
         headers: headers,
-        }
+      };
     } else {
       return {
         method: method,
         headers: headers,
-        body: body
-        }
+        body: body,
+      };
     }
-
   }
 }
-

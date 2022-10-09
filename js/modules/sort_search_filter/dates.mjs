@@ -5,7 +5,7 @@
  * @returns returns new data() for x days ago
  */
 export function getPastDate(days) {
-  const date = new Date()
+  const date = new Date();
   const previous = new Date(date.getTime());
   previous.setDate(date.getDate() - days);
 
@@ -18,8 +18,8 @@ export function getPastDate(days) {
  * @param {Number} daysAgo number of days ago to check against
  * @returns true/false for filter
  */
-export function isDateAfter({created}, daysAgo){
+export function isDateAfter({ created }, daysAgo) {
   const dateToCheck = new Date(created);
-  const datePast = getPastDate(daysAgo)
-  return dateToCheck >= datePast
+  const datePast = getPastDate(daysAgo);
+  return dateToCheck >= datePast;
 }

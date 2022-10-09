@@ -1,4 +1,4 @@
-import {addEditProfileListeners, getUsersPosts, renderProfileContent, makeAPostListener, followUserBtn, renderFollowers, API, user} from "./modules/main.mjs"
+import { addEditProfileListeners, getUsersPosts, renderProfileContent, makeAPostListener, followUserBtn, renderFollowers, API, user, getYourFollowing } from "./modules/main.mjs";
 
 //-------------------page grabs-----------------------
 //post comment form
@@ -13,19 +13,19 @@ const followBtn = document.querySelector("#follow-btn");
  * or if another users profile enables following/unfollowing
  * @param {Object} UserData a single profile object.
  */
-async function initialiseProfileFunctionality({name, followers}){
+async function initialiseProfileFunctionality({ name, followers }) {
   //is this the logged in users profile
-  if(API.name === name){
+  if (API.name === name) {
     addEditProfileListeners();
     postCommentSection.classList.remove("hidden");
     makeAPostListener(true);
-  } else{
+  } else {
     //hides the follow button for your own profile
     followContainer.classList.remove("hidden");
     //gets an array of follower names
     const followerNames = followers.map((follower) => follower.name);
     //checks if your following or not
-    if(followerNames.includes(API.name)){
+    if (followerNames.includes(API.name)) {
       followBtn.innerText = "Unfollow";
     }
     followBtn.setAttribute("user", name);
@@ -37,19 +37,18 @@ async function initialiseProfileFunctionality({name, followers}){
 /**
  * Calls all functions to setup the page
  */
-async function createPage(){
-  if(API){
-    try{
-      const data = await API.getProfile(user); 
+async function createPage() {
+  if (API) {
+    try {
+      const data = await API.getProfile(user);
       renderProfileContent(data);
       initialiseProfileFunctionality(data);
       renderFollowers(data);
       await getUsersPosts(user);
-
-    } catch(error) {
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   }
-};
+}
 
-createPage()
+createPage();

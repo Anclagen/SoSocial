@@ -1,9 +1,9 @@
-import {API} from "../main.mjs";
+import { API } from "../main.mjs";
 import { createCommentForm } from "./comment_form.mjs";
-import {showContainer} from "../functionality/accordion.mjs";
-import {editPost} from "../api/posts/updatePost.mjs";
-import { openPostModal} from "../functionality/modal.mjs";
-import { renderReplies} from "./post_replies.mjs";
+import { showContainer } from "../functionality/accordion.mjs";
+import { editPost } from "../api/posts/updatePost.mjs";
+import { openPostModal } from "../functionality/modal.mjs";
+import { renderReplies } from "./post_replies.mjs";
 import { createEditForm } from "./edit_form.mjs";
 
 /**
@@ -13,8 +13,8 @@ import { createEditForm } from "./edit_form.mjs";
  * @param {boolean} modal if true generates replies.
  * @returns HTML to be appended
  */
-export function createAPost({id, author = API.name, title, body, media, _count, created, updated, tags, reactions, comments}, modal = false){
-  if(title.trim() === ""){
+export function createAPost({ id, author = API.name, title, body, media, _count, created, updated, tags, reactions, comments }, modal = false) {
+  if (title.trim() === "") {
     title = "Untitled";
   }
 
@@ -26,15 +26,15 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
 
   const postHeadContainer = document.createElement("div");
   postHeadContainer.classList = "m-3 post-header rounded-3";
-  postHeadContainer.setAttribute("id", id)
+  postHeadContainer.setAttribute("id", id);
   post.appendChild(postHeadContainer);
 
   const postHead = document.createElement("div");
-  postHead.classList= "d-flex text-white";
+  postHead.classList = "d-flex text-white";
   postHeadContainer.appendChild(postHead);
 
   const profileLink = document.createElement("a");
-  profileLink.setAttribute("href", `profile.html?profile=${author.name}`)
+  profileLink.setAttribute("href", `profile.html?profile=${author.name}`);
   postHead.appendChild(profileLink);
 
   const avatar = document.createElement("img");
@@ -57,11 +57,11 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postHeadTime.classList = "mb-0 created-date";
   postHeadDetails.appendChild(postHeadTime);
 
-   //--------------- Edit and Delete Options ------------------------
+  //--------------- Edit and Delete Options ------------------------
   // add post edit options you your posts only
-  if(author.name === API.name && !modal){
+  if (author.name === API.name && !modal) {
     const postHeadOptions = document.createElement("div");
-    postHeadOptions.classList="ms-auto";
+    postHeadOptions.classList = "ms-auto";
     postHead.appendChild(postHeadOptions);
 
     //creates options dropdown
@@ -85,14 +85,14 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     optionsDropdownMenu.appendChild(optionsDropdownEdit);
 
     const optionsDropdownEditBtn = document.createElement("button");
-    optionsDropdownEditBtn.classList= "btn-sm btn btn-info d-block w-100 mb-1";
+    optionsDropdownEditBtn.classList = "btn-sm btn btn-info d-block w-100 mb-1";
     optionsDropdownEditBtn.innerText = "Edit";
-    optionsDropdownEdit.appendChild(optionsDropdownEditBtn);   
-    
+    optionsDropdownEdit.appendChild(optionsDropdownEditBtn);
+
     /**
      * show edit form for event listener
      */
-    function showEditPostForm(){
+    function showEditPostForm() {
       showContainer(editForm);
     }
 
@@ -102,7 +102,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     const errorReportingEdit = document.createElement("div");
     errorReportingEdit.classList = "error text-danger text-center pt-2";
     postHeadContainer.appendChild(errorReportingEdit);
-    
+
     const editForm = createEditForm(id, title, body, media, tags);
     postHeadContainer.appendChild(editForm);
 
@@ -110,8 +110,8 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
      * Edit post form function for event listener
      * @param {Event} submit submits post edits and updated post is successful
      */
-    async function editThisPost(submit){
-      try{
+    async function editThisPost(submit) {
+      try {
         submit.preventDefault();
         const response = await editPost(id, errorReportingEdit, submit.target);
         postBodyTitle.innerText = response.title;
@@ -119,14 +119,14 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
         postFooterTags.innerText = response.tags;
         updatedDate.innerText = `Updated: ${new Date(response.updated).toLocaleString()}`;
         updatedDate.classList = "text-right px-3 pb-1 ms-auto ";
-        if(media){
+        if (media) {
           postBodyImg.src = response.media;
-        } else if(response.media){
+        } else if (response.media) {
           postBodyImg.src = response.media;
           postBody.appendChild(postBodyImg);
         }
         showContainer(editForm);
-      } catch(error){
+      } catch (error) {
         console.log(error);
       }
     }
@@ -138,11 +138,11 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
     optionsDropdownMenu.appendChild(optionsDropdownDelete);
 
     const optionsDropdownDeleteBtn = document.createElement("button");
-    optionsDropdownDeleteBtn.classList= "btn-sm btn btn-danger d-block w-100";
+    optionsDropdownDeleteBtn.classList = "btn-sm btn btn-danger d-block w-100";
     optionsDropdownDeleteBtn.innerText = "Delete";
     optionsDropdownDelete.appendChild(optionsDropdownDeleteBtn);
 
-    function deleteThisPost(){
+    function deleteThisPost() {
       API.deletePost(id);
       post.innerHTML = "<div class='p-2 text-center'><h3 class='m-0'>Post Deleted</h3></div>";
     }
@@ -158,22 +158,22 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   /**
    * gets post data opens modal and renders, for event listener
    */
-  async function openModal(){
-    try{
-      console.log("yes")
+  async function openModal() {
+    try {
+      console.log("yes");
       const postData = await API.getPost(id);
-      openPostModal(postData); 
-    } catch(error){
+      openPostModal(postData);
+    } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   // if in modal remove listener to body
-  if(!modal){
+  if (!modal) {
     postBody.addEventListener("click", openModal);
   }
-  
-  const postBodyTitle = document.createElement("h3")
+
+  const postBodyTitle = document.createElement("h3");
   postBodyTitle.classList = "px-3 py-2";
   postBodyTitle.innerText = title;
   postBody.appendChild(postBodyTitle);
@@ -184,22 +184,22 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postBodyImg.setAttribute("loading", "lazy");
   postBodyImg.setAttribute("alt", title);
   postBodyImg.setAttribute("onerror", `this.src="images/404.jpg"`);
-  if(media){
+  if (media) {
     postBody.appendChild(postBodyImg);
   }
 
-  const postBodyContent = document.createElement("p")
+  const postBodyContent = document.createElement("p");
   postBodyContent.classList = "px-3 pb-2";
   postBodyContent.innerText = body;
   postBody.appendChild(postBodyContent);
 
   const updatedDate = document.createElement("div");
   postBody.appendChild(updatedDate);
-  if(updated !== created){
+  if (updated !== created) {
     updatedDate.innerText = `Updated: ${new Date(updated).toLocaleString()}`;
     updatedDate.classList = "text-right px-3 pb-1 ms-auto updated-date";
   }
-  
+
   //------------ post footer ----------------
   const postFooter = document.createElement("div");
   postFooter.classList = "card-body pb-2 pe-3";
@@ -209,7 +209,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postFooter.appendChild(tagsContainer);
 
   const postFooterTags = document.createElement("span");
-  if(tags.length === 0 || tags[0] === ""){
+  if (tags.length === 0 || tags[0] === "") {
     postFooterTags.innerText = "Tags: None";
   } else {
     postFooterTags.innerText = "Tags: " + tags.join(", ");
@@ -232,18 +232,18 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   const reactionCounterContainer = document.createElement("div");
   reactionCounterContainer.classList = "pt-1";
   statsContainer.appendChild(reactionCounterContainer);
-  
+
   let likes = 0;
   let dislikes = 0;
-  if(reactions.length > 0){
+  if (reactions.length > 0) {
     reactions.forEach((entry) => {
-      if(entry.symbol.includes("👍")){
+      if (entry.symbol.includes("👍")) {
         likes = entry.count;
       }
-      if(entry.symbol.includes("👎")){
+      if (entry.symbol.includes("👎")) {
         dislikes = entry.count;
       }
-    })
+    });
   }
 
   const likeReactBtn = document.createElement("button");
@@ -251,9 +251,8 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   likeReactBtn.innerText = `Likes: 👍 (${likes})`;
   likeReactBtn.setAttribute("type", "button");
   reactionCounterContainer.appendChild(likeReactBtn);
-  
 
-  async function likePost(){
+  async function likePost() {
     const response = await API.likePost(id);
     likeReactBtn.innerText = `Likes: 👍 (${response.count})`;
   }
@@ -266,7 +265,7 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   dislikeReactBtn.setAttribute("type", "button");
   reactionCounterContainer.appendChild(dislikeReactBtn);
 
-  async function dislikePost(){
+  async function dislikePost() {
     const response = await API.dislikePost(id);
     dislikeReactBtn.innerText = `Dislikes: 👎 (${response.count})`;
   }
@@ -278,34 +277,33 @@ export function createAPost({id, author = API.name, title, body, media, _count, 
   postFooterCommentBtn.setAttribute("type", "button");
   postFooterCommentBtn.innerText = "Comment";
   postFooter.appendChild(postFooterCommentBtn);
-  
+
   //----------------- Comment Form ---------------------
   const commentFormContainer = document.createElement("div");
   commentFormContainer.classList = "card-body pt-0 pe-3 closing hidden";
   post.appendChild(commentFormContainer);
 
-  postFooterCommentBtn.addEventListener("click", function(){
+  postFooterCommentBtn.addEventListener("click", function () {
     //stop multiple forms being produced
-    if(commentFormContainer.innerHTML=== ""){
+    if (commentFormContainer.innerHTML === "") {
       commentFormContainer.appendChild(createCommentForm(id));
     }
     showContainer(commentFormContainer);
-  })
+  });
 
   const commentsContainer = document.createElement("div");
   commentsContainer.classList = "replies-container bg-tertiary";
   post.appendChild(commentsContainer);
 
   //--------------------- replies -----------------------
-  if(modal){
-    if(comments){
+  if (modal) {
+    if (comments) {
       renderReplies(comments, commentsContainer);
     }
   }
 
   return post;
 }
-
 
 //--------------- adding posts to the page -----------------
 
@@ -325,7 +323,7 @@ export function renderPost(postData, container, modal) {
  * @param {Element} container element to append Html to
  */
 export function renderPosts(postsData, container) {
-  container.innerHTML= "";
+  container.innerHTML = "";
   postsData.forEach((post) => container.append(createAPost(post, false)));
 }
 
@@ -334,7 +332,7 @@ export function renderPosts(postsData, container) {
  * @param {Array} posts Array of posts
  * @param {Element} container place for posts to be rendered
  */
-function limitPostRender(posts, container){
+function limitPostRender(posts, container) {
   //displayed posts and stop boolean for when all results on page or filter change.
   let display = 0;
   let stopRendering = false;
@@ -342,24 +340,26 @@ function limitPostRender(posts, container){
   //only reliable way I found to stop instances of the scroll event listener overlapping when changing filter settings.
   const timeManipulator = document.querySelector("#filter-time");
   const postSorter = document.querySelector("#sort-posts");
-  postSorter.addEventListener("change",() => {
-    stopRendering = true;});
-  timeManipulator.addEventListener("change",() => {
-    stopRendering = true;});
+  postSorter.addEventListener("change", () => {
+    stopRendering = true;
+  });
+  timeManipulator.addEventListener("change", () => {
+    stopRendering = true;
+  });
 
   /**
    * Adds 25 posts to the feed at a time.
    * @param {Array} posts Array of posts.
    * @param {Element} container Element to render html for posts.
    */
-  function renderPosts(posts, container){
+  function renderPosts(posts, container) {
     let count = display + 25;
-    if(posts.length <= count){
+    if (posts.length <= count) {
       count = posts.length;
       stopRendering = true;
     }
-    for(let i = display; i < count; i++){
-      container.append(createAPost(posts[i], false))
+    for (let i = display; i < count; i++) {
+      container.append(createAPost(posts[i], false));
     }
     display = display + 25;
   }
@@ -367,20 +367,19 @@ function limitPostRender(posts, container){
   //initial run to show first 25 posts
   renderPosts(posts, container);
 
-
   /**
    * Function to use in event listener on scroll if the bottom of the page is nearly reached loads more posts if all posts displayed removes the listener.
    */
-  function getMorePost(){
-      if(stopRendering){ 
-        //if all post showing or filter changed stops this instance of the listener.
-        window.removeEventListener("scroll", getMorePost);
-        console.log("Event Lister Removed");
-      } else if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 500){
-        renderPosts(posts, container);
-        window.addEventListener("scroll", getMorePost);
-      }
+  function getMorePost() {
+    if (stopRendering) {
+      //if all post showing or filter changed stops this instance of the listener.
+      window.removeEventListener("scroll", getMorePost);
+      console.log("Event Lister Removed");
+    } else if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+      renderPosts(posts, container);
+      window.addEventListener("scroll", getMorePost);
     }
+  }
 
   //sets up scroll listener to load more results
   window.addEventListener("scroll", getMorePost);
@@ -391,9 +390,7 @@ function limitPostRender(posts, container){
  * @param {Object} postsData Post data object
  * @param {Element} container element to append Html to
  */
- export function scrollingRenderPosts(postsData, container, reset) {
-  container.innerHTML= "";
+export function scrollingRenderPosts(postsData, container, reset) {
+  container.innerHTML = "";
   limitPostRender(postsData, container, reset);
-  
 }
-

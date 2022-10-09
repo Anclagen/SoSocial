@@ -1,18 +1,17 @@
-
 /**
- * 
- * @param {Number} id 
- * @param {String} title 
- * @param {String} body 
- * @param {String} media 
- * @param {Array} tags 
- * @returns 
+ *
+ * @param {Number} id
+ * @param {String} title
+ * @param {String} body
+ * @param {String} media
+ * @param {Array} tags
+ * @returns
  */
-export function createEditForm(id, title, body, media, tags){
+export function createEditForm(id, title, body, media, tags) {
   const editForm = document.createElement("form");
   editForm.setAttribute("data-postID", id);
   editForm.classList = "mx-2 closing hidden";
-  
+
   const editFormHeading = document.createElement("h3");
   editFormHeading.classList = "pt-2 pb-1";
   editFormHeading.innerText = "Edit Your Post";

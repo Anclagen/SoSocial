@@ -1,6 +1,6 @@
 /**
  * Checks if string is a noroff email, returns error to error container if fails
- * @param {Input Element} email 
+ * @param {Input Element} email
  * @param {Element} errorContainer error message is displayed here.
  * @returns {boolean}
  * @example
@@ -10,7 +10,7 @@
 export function isValidEmail(email, errorContainer) {
   const emailRegEx = /^[\w\-.]+@(stud.)?noroff.no$/g;
   const validateEmail = emailRegEx.test(email);
-  if (validateEmail){ 
+  if (validateEmail) {
     errorContainer.innerHTML = "";
     return true;
   } else {
@@ -18,7 +18,6 @@ export function isValidEmail(email, errorContainer) {
     return false;
   }
 }
-
 
 /**
  * Checks if string is a valid username, returns error to error container if fails
@@ -34,7 +33,7 @@ export function isValidUsername(username, errorContainer) {
   //const userRegEx = /^[A-Za-z0-9_]{1,}$/g;
   const userRegEx = /^[\w]+$/g;
   const validateUser = userRegEx.test(username);
-  if (validateUser){ 
+  if (validateUser) {
     errorContainer.innerHTML = "";
     return true;
   } else {
@@ -43,11 +42,10 @@ export function isValidUsername(username, errorContainer) {
   }
 }
 
-
 /**
  * Checks input length, returns error message to error container if false.
- * @param {Input Element} input 
- * @param {Number} length 
+ * @param {Input Element} input
+ * @param {Number} length
  * @param {Element} errorContainer error message is displayed here.
  * @returns {Boolean}
  * @example
@@ -66,28 +64,28 @@ export function isValidInputLength(input, length, errorContainer) {
 
 /**
  * Checks inputs values match and are a minimum length, returns error message to error container if false.
- * @param {Input Element} input1 
- * @param {Input Element} input2 
- * @param {Number} length 
+ * @param {Input Element} input1
+ * @param {Input Element} input2
+ * @param {Number} length
  * @param {Element} errorContainer error message is displayed here.
  * @returns {boolean}
- * @example 
+ * @example
  * const passwordInput = document.queryselector("#password");
  * const confirmPasswordInput = document.queryselector("#passwordConfirm");
  * const passError = document.queryselector("#passwordError");
  * console.log(hasMatchingPasswords(passwordInput, confirmPasswordInput, 8, PassError));
  * returns true or false
  */
-export function hasMatchingPasswords(input1, input2, length, errorContainer){
-  if(input1 === input2 && input1.length >= length){
+export function hasMatchingPasswords(input1, input2, length, errorContainer) {
+  if (input1 === input2 && input1.length >= length) {
     errorContainer.innerHTML = "";
-    return true
-  } else if(input1.length <= length){
-    errorContainer.innerText = `Your passwords must be more than 8 characters`
-    return false
+    return true;
+  } else if (input1.length <= length) {
+    errorContainer.innerText = `Your passwords must be more than 8 characters`;
+    return false;
   } else {
-    errorContainer.innerText = `Your passwords don't match.`
-    return false
+    errorContainer.innerText = `Your passwords don't match.`;
+    return false;
   }
 }
 
@@ -96,8 +94,7 @@ export function hasMatchingPasswords(input1, input2, length, errorContainer){
  * @param {String} link img url.
  * @returns {Boolean}
  */
-export function isValidImgLink(link){
+export function isValidImgLink(link) {
   const imgRegEx = /\.(jpg|jpeg|png|webp|avif|gif)(?=\?.+|$)/;
   return imgRegEx.test(link.toLowerCase());
 }
-

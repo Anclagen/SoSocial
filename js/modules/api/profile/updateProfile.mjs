@@ -1,7 +1,7 @@
-import {showInput} from "../../functionality/accordion.mjs"
-import {API} from "../../main.mjs";
-import {renderProfileContent} from "../../render/profile_head.mjs";
-import {isValidImgLink} from "../../validation/validation.mjs"
+import { showInput } from "../../functionality/accordion.mjs";
+import { API } from "../../main.mjs";
+import { renderProfileContent } from "../../render/profile_head.mjs";
+import { isValidImgLink } from "../../validation/validation.mjs";
 
 //------------------- Edit Form -----------------------
 const editContainer = document.querySelector("#edit");
@@ -15,16 +15,17 @@ const editProfileForm = document.querySelector("#edit-profile-form");
  * Takes response to update their profile page details.
  * @param {Event} submit submission of the form
  */
-async function updateProfile(submit){
+async function updateProfile(submit) {
   submit.preventDefault();
-  if(!isValidImgLink(editProfileForm.banner.value)){ 
-    editError.innerHTML="Invalid Image Link"
+  if (!isValidImgLink(editProfileForm.banner.value)) {
+    editError.innerHTML = "Invalid Image Link";
   }
-  if(!isValidImgLink(editProfileForm.avatar.value)){editError.innerHTML="Invalid Image Link"
+  if (!isValidImgLink(editProfileForm.avatar.value)) {
+    editError.innerHTML = "Invalid Image Link";
   }
-  if(isValidImgLink(editProfileForm.avatar.value) && isValidImgLink(editProfileForm.banner.value)){
-    editError.innerHTML=""
-    const body = JSON.stringify({banner:editProfileForm.banner.value, avatar:editProfileForm.avatar.value});
+  if (isValidImgLink(editProfileForm.avatar.value) && isValidImgLink(editProfileForm.banner.value)) {
+    editError.innerHTML = "";
+    const body = JSON.stringify({ banner: editProfileForm.banner.value, avatar: editProfileForm.avatar.value });
     const response = await API.updateProfile(body);
     renderProfileContent(response);
     showProfileForm();
@@ -34,14 +35,14 @@ async function updateProfile(submit){
 /**
  * Shows the edit form.
  */
- function showProfileForm(){
+function showProfileForm() {
   showInput(editProfileForm, 210);
 }
 
 /**
  * shows edit container and enables show form button and submission button
  */
-export function addEditProfileListeners(){
+export function addEditProfileListeners() {
   editContainer.classList.remove("hidden");
   editBtn.addEventListener("click", showProfileForm);
   editProfileForm.addEventListener("submit", updateProfile);

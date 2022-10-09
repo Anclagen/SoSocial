@@ -1,21 +1,20 @@
-import { renderPosts, scrollingRenderPosts} from "../../render/post_cards.mjs";
-import { API} from "../../main.mjs";
+import { renderPosts, scrollingRenderPosts } from "../../render/post_cards.mjs";
+import { API } from "../../main.mjs";
 import { addLoader } from "../../render/loader.mjs";
 import { sortPosts } from "../../sort_search_filter/sort.mjs";
 import { loadPostSearch } from "../../sort_search_filter/search.mjs";
 
-const postFeedContainer = document.querySelector("#post-feed")
-
-
+const postFeedContainer = document.querySelector("#post-feed");
 
 /**
  * Gets all the posts sorts and filters the data as needed
  * and assigns listeners to the page for sorting.
  */
-export async function getPostsFeed(search = false){
+export async function getPostsFeed(search = false) {
   addLoader(postFeedContainer);
-  const dataPosts = await API.getAllPosts(); 
-  if(search){
+  const dataPosts = await API.getAllPosts();
+  console.log(dataPosts);
+  if (search) {
     loadPostSearch(dataPosts);
   }
   const sortedData = await sortPosts(dataPosts);
@@ -24,24 +23,23 @@ export async function getPostsFeed(search = false){
   /**
    * Listener function when using sort options
    */
-  async function filterFeed(){
-    const sortedData =  await sortPosts(dataPosts);
+  async function filterFeed() {
+    const sortedData = await sortPosts(dataPosts);
     scrollingRenderPosts(sortedData, postFeedContainer);
   }
 
   const timeManipulator = document.querySelector("#filter-time");
   const postSorter = document.querySelector("#sort-posts");
-  postSorter.addEventListener("change", filterFeed)
-  timeManipulator.addEventListener("change", filterFeed)
+  postSorter.addEventListener("change", filterFeed);
+  timeManipulator.addEventListener("change", filterFeed);
 }
-
 
 /**
  * Gets posts for a particular user and renders them on there profile feed
  * @param {String} user Username
  */
-export async function getUsersPosts(user){
-  const dataPosts = await API.getAllPosts(); 
-  const yourPosts = dataPosts.filter(post => post.author.name === user);
+export async function getUsersPosts(user) {
+  const dataPosts = await API.getAllPosts();
+  const yourPosts = dataPosts.filter((post) => post.author.name === user);
   renderPosts(yourPosts, postFeedContainer);
 }
