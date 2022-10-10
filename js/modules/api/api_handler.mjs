@@ -1,5 +1,6 @@
 import { callAPI, MyOptions } from "./api.mjs";
 import { deleteLocalItem } from "../local_storage/localStorage.mjs";
+import { baseURL } from "./constants.mjs";
 
 /**
  * Handler class for API, constructed with login response,
@@ -7,9 +8,8 @@ import { deleteLocalItem } from "../local_storage/localStorage.mjs";
  * as well as create/update and delete posts.
  */
 export class handleAPI {
-  baseURL = "https://nf-api.onrender.com/api/v1/social/";
-  pathPosts = "https://nf-api.onrender.com/api/v1/social/posts";
-  pathProfile = "https://nf-api.onrender.com/api/v1/social/profiles";
+  pathPosts = `${baseURL}posts`;
+  pathProfile = `${baseURL}profiles`;
 
   moreDetail = "?_author=true&_comments=true&_reactions=true";
   moreProfileDetail = "?_posts=true&_following=true&_followers=true";
@@ -41,15 +41,6 @@ export class handleAPI {
   }
 
   //------------------- Get/Update Posts(s) -----------------------
-
-  /**
-   * Gets posts from server, in request order and page number
-   * @returns [Array] returns an array of posts
-   */
-  async getPosts(sort = "created", order = "desc", offset = 0) {
-    const options = new MyOptions("GET", this.headers);
-    return await callAPI(`${this.pathPosts}${this.moreDetail}&sort=${sort}&sortOrder=${order}&offset=${offset}`, options);
-  }
 
   /**
    * Using post ID returns a particular post's data.
@@ -97,15 +88,6 @@ export class handleAPI {
   }
 
   //------------------- Get/Update Profile(s) -----------------------
-
-  /**
-   * Gets all the users profiles
-   * @returns [array] returns an array of user data objects.
-   */
-  async getProfiles() {
-    const options = new MyOptions("GET", this.headers);
-    return await callAPI(this.pathProfile, options);
-  }
 
   async getAllProfiles() {
     const options = new MyOptions("GET", this.headers);

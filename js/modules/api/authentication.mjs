@@ -1,6 +1,7 @@
 import { callAPI, MyOptions } from "./api.mjs";
 import { setLocalItem, deleteLocalItem, getLocalItem } from "../local_storage/localStorage.mjs";
 import { isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername, isValidImgLink } from "../validation/validation.mjs";
+import { baseURL } from "./constants.mjs";
 
 /**
  * Logs user in and returns response object.
@@ -10,7 +11,7 @@ import { isValidEmail, isValidInputLength, hasMatchingPasswords, isValidUsername
  */
 export async function login(bodyData) {
   try {
-    const url = "https://nf-api.onrender.com/api/v1/social/auth/login";
+    const url = `${baseURL}auth/login`;
     let myHeaders = new Headers();
     myHeaders.append("content-type", "application/json");
 
@@ -36,7 +37,7 @@ export async function login(bodyData) {
  */
 export async function register(bodyData) {
   try {
-    const url = "https://nf-api.onrender.com/api/v1/social/auth/register";
+    const url = `${baseURL}auth/register`;
 
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
