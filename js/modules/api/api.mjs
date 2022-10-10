@@ -22,29 +22,6 @@ export async function callAPI(url, options) {
 }
 
 /**
- * takes url and fetch options to perform an API request.
- * returns an array with data and header info.
- * @param {*} url
- * @param {Object} options
- * @return {Array}
- * const url = "wwww.example.com";
- * var myHeaders = new Headers();
- * myHeaders.append("Authorization", "token");
- * const options = {method: GET,
- *                  body: "",
- *                  headers: myHeaders};
- * console.log(callAPI(url, options));
- * // [data, pages]
- */
-export async function callAPIPlusHeaders(url, options) {
-  const response = await fetch(url, options);
-  const data = await response.json();
-  const headers = response.headers.get("pages");
-
-  return [data, headers];
-}
-
-/**
  * Creates a options object for the fetch with provided parameters.
  */
 export class MyOptions {

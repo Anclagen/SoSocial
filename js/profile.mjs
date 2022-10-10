@@ -1,4 +1,4 @@
-import { addEditProfileListeners, getUsersPosts, renderProfileContent, makeAPostListener, followUserBtn, renderFollowers, API, user, getYourFollowing } from "./modules/main.mjs";
+import { addEditProfileListeners, getUsersPosts, renderProfileContent, makeAPostListener, followUserBtn, renderFollowers, API, user } from "./modules/main.mjs";
 
 //-------------------page grabs-----------------------
 //post comment form

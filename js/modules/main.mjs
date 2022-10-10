@@ -1,28 +1,11 @@
-import {
-  setLocalItem,
-  deleteLocalItem,
-  getLocalItem,
-  callAPI,
-  MyOptions,
-  isValidUsername,
-  isValidEmail,
-  isValidInputLength,
-  hasMatchingPasswords,
-  isValidImgLink,
-  login,
-  register,
-} from "./api/authentication.mjs";
+import { setLocalItem, getLocalItem, isValidUsername, isValidEmail, isValidInputLength, hasMatchingPasswords, login, register } from "./api/authentication.mjs";
 import { handleAPI } from "./api/api_handler.mjs";
-import { reportError } from "./api/error_reporting.mjs";
 import { makeAPostListener } from "./api/posts/createPost.mjs";
 import { getPostsFeed, getUsersPosts } from "./api/posts/getPosts.mjs";
-import { createAPost, renderPost, renderPosts } from "./render/post_cards.mjs";
-import { createAvatar } from "./render/user_avatar.mjs";
 import { showInput } from "./functionality/accordion.mjs";
 import { addEditProfileListeners } from "./api/profile/updateProfile.mjs";
 import { renderProfileContent } from "./render/profile_head.mjs";
 import { followUserBtn, renderFollowers } from "./functionality/followers.mjs";
-import { loadPostSearch } from "./sort_search_filter/search.mjs";
 import { getFollowersAddSearch } from "./sort_search_filter/search_followers.mjs";
 
 /**
@@ -78,7 +61,5 @@ export * from "./api/error_reporting.mjs";
 export * from "./api/posts/createPost.mjs";
 export * from "./api/profile/updateProfile.mjs";
 export * from "./render/post_cards.mjs";
-export * from "./render/user_avatar.mjs";
 export * from "./functionality/accordion.mjs";
-export * from "./sort_search_filter/search.mjs";
 export * from "./sort_search_filter/search_followers.mjs";

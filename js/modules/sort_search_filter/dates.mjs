@@ -4,7 +4,7 @@
  * @param {Number} days number of days in the past from current.
  * @returns returns new data() for x days ago
  */
-export function getPastDate(days) {
+function getPastDate(days) {
   const date = new Date();
   const previous = new Date(date.getTime());
   previous.setDate(date.getDate() - days);

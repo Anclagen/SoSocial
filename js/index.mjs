@@ -1,4 +1,4 @@
-import { makeAPostListener, loadPostSearch, getPostsFeed, getFollowersAddSearch, API } from "./modules/main.mjs";
+import { makeAPostListener, getPostsFeed, getFollowersAddSearch, API } from "./modules/main.mjs";
 const avatar = document.querySelector(".avatar");
 const headings = document.querySelectorAll(".heading");
 /**
