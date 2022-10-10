@@ -1,6 +1,6 @@
-import { showContainer } from "../functionality/accordion.mjs";
+import { showContainer } from "../../functionality/accordion.mjs";
 import { createCommentForm } from "./comment_form.mjs";
-import { createReplyTree } from "../sort_search_filter/reply_tree.mjs";
+import { createReplyTree } from "../../sort_search_filter/reply_tree.mjs";
 
 /**
  * Creates a reply, as well as creating nested replies

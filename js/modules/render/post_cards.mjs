@@ -1,10 +1,9 @@
 import { API } from "../main.mjs";
-import { createCommentForm } from "./comment_form.mjs";
 import { showContainer } from "../functionality/accordion.mjs";
 import { editPost } from "../api/posts/updatePost.mjs";
-import { openPostModal } from "../functionality/modal.mjs";
-import { renderReplies } from "./post_replies.mjs";
-import { createEditForm } from "./edit_form.mjs";
+import { createEditForm } from "./post_card_components/edit_form.mjs";
+import { createPostBody } from "./post_card_components/post_card_body.mjs";
+import { createPostFooter } from "./post_card_components/post_card_footer.mjs";
 
 /**
  * Takes post data and creates a html for appending to page.
@@ -14,9 +13,7 @@ import { createEditForm } from "./edit_form.mjs";
  * @returns HTML to be appended
  */
 export function createAPost({ id, author = API.name, title, body, media, _count, created, updated, tags, reactions, comments }, modal = false) {
-  if (title.trim() === "") {
-    title = "Untitled";
-  }
+  const postData = { id, author, title, body, media, _count, created, updated, tags, reactions, comments, modal };
 
   const post = document.createElement("div");
   post.classList = "card bg-secondary mb-3";
@@ -114,20 +111,14 @@ export function createAPost({ id, author = API.name, title, body, media, _count,
       try {
         submit.preventDefault();
         const response = await editPost(id, errorReportingEdit, submit.target);
-        postBodyTitle.innerText = response.title;
-        postBodyContent.innerText = response.body;
-        postFooterTags.innerText = response.tags;
-        updatedDate.innerText = `Updated: ${new Date(response.updated).toLocaleString()}`;
-        updatedDate.classList = "text-right px-3 pb-1 ms-auto ";
-        if (media) {
-          postBodyImg.src = response.media;
-        } else if (response.media) {
-          postBodyImg.src = response.media;
-          postBody.appendChild(postBodyImg);
-        }
+        postBody.innerHTML = "";
+        postBody.appendChild(createPostBody({ ...response, modal: modal }));
+        postFooter.innerHTML = "";
+        postFooter.append(createPostFooter({ ...response, reactions: reactions, modal: modal }));
         showContainer(editForm);
       } catch (error) {
         console.log(error);
+        errorReportingEdit.innerHTML = error.message;
       }
     }
 
@@ -152,155 +143,13 @@ export function createAPost({ id, author = API.name, title, body, media, _count,
 
   //------------ post body ---------------------
   const postBody = document.createElement("div");
-  postBody.classList = "bg-tertiary post-body text-white";
+  postBody.appendChild(createPostBody(postData));
   post.appendChild(postBody);
-
-  /**
-   * gets post data opens modal and renders, for event listener
-   */
-  async function openModal() {
-    try {
-      console.log("yes");
-      const postData = await API.getPost(id);
-      openPostModal(postData);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  // if in modal remove listener to body
-  if (!modal) {
-    postBody.addEventListener("click", openModal);
-  }
-
-  const postBodyTitle = document.createElement("h3");
-  postBodyTitle.classList = "px-3 py-2";
-  postBodyTitle.innerText = title;
-  postBody.appendChild(postBodyTitle);
-
-  const postBodyImg = document.createElement("img");
-  postBodyImg.src = media;
-  postBodyImg.classList = "px-3 w-100 pb-2 post-image";
-  postBodyImg.setAttribute("loading", "lazy");
-  postBodyImg.setAttribute("alt", title);
-  postBodyImg.setAttribute("onerror", `this.src="images/404.jpg"`);
-  if (media) {
-    postBody.appendChild(postBodyImg);
-  }
-
-  const postBodyContent = document.createElement("p");
-  postBodyContent.classList = "px-3 pb-2";
-  postBodyContent.innerText = body;
-  postBody.appendChild(postBodyContent);
-
-  const updatedDate = document.createElement("div");
-  postBody.appendChild(updatedDate);
-  if (updated !== created) {
-    updatedDate.innerText = `Updated: ${new Date(updated).toLocaleString()}`;
-    updatedDate.classList = "text-right px-3 pb-1 ms-auto updated-date";
-  }
 
   //------------ post footer ----------------
   const postFooter = document.createElement("div");
-  postFooter.classList = "card-body pb-2 pe-3";
+  postFooter.append(createPostFooter(postData, modal));
   post.appendChild(postFooter);
-
-  const tagsContainer = document.createElement("div");
-  postFooter.appendChild(tagsContainer);
-
-  const postFooterTags = document.createElement("span");
-  if (tags.length === 0 || tags[0] === "") {
-    postFooterTags.innerText = "Tags: None";
-  } else {
-    postFooterTags.innerText = "Tags: " + tags.join(", ");
-  }
-  tagsContainer.appendChild(postFooterTags);
-
-  const statsContainer = document.createElement("div");
-  statsContainer.classList = "";
-  postFooter.appendChild(statsContainer);
-
-  const commentCounterContainer = document.createElement("div");
-  commentCounterContainer.classList = "pe-2 pt-1";
-  statsContainer.appendChild(commentCounterContainer);
-
-  const postFooterCommentCount = document.createElement("span");
-  postFooterCommentCount.innerText = `Comments: ${_count.comments}`;
-  commentCounterContainer.appendChild(postFooterCommentCount);
-
-  //----------------- Like/Dislike Reactions ---------------------
-  const reactionCounterContainer = document.createElement("div");
-  reactionCounterContainer.classList = "pt-1";
-  statsContainer.appendChild(reactionCounterContainer);
-
-  let likes = 0;
-  let dislikes = 0;
-  if (reactions.length > 0) {
-    reactions.forEach((entry) => {
-      if (entry.symbol.includes("👍")) {
-        likes = entry.count;
-      }
-      if (entry.symbol.includes("👎")) {
-        dislikes = entry.count;
-      }
-    });
-  }
-
-  const likeReactBtn = document.createElement("button");
-  likeReactBtn.classList = "p-1 btn bg-tertiary border-rounded text-white";
-  likeReactBtn.innerText = `Likes: 👍 (${likes})`;
-  likeReactBtn.setAttribute("type", "button");
-  reactionCounterContainer.appendChild(likeReactBtn);
-
-  async function likePost() {
-    const response = await API.likePost(id);
-    likeReactBtn.innerText = `Likes: 👍 (${response.count})`;
-  }
-
-  likeReactBtn.addEventListener("click", likePost);
-
-  const dislikeReactBtn = document.createElement("button");
-  dislikeReactBtn.classList = "p-1 ms-2 btn bg-tertiary border-rounded text-white";
-  dislikeReactBtn.innerText = `Dislikes: 👎 (${dislikes})`;
-  dislikeReactBtn.setAttribute("type", "button");
-  reactionCounterContainer.appendChild(dislikeReactBtn);
-
-  async function dislikePost() {
-    const response = await API.dislikePost(id);
-    dislikeReactBtn.innerText = `Dislikes: 👎 (${response.count})`;
-  }
-
-  dislikeReactBtn.addEventListener("click", dislikePost);
-
-  const postFooterCommentBtn = document.createElement("button");
-  postFooterCommentBtn.classList = "btn btn-info ms-auto d-block mt-2";
-  postFooterCommentBtn.setAttribute("type", "button");
-  postFooterCommentBtn.innerText = "Comment";
-  postFooter.appendChild(postFooterCommentBtn);
-
-  //----------------- Comment Form ---------------------
-  const commentFormContainer = document.createElement("div");
-  commentFormContainer.classList = "card-body pt-0 pe-3 closing hidden";
-  post.appendChild(commentFormContainer);
-
-  postFooterCommentBtn.addEventListener("click", function () {
-    //stop multiple forms being produced
-    if (commentFormContainer.innerHTML === "") {
-      commentFormContainer.appendChild(createCommentForm(id));
-    }
-    showContainer(commentFormContainer);
-  });
-
-  const commentsContainer = document.createElement("div");
-  commentsContainer.classList = "replies-container bg-tertiary";
-  post.appendChild(commentsContainer);
-
-  //--------------------- replies -----------------------
-  if (modal) {
-    if (comments) {
-      renderReplies(comments, commentsContainer);
-    }
-  }
 
   return post;
 }

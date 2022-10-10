@@ -1,4 +1,4 @@
-import { createNewReply } from "../api/posts/createReply.mjs";
+import { createNewReply } from "../../api/posts/createReply.mjs";
 
 /**
  * Creates a reply form for posts and replies

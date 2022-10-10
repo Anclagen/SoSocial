@@ -1,5 +1,5 @@
 import { API } from "../../main.mjs";
-import { createAReply } from "../../render/post_replies.mjs";
+import { createAReply } from "../../render/post_card_components/post_replies.mjs";
 import { showContainer } from "../../main.mjs";
 
 /**
