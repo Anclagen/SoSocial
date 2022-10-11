@@ -1,11 +1,11 @@
 /**
- *
+ * creates an edit form for a post, and fills in the current posts details.
  * @param {Number} id
  * @param {String} title
  * @param {String} body
  * @param {String} media
  * @param {Array} tags
- * @returns
+ * @returns {Element} return the html form to be appended to the page.
  */
 export function createEditForm(id, title, body, media, tags) {
   const editForm = document.createElement("form");

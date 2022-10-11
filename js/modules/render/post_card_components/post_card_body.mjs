@@ -1,6 +1,11 @@
 import { API } from "../../main.mjs";
 import { openPostModal } from "../../functionality/modal.mjs";
 
+/**
+ * creates the body for a post
+ * @param {Object} postData an object containing a specific posts data
+ * @returns HTML element to be appended to the page
+ */
 export function createPostBody({ id, title, body, media, updated, created, modal }) {
   if (title.trim() === "") {
     title = "Untitled";

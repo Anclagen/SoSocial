@@ -1,9 +1,10 @@
 import { API } from "../../main.mjs";
 
 /**
- * add like and dislike button to post
+ * Returns like and dislike buttons for post
  * @param {Number} id Posts id
- * @returns
+ * @param {Array} reactions an array of reactions, with their counts.
+ * @returns return html containing reaction buttons.
  */
 export function createReactionButtons(id, reactions) {
   const reactionCounterContainer = document.createElement("div");
