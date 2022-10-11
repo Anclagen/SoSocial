@@ -31,15 +31,6 @@ export class handleAPI {
     this.avatar = avatar;
   }
 
-  /**
-   * Logs user out, deletes user credentials in local storage,
-   * redirects user to login page.
-   */
-  logout() {
-    deleteLocalItem("user");
-    location.href = "/entry.html";
-  }
-
   //------------------- Get/Update Posts(s) -----------------------
 
   /**

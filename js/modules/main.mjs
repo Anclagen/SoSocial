@@ -24,7 +24,7 @@ function initialiseAPIHandler() {
     const userCredentials = getLocalItem("user");
     return new handleAPI(userCredentials);
   } else if (pageURL !== "/entry.html") {
-    location.href = `/entry.html?previous=${pageURL}`;
+    location.href = `/entry.html`;
   }
   return false;
 }
