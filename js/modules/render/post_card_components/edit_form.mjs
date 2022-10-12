@@ -7,7 +7,7 @@
  * @param {Array} tags
  * @returns {Element} return the html form to be appended to the page.
  */
-export function createEditForm(id, title, body, media, tags) {
+export function createEditForm({ id, title, body, media, tags }) {
   const editForm = document.createElement("form");
   editForm.setAttribute("data-postID", id);
   editForm.classList = "mx-2 closing hidden";

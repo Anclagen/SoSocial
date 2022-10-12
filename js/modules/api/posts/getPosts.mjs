@@ -1,4 +1,5 @@
-import { renderPosts, scrollingRenderPosts } from "../../render/post_cards.mjs";
+import { renderPosts } from "../../render/post_cards.mjs";
+import { scrollingRenderPosts } from "../../functionality/render_on_scroll.mjs";
 import { API } from "../../main.mjs";
 import { addLoader } from "../../render/loader.mjs";
 import { sortPosts } from "../../sort_search_filter/sort.mjs";

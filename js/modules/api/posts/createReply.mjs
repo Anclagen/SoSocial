@@ -3,21 +3,22 @@ import { createAReply } from "../../render/post_card_components/post_replies.mjs
 import { showContainer } from "../../main.mjs";
 
 /**
- * Creates a reply to a post, taking post id from form data attribute for request
+ * Creates a reply to a post or reply, taking post id from form data attribute for request
  * Then prepends response to parents reply container and closes form.
  * @param {Event} submit
  */
 export async function createNewReply(submit) {
   try {
+    //require for reply of reply, parent id no provided.
     let parentId = "";
     if (submit.target.getAttribute("data-parentID")) {
       parentId = Number(submit.target.getAttribute("data-parentID"));
-      console.log(parentId);
     }
     let id = Number(submit.target.getAttribute("data-postID"));
     submit.preventDefault();
     const formData = new FormData(submit.target);
     const bodyData = Object.fromEntries(formData.entries());
+    //needed for reply of reply to add replyToId to body, and use correct id for fetch.
     if (parentId) {
       bodyData.replyToId = id;
       id = parentId;
@@ -36,5 +37,6 @@ export async function createNewReply(submit) {
     reply.prepend(createAReply(response));
   } catch (error) {
     console.log(error);
+    reply.innerHTML += `<p class="text-danger">An error occurred, please refresh page and try again</p>`;
   }
 }
