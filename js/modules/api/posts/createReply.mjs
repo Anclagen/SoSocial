@@ -8,6 +8,7 @@ import { showContainer } from "../../main.mjs";
  * @param {Event} submit
  */
 export async function createNewReply(submit) {
+  const reply = submit.target.parentNode.parentNode.querySelector(".replies-container");
   try {
     //require for reply of reply, parent id no provided.
     let parentId = "";
@@ -24,17 +25,19 @@ export async function createNewReply(submit) {
       id = parentId;
     }
     const response = await API.replyToPost(id, JSON.stringify(bodyData));
-    submit.target.reset();
-    //close form
-    showContainer(submit.target.parentNode);
-    // add reply
-    const reply = submit.target.parentNode.parentNode.querySelector(".replies-container");
-    //check for reply to reply, parentId not provided
-    response.postId = id;
-    if (parentId) {
-      response.postId = parentId;
+    if (response.statusCode >= 400) {
+      reply.innerHTML += `<p class="text-danger">${response.message}</p>`;
+    } else {
+      submit.target.reset();
+      //close form
+      showContainer(submit.target.parentNode);
+      //check for reply to reply, parentId not provided
+      response.postId = id;
+      if (parentId) {
+        response.postId = parentId;
+      }
+      reply.prepend(createAReply(response));
     }
-    reply.prepend(createAReply(response));
   } catch (error) {
     console.log(error);
     reply.innerHTML += `<p class="text-danger">An error occurred, please refresh page and try again</p>`;

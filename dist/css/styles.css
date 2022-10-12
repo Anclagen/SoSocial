@@ -11059,6 +11059,10 @@ input:disabled {
   cursor: pointer;
 }
 
+.post-body:hover {
+  opacity: 0.7;
+}
+
 .post-specific-modal {
   display: none;
 }
@@ -11108,24 +11112,28 @@ input:disabled {
 .modal-open .post-specific-content .post-body {
   cursor: auto;
 }
+.modal-open .post-specific-content .post-body:hover {
+  opacity: 1;
+}
 .modal-open .post-specific-content::-webkit-scrollbar {
   display: none;
 }
-.modal-open .replies-container {
+
+.replies-container {
   margin-left: 1rem;
 }
-.modal-open .replies-container a {
+.replies-container a {
   color: white;
   text-decoration: none;
   font-weight: 600;
 }
-.modal-open .replies-container .reply {
+.replies-container .reply {
   padding-left: 1rem;
   border-left: solid 2px white;
   border-bottom: solid 1px white;
   border-top: solid 1rem #212529;
 }
-.modal-open .replies-container .reply::before {
+.replies-container .reply::before {
   content: "";
   width: 1rem;
   height: 1rem;
@@ -11137,50 +11145,50 @@ input:disabled {
   left: 0;
 }
 @media only screen and (max-width: 400px) {
-  .modal-open .replies-container .replies-container .replies-container .replies-container {
+  .replies-container .replies-container .replies-container .replies-container {
     margin-left: 0;
   }
-  .modal-open .replies-container .replies-container .replies-container .replies-container .reply {
+  .replies-container .replies-container .replies-container .replies-container .reply {
     padding-left: 0;
     border-left: none;
     border-bottom: none;
   }
 }
 @media only screen and (max-width: 500px) {
-  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container {
+  .replies-container .replies-container .replies-container .replies-container .replies-container {
     margin-left: 0;
   }
-  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .reply {
+  .replies-container .replies-container .replies-container .replies-container .replies-container .reply {
     padding-left: 0;
     border-left: none;
     border-bottom: none;
   }
 }
 @media only screen and (max-width: 700px) {
-  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container {
+  .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container {
     margin-left: 0;
   }
-  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .reply {
+  .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .reply {
     padding-left: 0;
     border-left: none;
     border-bottom: none;
   }
 }
 @media only screen and (max-width: 990px) {
-  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container {
+  .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container {
     margin-left: 0;
   }
-  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .reply {
+  .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .reply {
     padding-left: 0;
     border-left: none;
     border-bottom: none;
   }
 }
 @media only screen and (min-width: 991px) {
-  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container {
+  .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container {
     margin-left: 0;
   }
-  .modal-open .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .reply {
+  .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .replies-container .reply {
     padding-left: 0;
     border-left: none;
     border-bottom: none;

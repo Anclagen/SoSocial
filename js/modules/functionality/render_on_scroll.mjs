@@ -50,7 +50,6 @@ function limitPostRender(posts, container) {
       console.log("Event Lister Removed");
     } else if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
       renderMorePosts(posts, container);
-      window.addEventListener("scroll", getMorePost);
     }
   }
 

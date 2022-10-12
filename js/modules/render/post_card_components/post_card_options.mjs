@@ -71,7 +71,6 @@ export function createOptions(postData, post) {
       updatePostContent(post, { ...response, reactions, modal });
       //update feed content as well as modal
       if (modal) {
-        console.log("yes");
         const feedPost = document.querySelectorAll(`[data-page-post-id="${id}"]`);
         updatePostContent(feedPost[1], { ...response, reactions, modal: false });
       }
