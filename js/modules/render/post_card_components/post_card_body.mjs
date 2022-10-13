@@ -1,5 +1,6 @@
 import { API } from "../../main.mjs";
 import { openPostModal } from "../../functionality/modal.mjs";
+import { createAnErrorMessage } from "../../main.mjs";
 
 /**
  * creates the body for a post
@@ -23,6 +24,7 @@ export function createPostBody({ id, title, body, media, updated, created, modal
       openPostModal(postData);
     } catch (error) {
       console.log(error);
+      postBody.prepend(createAnErrorMessage());
     }
   }
 

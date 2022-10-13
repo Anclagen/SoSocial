@@ -40,6 +40,6 @@ export async function createNewReply(submit) {
     }
   } catch (error) {
     console.log(error);
-    reply.innerHTML += `<p class="text-danger">An error occurred, please refresh page and try again</p>`;
+    reply.innerHTML += `<p class="text-danger p-1 bg-white">An error occurred, please refresh page and try again</p>`;
   }
 }

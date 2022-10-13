@@ -4,6 +4,7 @@ import { createEditForm } from "./edit_form.mjs";
 import { editPost } from "../../api/posts/updatePost.mjs";
 import { createPostBody } from "./post_card_body.mjs";
 import { createPostFooter } from "./post_card_footer.mjs";
+import { createAnErrorMessage } from "../../main.mjs";
 
 export function createOptions(postData, post) {
   const { modal, reactions, id } = postData;
@@ -93,9 +94,18 @@ export function createOptions(postData, post) {
   optionsDropdownDeleteBtn.innerText = "Delete";
   optionsDropdownDelete.appendChild(optionsDropdownDeleteBtn);
 
-  function deleteThisPost() {
-    API.deletePost(id);
-    post.innerHTML = "<div class='p-2 text-center'><h3 class='m-0'>Post Deleted</h3></div>";
+  async function deleteThisPost() {
+    try {
+      const response = await API.deletePost(id);
+      if (response.status >= 400) {
+        post.prepend(createAnErrorMessage());
+      } else {
+        post.innerHTML = "<div class='p-2 text-center'><h3 class='m-0'>Post Deleted</h3></div>";
+      }
+    } catch (error) {
+      console.log(error);
+      post.prepend(createAnErrorMessage());
+    }
   }
 
   optionsDropdownDeleteBtn.addEventListener("click", deleteThisPost);
