@@ -4,9 +4,9 @@ import { createEditForm } from "./edit_form.mjs";
 import { editPost } from "../../api/posts/updatePost.mjs";
 import { createPostBody } from "./post_card_body.mjs";
 import { createPostFooter } from "./post_card_footer.mjs";
-import { createAnErrorMessage } from "../../main.mjs";
+import { createAnErrorMessage } from "../../api/error_reporting.mjs";
 
-export function createOptions(postData, post) {
+export function createOptions(postData, post, rawData) {
   const { modal, reactions, id } = postData;
   const postHeadOptions = document.createElement("div");
   postHeadOptions.classList = "ms-auto";
@@ -61,7 +61,11 @@ export function createOptions(postData, post) {
     try {
       submit.preventDefault();
       const response = await editPost(id, errorReportingEdit, submit.target);
-
+      /**
+       * updates post content..
+       * @param {Element} post post element to replace
+       * @param {Object} response response plus reactions and modal value
+       */
       function updatePostContent(post, response) {
         post.childNodes[1].innerHTML = "";
         post.childNodes[1].appendChild(createPostBody(response));
@@ -70,16 +74,22 @@ export function createOptions(postData, post) {
       }
 
       updatePostContent(post, { ...response, reactions, modal });
+      // edit post in raw data to show correct info
+      const indexInRaw = rawData.findIndex((post) => post.id === id);
+      rawData[indexInRaw] = { ...rawData[indexInRaw], ...response };
       //update feed content as well as modal
       if (modal) {
         const feedPost = document.querySelectorAll(`[data-page-post-id="${id}"]`);
         updatePostContent(feedPost[1], { ...response, reactions, modal: false });
       }
-
       showContainer(editForm);
     } catch (error) {
       console.log(error);
-      errorReportingEdit.innerHTML = error.message;
+      if (error.message === "response is undefined" || error.message === "title is undefined") {
+        errorReportingEdit.append(createAnErrorMessage("This post no longer exists"));
+      } else {
+        errorReportingEdit.innerHTML = error.message;
+      }
     }
   }
 
@@ -94,17 +104,30 @@ export function createOptions(postData, post) {
   optionsDropdownDeleteBtn.innerText = "Delete";
   optionsDropdownDelete.appendChild(optionsDropdownDeleteBtn);
 
+  /**
+   * Deletes a post, updates modal, feed and raw post data.
+   */
   async function deleteThisPost() {
     try {
       const response = await API.deletePost(id);
+
       if (response.status >= 400) {
-        post.prepend(createAnErrorMessage());
+        errorReportingEdit.prepend(createAnErrorMessage());
       } else {
+        //delete from original data, stops post showing after filtering.
+        rawData.splice(
+          rawData.findIndex((post) => post.id === id),
+          1
+        );
         post.innerHTML = "<div class='p-2 text-center'><h3 class='m-0'>Post Deleted</h3></div>";
+        if (modal) {
+          const feedPost = document.querySelectorAll(`[data-page-post-id="${id}"]`);
+          feedPost[1].innerHTML = "<div class='p-2 text-center'><h3 class='m-0'>Post Deleted</h3></div>";
+        }
       }
     } catch (error) {
       console.log(error);
-      post.prepend(createAnErrorMessage());
+      errorReportingEdit.prepend(createAnErrorMessage());
     }
   }
 

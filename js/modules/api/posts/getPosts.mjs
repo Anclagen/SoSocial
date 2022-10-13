@@ -10,6 +10,7 @@ const postFeedContainer = document.querySelector("#post-feed");
 /**
  * Gets all the posts sorts and filters the data as needed
  * and assigns listeners to the page for sorting.
+ * @param {Boolean} search enable search, no search on profile page
  */
 export async function getPostsFeed(search = false) {
   addLoader(postFeedContainer);
@@ -19,14 +20,14 @@ export async function getPostsFeed(search = false) {
     loadPostSearch(dataPosts);
   }
   const sortedData = await sortPosts(dataPosts);
-  scrollingRenderPosts(sortedData, postFeedContainer);
+  scrollingRenderPosts(sortedData, postFeedContainer, dataPosts);
 
   /**
    * Listener function when using sort options
    */
   async function filterFeed() {
     const sortedData = await sortPosts(dataPosts);
-    scrollingRenderPosts(sortedData, postFeedContainer);
+    scrollingRenderPosts(sortedData, postFeedContainer, dataPosts);
   }
 
   const timeManipulator = document.querySelector("#filter-time");
@@ -44,5 +45,5 @@ export async function getUsersPosts(user) {
   const dataPosts = await API.getAllPosts();
   const yourPosts = dataPosts.filter((post) => post.author.name === user);
   postFeedContainer.innerHTML = "";
-  renderPosts(yourPosts, postFeedContainer);
+  renderPosts(yourPosts, postFeedContainer, dataPosts);
 }

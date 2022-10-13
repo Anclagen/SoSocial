@@ -4,8 +4,9 @@ import { renderPost } from "../render/post_cards.mjs";
  * Displays first 25 posts and sets up the scrolling event listener to show more.
  * @param {Array} posts Array of posts
  * @param {Element} container place for posts to be rendered
+ * @param {Array} rawData raw data results for update/delete functions.
  */
-function limitPostRender(posts, container) {
+function limitPostRender(posts, container, rawData) {
   //displayed posts and stop boolean for when all results on page or filter change.
   let display = 0;
   let stopRendering = false;
@@ -32,7 +33,7 @@ function limitPostRender(posts, container) {
       stopRendering = true;
     }
     for (let i = display; i < count; i++) {
-      renderPost(posts[i], container, false);
+      renderPost(posts[i], container, false, rawData);
     }
     display = display + 25;
   }
@@ -62,7 +63,7 @@ function limitPostRender(posts, container) {
  * @param {Object} postsData Post data object
  * @param {Element} container element to append Html to
  */
-export function scrollingRenderPosts(postsData, container, reset) {
+export function scrollingRenderPosts(postsData, container, rawData) {
   container.innerHTML = "";
-  limitPostRender(postsData, container, reset);
+  limitPostRender(postsData, container, rawData);
 }
