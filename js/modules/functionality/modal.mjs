@@ -9,8 +9,8 @@ const closeModalBtn = document.querySelector(".close-modal-btn");
  * @param {Object} data a single post object
  */
 export function openPostModal(data) {
-  if (postData.statusCode >= 400) {
-    postContent.innerHTML = `<p class="text-danger h-1">${postData.message}<p>`;
+  if (data.statusCode >= 400) {
+    postContent.innerHTML = `<p class="text-danger h-1">${data.message}<p>`;
   } else {
     body.classList.add("modal-open");
     renderPost(data, postContent, true);
