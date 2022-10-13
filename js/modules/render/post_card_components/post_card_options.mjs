@@ -6,6 +6,13 @@ import { createPostBody } from "./post_card_body.mjs";
 import { createPostFooter } from "./post_card_footer.mjs";
 import { createAnErrorMessage } from "../../api/error_reporting.mjs";
 
+/**
+ * Creates edit and delete drop down options and button functionality.
+ * @param {Object} postData current posts data
+ * @param {Element} post the post element to append to.
+ * @param {Array} rawData raw data results for update/delete functions.
+ * @returns {Element} post options elements
+ */
 export function createOptions(postData, post, rawData) {
   const { modal, reactions, id } = postData;
   const postHeadOptions = document.createElement("div");
@@ -68,7 +75,7 @@ export function createOptions(postData, post, rawData) {
        */
       function updatePostContent(post, response) {
         post.childNodes[1].innerHTML = "";
-        post.childNodes[1].appendChild(createPostBody(response));
+        post.childNodes[1].appendChild(createPostBody(response, rawData));
         post.childNodes[2].innerHTML = "";
         post.childNodes[2].append(createPostFooter(response));
       }
@@ -119,7 +126,7 @@ export function createOptions(postData, post, rawData) {
           rawData.findIndex((post) => post.id === id),
           1
         );
-        post.innerHTML = "<div class='p-2 text-center'><h3 class='m-0'>Post Deleted</h3></div>";
+        post.innerHTML = "<div class='p-2 text-center text-white'><h3 class='m-0'>Post Deleted</h3></div>";
         if (modal) {
           const feedPost = document.querySelectorAll(`[data-page-post-id="${id}"]`);
           feedPost[1].innerHTML = "<div class='p-2 text-center'><h3 class='m-0'>Post Deleted</h3></div>";
