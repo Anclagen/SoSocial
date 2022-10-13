@@ -15,7 +15,6 @@ const postFeedContainer = document.querySelector("#post-feed");
 export async function getPostsFeed(search = false) {
   addLoader(postFeedContainer);
   const dataPosts = await API.getAllPosts();
-  console.log(dataPosts);
   if (search) {
     loadPostSearch(dataPosts);
   }

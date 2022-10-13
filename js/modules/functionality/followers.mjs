@@ -6,7 +6,7 @@ const followingContainer = document.querySelector("#following");
 
 /**
  * Creates avatars and fills the follower/following containers
- * @param {*} data API profile response, takes followers/following arrays
+ * @param {Object} data API profile response, takes followers/following arrays
  */
 export function renderFollowers({ following, followers }) {
   //might reuse on other pages good to have containers
