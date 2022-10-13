@@ -1,6 +1,4 @@
-import { API } from "../main.mjs";
-import { createAvatar } from "../render/user_avatar.mjs";
-import { createAPost } from "../render/post_cards.mjs";
+import { renderPosts } from "../render/post_cards.mjs";
 
 // ------------------- Search Posts ------------------------
 
@@ -31,13 +29,12 @@ function searchPosts(input, data) {
       return true;
     } else if (input.value.length > 1 && title.indexOf(query) >= 0) {
       return true;
-    } else if (input.value.length > 2 && body.indexOf(query) >= 0) {
+    } else if (input.value.length > 3 && body.indexOf(query) >= 0) {
       return true;
     } else {
       let isTag = false;
       tags.forEach((tag) => {
         if (tag.startsWith(query)) {
-          console.log("yes");
           isTag = true;
         }
       });
@@ -57,17 +54,18 @@ export function loadPostSearch(postData) {
   const searchFeedContainer = document.querySelector("#search-post-feed");
   const searchPostsInput = document.querySelector("#search-posts");
   searchPostsInput.removeAttribute("disabled");
-
   function displaySearch() {
     const results = searchPosts(searchPostsInput, postData);
-    searchFeedContainer.innerHTML = `<p class="py-1 text-center">Found ${results.length} Results <p>`;
-    results.forEach((post) => {
-      searchFeedContainer.appendChild(createAPost(post));
-    });
+    renderPosts(results, searchFeedContainer);
+    // add results found counter
+    const resultsCounter = document.createElement("p");
+    resultsCounter.classList = "py-1 text-center";
+    resultsCounter.innerText = `Found ${results.length} Results`;
+    searchFeedContainer.prepend(resultsCounter);
+    // no results found message
     if (results.length === 0) {
       searchFeedContainer.innerHTML = `<p class="py-1 text-center">No Results Found<p>`;
     }
   }
-
   searchPostsInput.addEventListener("keyup", displaySearch);
 }

@@ -3,6 +3,11 @@ import { createCommentForm } from "./comment_form.mjs";
 import { renderReplies } from "./post_replies.mjs";
 import { showContainer } from "../../functionality/accordion.mjs";
 
+/**
+ * Creates the footer of a post, as well as comment form and section.
+ * @param {Object} postData an object containing a specific posts data
+ * @returns HTML for the footer of a post to be appended
+ */
 export function createPostFooter({ id, tags, _count, comments, reactions, modal }) {
   //------------ post footer ----------------
 

@@ -9,15 +9,21 @@ const errorReporting = document.querySelector("#post-comment-form-error");
  * @param {Element} form the form your submitting on the page
  * @param {Function} postFunction the function to generate post feed.
  */
-export async function createNewPost(form, postFunction) {
+async function createNewPost(form, postFunction) {
   try {
     const errorReporting = document.querySelector("#post-comment-form-error");
     const formData = new FormData(form);
     const bodyData = Object.fromEntries(formData.entries());
+    //convert tags string to array
     if (bodyData.tags) {
       bodyData.tags = bodyData.tags.split(",").map((tag) => tag.trim());
     }
+    //delete empty media input if enabled
+    if (bodyData.media === "") {
+      delete bodyData.media;
+    }
     const response = await API.createPost(JSON.stringify(bodyData));
+    //error message reporting from server
     if (response.statusCode) {
       errorReporting.innerHTML = response.message;
     } else {
@@ -54,7 +60,7 @@ function createNewPostFormYourProfile(submit) {
 
 /**
  * Sets up the post comment form on profile and home pages.
- * @param {Boolean} boolean defaults to false, add true for profile page.
+ * @param {Boolean} boolean defaults to false for index feed, add true for profile page.
  */
 export function makeAPostListener(boolean = false) {
   //the form

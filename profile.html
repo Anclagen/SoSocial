@@ -15,6 +15,8 @@
     <script type="module" src="/js/profile.mjs"></script>
     <script src="https://kit.fontawesome.com/e4f6b5cf1a.js" crossorigin="anonymous"></script>
     <title>Profile | SoSocial</title>
+    <meta name="description" content="SoSocial profile page, view your posts, friends or update your user media." />
+    <meta name="author" content="Alexander Barrett" />
     <link rel="icon" href="images/logo/logo_compact_light.png" />
   </head>
   <body class="bg-dark d-flex flex-column min-vh-100">
@@ -39,7 +41,7 @@
                   <a class="nav-link active" aria-current="page" href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="entry.html"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
+                  <a class="nav-link" href="entry.html?logout=true"><i class="fa-solid fa-arrow-right-to-bracket"></i> Logout</a>
                 </li>
               </ul>
             </div>
@@ -137,7 +139,7 @@
                       <div class="hidden closing" id="image-container">
                         <label for="media" class="text-white ms-2 pt-2">Image Link</label>
                         <input
-                          type="text"
+                          type="url"
                           class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light"
                           id="media"
                           name="media"

@@ -10,7 +10,7 @@ import { createReplyTree } from "../../sort_search_filter/reply_tree.mjs";
  */
 export function createAReply({ body, owner, created, replies, postId, id }) {
   const replyContainer = document.createElement("div");
-  replyContainer.classList = "position-relative post-body ";
+  replyContainer.classList = "position-relative";
 
   //------------- container body ----------------------------
   const replyContentContainer = document.createElement("div");
@@ -74,7 +74,6 @@ export function renderReplies(replyData, container) {
   //sort by newest
   replyData.sort((a, b) => new Date(b.created) - new Date(a.created));
   const replyTree = createReplyTree(replyData);
-  console.log(replyTree);
   replyTree.forEach((reply) => {
     container.append(createAReply(reply));
   });

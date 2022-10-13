@@ -19,6 +19,8 @@
     <script type="module" src="/js/index.mjs" defer></script>
     <script src="https://kit.fontawesome.com/e4f6b5cf1a.js" crossorigin="anonymous"></script>
     <title>SoSocial Home</title>
+    <meta name="description" content="Your SoSocial post feed, check out the latest." />
+    <meta name="author" content="Alexander Barrett" />
     <link rel="icon" href="/images/logo/logo_compact_light.png" />
   </head>
   <body class="bg-dark d-flex flex-column min-vh-100">
@@ -44,7 +46,7 @@
                   <a class="nav-link" href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="entry.html"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
+                  <a class="nav-link" href="entry.html?logout=true"><i class="fa-solid fa-arrow-right-to-bracket"></i> Logout</a>
                 </li>
               </ul>
             </div>
@@ -61,7 +63,7 @@
             <div class="bg-secondary rounded-3 p-2">
               <div class="text-center">
                 <div class="m-1 side-nav">
-                  <img class="img-fluid rounded-circle p-2 avatar" src="/images/leo_bow_tie_square.jpg" alt="users profile picture" />
+                  <img class="img-fluid rounded-circle p-2 avatar" src="/images/leo_bow_tie_square.jpg" onerror="this.src='images/default-avatar.png'" alt="users profile picture" />
                 </div>
                 <h2 class="px-3 text-center heading"></h2>
               </div>
@@ -104,18 +106,17 @@
                       <div class="hidden closing" id="image-container">
                         <label for="media" class="text-white ms-2 pt-2">Image Link</label>
                         <input
-                          type="text"
+                          type="url"
                           class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light"
                           id="media"
                           name="media"
                           placeholder="www.example.com/image.jpg"
                           disabled
-                          required
                         />
                       </div>
                       <div class="hidden closing" id="tags-container">
                         <label for="tags" class="text-white ms-2 pt-2">Tags</label>
-                        <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="tags" placeholder="#OhSoSocial!" name="tags" disabled required />
+                        <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="tags" placeholder="#OhSoSocial!" name="tags" disabled />
                       </div>
                     </div>
                     <div class="p-2 d-flex justify-content-between">
@@ -170,7 +171,7 @@
                     </select>
                   </div>
                   <div class="col">
-                    <label for="filter-time">Time Manipulation:</label>
+                    <label for="filter-time">Time Frame:</label>
                     <select name="filter-time" id="filter-time">
                       <option value="All">All</option>
                       <option value="Yesterday">Yesterday</option>

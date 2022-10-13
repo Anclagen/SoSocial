@@ -1,7 +1,14 @@
 import { API } from "../../main.mjs";
 import { openPostModal } from "../../functionality/modal.mjs";
+import { createAnErrorMessage } from "../../main.mjs";
 
-export function createPostBody({ id, title, body, media, updated, created, modal }) {
+/**
+ * creates the body for a post
+ * @param {Object} postData an object containing a specific posts data
+ * @param {Array} rawData raw data results for update/delete functions.
+ * @returns HTML element to be appended to the page
+ */
+export function createPostBody({ id, title, body, media, updated, created, modal }, rawData) {
   if (title.trim() === "") {
     title = "Untitled";
   }
@@ -15,9 +22,10 @@ export function createPostBody({ id, title, body, media, updated, created, modal
   async function openModal() {
     try {
       const postData = await API.getPost(id);
-      openPostModal(postData);
+      openPostModal(postData, rawData);
     } catch (error) {
       console.log(error);
+      postBody.prepend(createAnErrorMessage());
     }
   }
 
