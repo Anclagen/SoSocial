@@ -9,7 +9,7 @@ const errorReporting = document.querySelector("#post-comment-form-error");
  * @param {Element} form the form your submitting on the page
  * @param {Function} postFunction the function to generate post feed.
  */
-export async function createNewPost(form, postFunction) {
+async function createNewPost(form, postFunction) {
   try {
     const errorReporting = document.querySelector("#post-comment-form-error");
     const formData = new FormData(form);
@@ -17,6 +17,10 @@ export async function createNewPost(form, postFunction) {
     //convert tags string to array
     if (bodyData.tags) {
       bodyData.tags = bodyData.tags.split(",").map((tag) => tag.trim());
+    }
+    //delete empty media input if enabled
+    if (bodyData.media === "") {
+      delete bodyData.media;
     }
     const response = await API.createPost(JSON.stringify(bodyData));
     //error message reporting from server
