@@ -74,7 +74,6 @@ export function renderReplies(replyData, container) {
   //sort by newest
   replyData.sort((a, b) => new Date(b.created) - new Date(a.created));
   const replyTree = createReplyTree(replyData);
-  console.log(replyTree);
   replyTree.forEach((reply) => {
     container.append(createAReply(reply));
   });

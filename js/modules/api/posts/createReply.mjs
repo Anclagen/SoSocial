@@ -10,7 +10,7 @@ import { showContainer } from "../../main.mjs";
 export async function createNewReply(submit) {
   const reply = submit.target.parentNode.parentNode.querySelector(".replies-container");
   try {
-    //require for reply of reply, parent id no provided.
+    //require for reply of reply.
     let parentId = "";
     if (submit.target.getAttribute("data-parentID")) {
       parentId = Number(submit.target.getAttribute("data-parentID"));

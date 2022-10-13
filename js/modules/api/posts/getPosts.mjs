@@ -40,7 +40,9 @@ export async function getPostsFeed(search = false) {
  * @param {String} user Username
  */
 export async function getUsersPosts(user) {
+  addLoader(postFeedContainer);
   const dataPosts = await API.getAllPosts();
   const yourPosts = dataPosts.filter((post) => post.author.name === user);
+  postFeedContainer.innerHTML = "";
   renderPosts(yourPosts, postFeedContainer);
 }
