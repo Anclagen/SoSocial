@@ -3,7 +3,7 @@ import { isValidImgLink } from "../validation/validation.mjs";
 /**
  * creates html for user avatar.
  * @param {Object} userData takes user data and creates avatar html
- * @returns
+ * @returns {Element} html element returned with users avatar and name
  */
 export function createAvatar({ avatar, name }) {
   let userAvatar = "/images/default-avatar.png";

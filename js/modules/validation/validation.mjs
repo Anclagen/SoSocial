@@ -1,8 +1,8 @@
 /**
  * Checks if string is a noroff email, returns error to error container if fails
- * @param {Input Element} email
+ * @param {String} email
  * @param {Element} errorContainer error message is displayed here.
- * @returns {boolean}
+ * @returns {Boolean}
  * @example
  * console.log(isValidEmail("example@example.com"))
  * //False
@@ -21,9 +21,9 @@ export function isValidEmail(email, errorContainer) {
 
 /**
  * Checks if string is a valid username, returns error to error container if fails
- * @param {Input Element} username
+ * @param {String} username
  * @param {Element} errorContainer error message is displayed here.
- * @returns {boolean}
+ * @returns {Boolean}
  * @example
  * console.log(isValidUsername("Bob123"))
  * //True
@@ -43,8 +43,8 @@ export function isValidUsername(username, errorContainer) {
 }
 
 /**
- * Checks input length, returns error message to error container if false.
- * @param {Input Element} input
+ * Checks a strings length, returns error message to error container if false.
+ * @param {String} input the string to check
  * @param {Number} length
  * @param {Element} errorContainer error message is displayed here.
  * @returns {Boolean}
@@ -64,8 +64,8 @@ export function isValidInputLength(input, length, errorContainer) {
 
 /**
  * Checks inputs values match and are a minimum length, returns error message to error container if false.
- * @param {Input Element} input1
- * @param {Input Element} input2
+ * @param {String} input1 password string
+ * @param {String} input2 confirm password string
  * @param {Number} length
  * @param {Element} errorContainer error message is displayed here.
  * @returns {boolean}

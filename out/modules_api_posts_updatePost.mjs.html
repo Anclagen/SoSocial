@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: modules/api/posts/updatePost.mjs</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: modules/api/posts/updatePost.mjs</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { API } from "../../main.mjs";
+
+/**
+ * Function to handle parameters for edit post request
+ * @param {Number} id post id
+ * @param {Element} errorReporting Container for error messaging
+ * @param {Element} form Form to be submitted.
+ * @returns fetch response.
+ */
+export async function editPost(id, errorReporting, form) {
+  try {
+    const formData = new FormData(form);
+    const bodyData = Object.fromEntries(formData.entries());
+    if (bodyData.media === "") {
+      delete bodyData.media;
+    }
+    if (bodyData.tags) {
+      bodyData.tags.split(",").map((tag) => tag.trim());
+    }
+    const response = await API.updatePost(JSON.stringify(bodyData), id);
+    if (response.statusCode) {
+      errorReporting.innerHTML = response.message;
+      return false;
+    } else {
+      errorReporting.innerHTML = "";
+      return response;
+    }
+  } catch (error) {
+    console.log(error);
+    errorReporting.innerHTML = error.message;
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="HandleAPI.html">HandleAPI</a></li><li><a href="MyOptions.html">MyOptions</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addEditProfileListeners">addEditProfileListeners</a></li><li><a href="global.html#addLoader">addLoader</a></li><li><a href="global.html#callAPI">callAPI</a></li><li><a href="global.html#closePostModal">closePostModal</a></li><li><a href="global.html#createAnErrorMessage">createAnErrorMessage</a></li><li><a href="global.html#createAPost">createAPost</a></li><li><a href="global.html#createAReply">createAReply</a></li><li><a href="global.html#createAvatar">createAvatar</a></li><li><a href="global.html#createCommentForm">createCommentForm</a></li><li><a href="global.html#createEditForm">createEditForm</a></li><li><a href="global.html#createNewPost">createNewPost</a></li><li><a href="global.html#createNewPostForm">createNewPostForm</a></li><li><a href="global.html#createNewPostFormYourProfile">createNewPostFormYourProfile</a></li><li><a href="global.html#createNewReply">createNewReply</a></li><li><a href="global.html#createOptions">createOptions</a></li><li><a href="global.html#createPage">createPage</a></li><li><a href="global.html#createPostBody">createPostBody</a></li><li><a href="global.html#createPostFooter">createPostFooter</a></li><li><a href="global.html#createReactionButtons">createReactionButtons</a></li><li><a href="global.html#createReplyTree">createReplyTree</a></li><li><a href="global.html#defineUser">defineUser</a></li><li><a href="global.html#deleteLocalItem">deleteLocalItem</a></li><li><a href="global.html#editPost">editPost</a></li><li><a href="global.html#followUserBtn">followUserBtn</a></li><li><a href="global.html#getFollowersAddSearch">getFollowersAddSearch</a></li><li><a href="global.html#getHiddenHeight">getHiddenHeight</a></li><li><a href="global.html#getLocalItem">getLocalItem</a></li><li><a href="global.html#getPastDate">getPastDate</a></li><li><a href="global.html#getPeopleYouMightKnow">getPeopleYouMightKnow</a></li><li><a href="global.html#getPostsFeed">getPostsFeed</a></li><li><a href="global.html#getUsersPosts">getUsersPosts</a></li><li><a href="global.html#getYourFollowing">getYourFollowing</a></li><li><a href="global.html#hasMatchingPasswords">hasMatchingPasswords</a></li><li><a href="global.html#initialiseAPIHandler">initialiseAPIHandler</a></li><li><a href="global.html#initialiseProfileFunctionality">initialiseProfileFunctionality</a></li><li><a href="global.html#isDateAfter">isDateAfter</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#isValidImgLink">isValidImgLink</a></li><li><a href="global.html#isValidInputLength">isValidInputLength</a></li><li><a href="global.html#isValidUsername">isValidUsername</a></li><li><a href="global.html#limitPostRender">limitPostRender</a></li><li><a href="global.html#loadPostSearch">loadPostSearch</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#makeAPostListener">makeAPostListener</a></li><li><a href="global.html#openPostModal">openPostModal</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#renderFollowers">renderFollowers</a></li><li><a href="global.html#renderPost">renderPost</a></li><li><a href="global.html#renderPosts">renderPosts</a></li><li><a href="global.html#renderProfileContent">renderProfileContent</a></li><li><a href="global.html#renderReplies">renderReplies</a></li><li><a href="global.html#reportError">reportError</a></li><li><a href="global.html#scrollingRenderPosts">scrollingRenderPosts</a></li><li><a href="global.html#searchPosts">searchPosts</a></li><li><a href="global.html#searchUsers">searchUsers</a></li><li><a href="global.html#setLocalItem">setLocalItem</a></li><li><a href="global.html#showContainer">showContainer</a></li><li><a href="global.html#showInput">showInput</a></li><li><a href="global.html#showProfileForm">showProfileForm</a></li><li><a href="global.html#sortPosts">sortPosts</a></li><li><a href="global.html#toggleForm">toggleForm</a></li><li><a href="global.html#updateProfile">updateProfile</a></li><li><a href="global.html#validateLoginSignUp">validateLoginSignUp</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sat Oct 15 2022 18:08:36 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

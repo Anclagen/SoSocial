@@ -14,7 +14,7 @@ export function reportError(error, output) {
 /**
  * creates an error message to add to page
  * @param {String} Text error message to be give to user
- * @returns
+ * @returns {Element} error html element returned
  */
 export function createAnErrorMessage(Text = "An error had occurred, please refresh page") {
   const errorMessage = document.createElement("p");

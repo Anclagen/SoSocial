@@ -1,3 +1,4 @@
+import { HandleAPI } from "../api/api_handler.mjs";
 import { API } from "../main.mjs";
 import { createAvatar } from "../render/user_avatar.mjs";
 
@@ -15,7 +16,7 @@ export function getYourFollowing(data, yourName) {
  * Creates a list of people you might know from people
  * your followings followers/following
  * @param {Array} peopleYouKnow an array of people your following
- * @param {API Class} API API handler class.
+ * @param {HandleAPI} API API handler class.
  * @returns {Array} an array of profile objects.
  */
 export function getPeopleYouMightKnow(peopleYouKnow, API) {
