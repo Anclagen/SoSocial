@@ -2,13 +2,13 @@
 
 > ## Table of Contents
 
-1. [Trello Plan](#TrelloPlan)
+1. [GitHub Projects Link](#GitHubPlan)
 2. [Design](#design)
 3. [Requirements](#Requirements)
 4. [Tasks](#TasksOutline)
 5. [Functions](#PossibleFunctions)
 
-> ## Planning <a id="TrelloPlan"></a>
+> ## Planning <a id="GitHubPlan"></a>
 
 [GitHub Project Link](https://github.com/users/Anclagen/projects/1)
 
