@@ -15,9 +15,10 @@ export async function editPost(id, errorReporting, form) {
       delete bodyData.media;
     }
     if (bodyData.tags) {
-      bodyData.tags.split(",").map((tag) => tag.trim());
+      bodyData.tags = bodyData.tags.split(",").map((tag) => tag.trim());
     }
     const response = await API.updatePost(JSON.stringify(bodyData), id);
+    console.log(response);
     if (response.statusCode) {
       errorReporting.innerHTML = response.message;
       return false;
