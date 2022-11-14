@@ -12,9 +12,11 @@
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
       crossorigin="anonymous"
     ></script>
-    <script src="dist/js/main.js" defer></script>
+    <script type="module" src="/js/profile.mjs"></script>
     <script src="https://kit.fontawesome.com/e4f6b5cf1a.js" crossorigin="anonymous"></script>
     <title>Profile | SoSocial</title>
+    <meta name="description" content="SoSocial profile page, view your posts, friends or update your user media." />
+    <meta name="author" content="Alexander Barrett" />
     <link rel="icon" href="images/logo/logo_compact_light.png" />
   </head>
   <body class="bg-dark d-flex flex-column min-vh-100">
@@ -32,20 +34,14 @@
             </div>
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li class="mx-auto nav-item">
-                  <form class="d-flex input-group" role="search">
-                    <input class="form-control" type="search" placeholder="Search for friend or posts" aria-label="Search" />
-                    <button class="btn btn-success btn-lg" type="submit">Search</button>
-                  </form>
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html"><i class="fa-solid fa-house"></i> Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+                  <a class="nav-link active" aria-current="page" href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="login.html"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
+                  <a class="nav-link" href="entry.html?logout=true"><i class="fa-solid fa-arrow-right-to-bracket"></i> Logout</a>
                 </li>
               </ul>
             </div>
@@ -56,10 +52,16 @@
     <main class="mb-4">
       <div class="container-xxl px-3">
         <!-- Page banner and title -->
-        <div class="profile-banner position-relative">
-          <img class="img-fluid" alt="leopold's profile banner" src="images/leo_banner_small_alternate2.jpg" />
-          <img class="rounded-circle bg-primary p-1 profile-img position-absolute top-50 start-0 ms-2" src="/images/leo_bow_tie_square.jpg" alt="users profile picture" />
-          <h1 class="text-center text-white my-4 border-bottom border-white">Leopold the Fluff</h1>
+        <div class="position-relative banner">
+          <img class="img-fluid profile-banner" alt="user's profile banner" id="profileBanner" src="" onerror="this.src='images/default-banner.jpg' " />
+          <img
+            class="rounded-circle bg-primary profile-img position-absolute top-50 start-0 ms-2"
+            id="profileImage"
+            src=""
+            onerror="this.src='images/default-avatar.png'"
+            alt="users profile picture"
+          />
+          <h1 class="text-center text-white my-4 border-bottom border-white">Unknown User</h1>
         </div>
         <!-- Main page content -->
         <div class="row">
@@ -67,169 +69,110 @@
           <div class="col-md-4 mb-3">
             <div class="bg-secondary rounded-3 p-3 text-white">
               <h2>About Me</h2>
-              <div>
-                <i class="fa-solid fa-location-pin"></i>
-                <span class="ms-3">Lives in Bergen</span>
+              <div id="about">
+                <div>
+                  <i class="fa-solid fa-location-pin"></i>
+                  <span class="ms-3">Lives in *</span>
+                </div>
+                <div class="text-white">
+                  <i class="fa-solid fa-house-flag"></i>
+                  <span class="ms-2">Comes from *</span>
+                </div>
+                <div class="text-white">
+                  <i class="fa-solid fa-graduation-cap"></i>
+                  <span class="ms-2">Studying front end development</span>
+                </div>
+                <div class="text-white">
+                  <i class="fa-solid fa-heart-crack"></i>
+                  <span class="ms-2">Currently *</span>
+                </div>
+                <div class="text-white">
+                  <i class="fa-solid fa-baby"></i>
+                  <span class="ms-3">Born *</span>
+                </div>
+                <h3 class="mt-3">Bio</h3>
+                <p>
+                  Vivamus luctus finibus risus, at pharetra lacus accumsan sed. Donec maximus pellentesque tellus. Aenean sit amet libero vitae nisl mollis accumsan. Vestibulum ornare ex eget eros
+                  vestibulum vehicula. Quisque vitae quam erat. Phasellus porta tempus neque non maximus. Nunc auctor sed est pulvinar viverra.
+                </p>
               </div>
-              <div class="text-white">
-                <i class="fa-solid fa-house-flag"></i>
-                <span class="ms-2">Comes from Bergen</span>
+              <div id="edit" class="hidden">
+                <div class="text-danger" id="edit-error"></div>
+                <form id="edit-profile-form" class="closing hidden">
+                  <label for="banner" class="text-white ms-2 pt-2">Banner</label>
+                  <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="banner" placeholder="www.example.com/banner.jpg" name="banner" required />
+                  <label for="avatar" class="text-white ms-2 pt-2">Avatar</label>
+                  <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="avatar" placeholder="www.example.com/avatar.jpg" name="avatar" required />
+                  <input type="submit" class="btn btn-success d-block mx-auto mt-2" value="Update" />
+                </form>
+                <div class="text-center" id="edit-btn">
+                  <button type="button" class="btn btn-info mt-2">Edit Profile</button>
+                </div>
               </div>
-              <div class="text-white">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <span class="ms-2">Studying front end development</span>
+              <div id="follow-user" class="hidden">
+                <button id="follow-btn" class="btn btn-success d-block mx-auto mt-2">Follow</button>
               </div>
-              <div class="text-white">
-                <i class="fa-solid fa-heart-crack"></i>
-                <span class="ms-2">Currently Single</span>
-              </div>
-              <div class="text-white">
-                <i class="fa-solid fa-baby"></i>
-                <span class="ms-3">Born September 16th</span>
-              </div>
-              <h3 class="mt-3">Bio</h3>
-              <p>
-                Vivamus luctus finibus risus, at pharetra lacus accumsan sed. Donec maximus pellentesque tellus. Aenean sit amet libero vitae nisl mollis accumsan. Vestibulum ornare ex eget eros
-                vestibulum vehicula. Quisque vitae quam erat. Phasellus porta tempus neque non maximus. Nunc auctor sed est pulvinar viverra.
-              </p>
             </div>
           </div>
           <!-- Post and friends sections -->
           <div class="row flex-column-reverse flex-lg-row col-md-8">
             <!-- Post and your posts sections -->
             <div class="col-lg-8">
-              <section>
+              <!-- Post comment section -->
+              <section id="post-comment" class="hidden">
                 <h2 class="text-white">Post A Comment</h2>
                 <div class="card bg-secondary mb-4">
-                  <form action="#">
-                    <div class="mb-3">
+                  <form id="post-comment-form" class="mx-2">
+                    <div class="error text-danger text-center" id="post-comment-form-error"></div>
+                    <div class="d-flex-column">
+                      <label for="title" class="text-white ms-2 pt-2">Title</label>
+                      <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="title" placeholder="Click Bait Title?" name="title" required />
+                      <label for="body" class="text-white ms-2 pt-2">Post Body</label>
                       <textarea
-                        class="form-control rounded-0 border-0 mt-2 bg-tertiary text-white place-text-light"
-                        id="exampleFormControlTextarea1"
+                        class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light"
+                        id="body"
                         rows="3"
                         placeholder="Need to say something?"
+                        name="body"
+                        required
                       ></textarea>
-                    </div>
-                    <div class="card-body">
-                      <div class="d-flex justify-content-between">
-                        <button type="" class="btn btn-danger">Add Image</button>
-                        <button type="" class="btn btn-danger mx-2">Add Video</button>
-                        <button type="submit" class="btn btn-success float-end">Post</button>
+                      <div class="hidden closing" id="image-container">
+                        <label for="media" class="text-white ms-2 pt-2">Image Link</label>
+                        <input
+                          type="url"
+                          class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light"
+                          id="media"
+                          name="media"
+                          placeholder="www.example.com/image.jpg"
+                          disabled
+                        />
                       </div>
+                      <div class="hidden closing" id="tags-container">
+                        <label for="tags" class="text-white ms-2 pt-2">Tags</label>
+                        <input type="text" class="form-control rounded-0 border-0 mt-1 bg-tertiary text-white place-text-light" id="tags" placeholder="#OhSoSocial!" name="tags" disabled />
+                      </div>
+                    </div>
+                    <div class="p-2 d-flex justify-content-between">
+                      <button type="button" class="btn btn-info" id="img-btn">Image</button>
+                      <button type="button" class="btn btn-info mx-2" id="tags-btn">Tags</button>
+                      <input type="submit" class="btn btn-success d-block" value="Post" />
                     </div>
                   </form>
                 </div>
               </section>
+              <!----- Post Modal ----->
+              <section>
+                <div class="post-specific-modal">
+                  <div class="post-specific-feed">
+                    <div class="button-container"><button type="button" class="btn btn-sm btn-success close-modal-btn">Close</button></div>
+                    <div class="post-specific-content"></div>
+                  </div>
+                </div>
+              </section>
+              <!----- Your Posts ----->
               <section class="text-white">
-                <h2>Your Recent Posts</h2>
-                <div class="card bg-secondary mb-3">
-                  <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/leo_bow_tie_square.jpg" alt="leo's profile picture" />
-                    <div>
-                      <p class="mb-0">You</p>
-                      <p class="mb-0">11:44 28/08/22</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                  </div>
-                  <div class="bg-tertiary">
-                    <p class="p-3 m-0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                      eget justo ornare posuere.
-                    </p>
-                  </div>
-                  <div class="card-body pb-2 pe-3">
-                    <div class="d-flex justify-content-end align-items-center fs-5">
-                      <i class="fa-solid fa-heart-crack me-1"></i>
-                      <span class="me-2">(1)</span>
-                      <i class="fa-solid fa-heart me-1"></i>
-                      <span class="me-2">(15)</span>
-                      <i class="fa-solid fa-share-nodes me-3"></i>
-                      <i class="fa-solid fa-comments me-3"></i>
-                      <i class="fa-solid fa-comment"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="card bg-secondary mb-3">
-                  <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/leo_bow_tie_square.jpg" alt="leo's profile picture" />
-                    <div>
-                      <p class="mb-0">You</p>
-                      <p class="mb-0">11:44 28/08/22</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                  </div>
-                  <div class="bg-tertiary">
-                    <p class="p-3 m-0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                      eget justo ornare posuere.
-                    </p>
-                  </div>
-                  <div class="card-body pb-2 pe-3">
-                    <div class="d-flex justify-content-end align-items-center fs-5">
-                      <i class="fa-solid fa-heart-crack me-1"></i>
-                      <span class="me-2">(1)</span>
-                      <i class="fa-solid fa-heart me-1"></i>
-                      <span class="me-2">(15)</span>
-                      <i class="fa-solid fa-share-nodes me-3"></i>
-                      <i class="fa-solid fa-comments me-3"></i>
-                      <i class="fa-solid fa-comment"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="card bg-secondary mb-3">
-                  <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/leo_bow_tie_square.jpg" alt="leo's profile picture" />
-                    <div>
-                      <p class="mb-0">You</p>
-                      <p class="mb-0">11:44 28/08/22</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                  </div>
-                  <div class="bg-tertiary">
-                    <p class="p-3 m-0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                      eget justo ornare posuere.
-                    </p>
-                  </div>
-                  <div class="card-body pb-2 pe-3">
-                    <div class="d-flex justify-content-end align-items-center fs-5">
-                      <i class="fa-solid fa-heart-crack me-1"></i>
-                      <span class="me-2">(1)</span>
-                      <i class="fa-solid fa-heart me-1"></i>
-                      <span class="me-2">(15)</span>
-                      <i class="fa-solid fa-share-nodes me-3"></i>
-                      <i class="fa-solid fa-comments me-3"></i>
-                      <i class="fa-solid fa-comment"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="card bg-secondary mb-3">
-                  <div class="m-3 post-header rounded-3 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/leo_bow_tie_square.jpg" alt="leo's profile picture" />
-                    <div>
-                      <p class="mb-0">You</p>
-                      <p class="mb-0">11:44 28/08/22</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical ms-auto fs-2"></i>
-                  </div>
-                  <div class="bg-tertiary">
-                    <p class="p-3 m-0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac libero ultricies mi dictum finibus porttitor ac orci.Vivamus pellentesque volutpat erat. Vestibulum eget nibh
-                      eget justo ornare posuere.
-                    </p>
-                  </div>
-                  <div class="card-body pb-2 pe-3">
-                    <div class="d-flex justify-content-end align-items-center fs-5">
-                      <i class="fa-solid fa-heart-crack me-1"></i>
-                      <span class="me-2">(1)</span>
-                      <i class="fa-solid fa-heart me-1"></i>
-                      <span class="me-2">(15)</span>
-                      <i class="fa-solid fa-share-nodes me-3"></i>
-                      <i class="fa-solid fa-comments me-3"></i>
-                      <i class="fa-solid fa-comment"></i>
-                    </div>
-                  </div>
-                </div>
+                <h2>Recent Posts</h2>
+                <div id="post-feed"></div>
                 <div class="text-center">
                   <button type="button" class="btn btn-lg btn-info mb-4">Show More</button>
                 </div>
@@ -238,51 +181,13 @@
             <!-- Your friends section -->
             <div class="col-lg-4 mb-2">
               <div class="bg-secondary rounded-3 p-3 text-white">
-                <h2>Your Friends</h2>
-                <div class="d-flex flex-lg-column flex-wrap justify-content-center">
-                  <div class="post-header rounded-3 px-1 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0 fs-5">Milo</p>
-                      <p class="mb-0">Online</p>
-                    </div>
-                  </div>
-                  <div class="post-header rounded-3 px-1 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0 fs-5">Milo</p>
-                      <p class="mb-0">Online</p>
-                    </div>
-                  </div>
-                  <div class="post-header rounded-3 px-1 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0 fs-5">Milo</p>
-                      <p class="mb-0">Online</p>
-                    </div>
-                  </div>
-                  <div class="post-header rounded-3 px-1 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0 fs-5">Milo</p>
-                      <p class="mb-0">Online</p>
-                    </div>
-                  </div>
-                  <div class="post-header rounded-3 px-1 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0 fs-5">Milo</p>
-                      <p class="mb-0">Online</p>
-                    </div>
-                  </div>
-                  <div class="post-header rounded-3 px-1 d-flex">
-                    <img class="img-fluid rounded-circle me-2" src="/images/milo_profile.jpg" alt="Milo profile picture" />
-                    <div>
-                      <p class="mb-0 fs-5">Milo</p>
-                      <p class="mb-0">Online</p>
-                    </div>
-                  </div>
+                <h2>Following</h2>
+                <div class="d-flex flex-lg-column flex-wrap justify-content-center" id="following"></div>
+                <div class="text-center">
+                  <button type="button" class="btn btn-info mt-2">Show More</button>
                 </div>
+                <h2 class="mt-3">Followers</h2>
+                <div class="d-flex flex-lg-column flex-wrap justify-content-center" id="followers"></div>
                 <div class="text-center">
                   <button type="button" class="btn btn-info mt-2">Show More</button>
                 </div>
@@ -296,7 +201,7 @@
       <ul class="nav justify-content-center pb-3 mb-3 fs-5">
         <li class="nav-item"><a href="index.html" class="nav-link px-2 text-white">Home</a></li>
         <li class="nav-item"><a href="profile.html" class="nav-link px-2 text-white">Profile</a></li>
-        <li class="nav-item"><a href="login.html" class="nav-link px-2 text-white">Login/Sign-Up</a></li>
+        <li class="nav-item"><a href="entry.html" class="nav-link px-2 text-white">Login/Sign-Up</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Privacy</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">About</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Contact</a></li>

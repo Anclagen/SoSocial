@@ -3,3 +3,22 @@
   width: 15px; 
   height: 15px;
 }
+
+.hidden {
+  display: none;
+}
+
+.closing {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: height 0.5s ease, opacity 1.5s ease ;
+}
+
+.open {
+  opacity: 1;
+}
+
+input:disabled{
+  opacity: 0.4 !important;
+}

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: modules/sort_search_filter/search_followers.mjs</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: modules/sort_search_filter/search_followers.mjs</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { HandleAPI } from "../api/api_handler.mjs";
+import { API } from "../main.mjs";
+import { createAvatar } from "../render/user_avatar.mjs";
+
+/**
+ * Filters the profiles for people your following
+ * @param {Array} data all the profile data
+ * @param {String} yourName your username
+ * @returns {Array} returns an array of people your following.
+ */
+export function getYourFollowing(data, yourName) {
+  return data.filter((user) => user.followers.map((follower) => follower.name).includes(yourName));
+}
+
+/**
+ * Creates a list of people you might know from people
+ * your followings followers/following
+ * @param {Array} peopleYouKnow an array of people your following
+ * @param {HandleAPI} API API handler class.
+ * @returns {Array} an array of profile objects.
+ */
+export function getPeopleYouMightKnow(peopleYouKnow, API) {
+  const names = peopleYouKnow.map((follower) => follower.name);
+  let peopleYouMightKnow = [];
+  peopleYouKnow.forEach((follower) => {
+    follower.following.forEach((follower) => {
+      if (!names.includes(follower.name) &amp;&amp; follower.name !== API.name &amp;&amp; !peopleYouMightKnow.map((person) => person.name).includes(follower.name)) {
+        peopleYouMightKnow.push(follower);
+      }
+    });
+
+    follower.followers.forEach((follower) => {
+      if (!names.includes(follower.name) &amp;&amp; follower.name !== API.name &amp;&amp; !peopleYouMightKnow.map((person) => person.name).includes(follower.name)) {
+        peopleYouMightKnow.push(follower);
+      }
+    });
+  });
+
+  return peopleYouMightKnow;
+}
+
+/**
+ * Searches profiles for profiles matching your query
+ * @param {Input} input search input
+ * @param {Array} data array of profile objects
+ * @returns {Array} filtered array
+ * @example
+ * function search(){
+ *  const results = searchUsers(searchUsersInput, dataProfiles);
+ *  results.forEach(user => {
+ *  userContainer.innerHTML += createAvatar(user);
+ *  });}
+ * searchUsersInput.addEventListener("keyup", search);
+ */
+export function searchUsers(input, data) {
+  const query = input.value.toLowerCase();
+  const filteredUsers = data.filter((user) => {
+    const userLower = user.name.toLowerCase();
+    if (userLower.startsWith(query.toLowerCase())) {
+      return true;
+    }
+  });
+
+  return filteredUsers;
+}
+
+/**
+ * Sets up the home pages search functionality and
+ * renders a list of people you might know on the page.
+ */
+export async function getFollowersAddSearch() {
+  const userContainer = document.querySelector("#search-users-results");
+  const searchUsersInput = document.querySelector("#search-users");
+  const mightKnowContainer = document.querySelector("#you-might-know");
+  searchUsersInput.setAttribute("disabled", true);
+  const dataProfiles = await API.getAllProfiles();
+  searchUsersInput.removeAttribute("disabled");
+
+  const peopleYouKnow = getYourFollowing(dataProfiles, API.name);
+
+  let peopleYouMightKnow = getPeopleYouMightKnow(peopleYouKnow, API);
+  peopleYouMightKnow.forEach((person) => {
+    mightKnowContainer.innerHTML += createAvatar(person);
+  });
+
+  function search() {
+    const results = searchUsers(searchUsersInput, dataProfiles);
+    userContainer.innerHTML = "";
+    let count = 10;
+    if (results.length &lt; 10) {
+      count = results.length;
+    }
+
+    for (let i = 0; i &lt; count; i++) {
+      userContainer.innerHTML += createAvatar(results[i]);
+    }
+    if (results.length === 0) {
+      userContainer.innerHTML = "&lt;span>No Results&lt;/span>";
+    }
+    if (searchUsersInput.value.length === 0) {
+      userContainer.innerHTML = "";
+    }
+  }
+
+  searchUsersInput.addEventListener("keyup", search);
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="HandleAPI.html">HandleAPI</a></li><li><a href="MyOptions.html">MyOptions</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addEditProfileListeners">addEditProfileListeners</a></li><li><a href="global.html#addLoader">addLoader</a></li><li><a href="global.html#callAPI">callAPI</a></li><li><a href="global.html#closePostModal">closePostModal</a></li><li><a href="global.html#createAnErrorMessage">createAnErrorMessage</a></li><li><a href="global.html#createAPost">createAPost</a></li><li><a href="global.html#createAReply">createAReply</a></li><li><a href="global.html#createAvatar">createAvatar</a></li><li><a href="global.html#createCommentForm">createCommentForm</a></li><li><a href="global.html#createEditForm">createEditForm</a></li><li><a href="global.html#createNewPost">createNewPost</a></li><li><a href="global.html#createNewPostForm">createNewPostForm</a></li><li><a href="global.html#createNewPostFormYourProfile">createNewPostFormYourProfile</a></li><li><a href="global.html#createNewReply">createNewReply</a></li><li><a href="global.html#createOptions">createOptions</a></li><li><a href="global.html#createPage">createPage</a></li><li><a href="global.html#createPostBody">createPostBody</a></li><li><a href="global.html#createPostFooter">createPostFooter</a></li><li><a href="global.html#createReactionButtons">createReactionButtons</a></li><li><a href="global.html#createReplyTree">createReplyTree</a></li><li><a href="global.html#defineUser">defineUser</a></li><li><a href="global.html#deleteLocalItem">deleteLocalItem</a></li><li><a href="global.html#editPost">editPost</a></li><li><a href="global.html#followUserBtn">followUserBtn</a></li><li><a href="global.html#getFollowersAddSearch">getFollowersAddSearch</a></li><li><a href="global.html#getHiddenHeight">getHiddenHeight</a></li><li><a href="global.html#getLocalItem">getLocalItem</a></li><li><a href="global.html#getPastDate">getPastDate</a></li><li><a href="global.html#getPeopleYouMightKnow">getPeopleYouMightKnow</a></li><li><a href="global.html#getPostsFeed">getPostsFeed</a></li><li><a href="global.html#getUsersPosts">getUsersPosts</a></li><li><a href="global.html#getYourFollowing">getYourFollowing</a></li><li><a href="global.html#hasMatchingPasswords">hasMatchingPasswords</a></li><li><a href="global.html#initialiseAPIHandler">initialiseAPIHandler</a></li><li><a href="global.html#initialiseProfileFunctionality">initialiseProfileFunctionality</a></li><li><a href="global.html#isDateAfter">isDateAfter</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#isValidImgLink">isValidImgLink</a></li><li><a href="global.html#isValidInputLength">isValidInputLength</a></li><li><a href="global.html#isValidUsername">isValidUsername</a></li><li><a href="global.html#limitPostRender">limitPostRender</a></li><li><a href="global.html#loadPostSearch">loadPostSearch</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#makeAPostListener">makeAPostListener</a></li><li><a href="global.html#openPostModal">openPostModal</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#renderFollowers">renderFollowers</a></li><li><a href="global.html#renderPost">renderPost</a></li><li><a href="global.html#renderPosts">renderPosts</a></li><li><a href="global.html#renderProfileContent">renderProfileContent</a></li><li><a href="global.html#renderReplies">renderReplies</a></li><li><a href="global.html#reportError">reportError</a></li><li><a href="global.html#scrollingRenderPosts">scrollingRenderPosts</a></li><li><a href="global.html#searchPosts">searchPosts</a></li><li><a href="global.html#searchUsers">searchUsers</a></li><li><a href="global.html#setLocalItem">setLocalItem</a></li><li><a href="global.html#showContainer">showContainer</a></li><li><a href="global.html#showInput">showInput</a></li><li><a href="global.html#showProfileForm">showProfileForm</a></li><li><a href="global.html#sortPosts">sortPosts</a></li><li><a href="global.html#toggleForm">toggleForm</a></li><li><a href="global.html#updateProfile">updateProfile</a></li><li><a href="global.html#validateLoginSignUp">validateLoginSignUp</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sat Oct 15 2022 18:08:36 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

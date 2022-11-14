@@ -1,29 +1,31 @@
 {
   "name": "sosocial",
   "version": "1.0.0",
-  "description": "Social media app, as part of a noroff project",
+  "description": "Continuation of SoSocial Bootstrap/SCSS project, with aims to use JavaScript to intergrate an API for managing logins, posts, and profiles.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "sass src/scss:dist/css",
-    "watch": "sass --watch src/scss:dist/css & live-server"
+    "watch": "sass --watch src/scss:dist/css & live-server",
+    "docs": "jsdoc -c ./conf.json -r"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Anclagen/SoSocial.git"
+    "url": "git+https://github.com/Anclagen/SoSocial_JS2_CA.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Anclagen/SoSocial/issues"
+    "url": "https://github.com/Anclagen/SoSocial_JS2_CA/issues"
   },
-  "homepage": "https://github.com/Anclagen/SoSocial#readme",
+  "homepage": "https://github.com/Anclagen/SoSocial_JS2_CA#readme",
   "dependencies": {
-    "bootstrap": "^5.2.0"
+    "bootstrap": "^5.2.1",
+    "jsdoc": "^3.6.11"
   },
   "devDependencies": {
-    "live-server": "^1.2.2",
-    "sass": "^1.54.5"
+    "liveserver": "^0.1.20",
+    "sass": "^1.54.9"
   }
 }
