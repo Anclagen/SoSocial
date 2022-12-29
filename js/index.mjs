@@ -7,7 +7,7 @@ const headings = document.querySelectorAll(".heading");
 async function createPage() {
   if (API) {
     try {
-      avatar.src = API.avatar;
+      avatar.src = !API.avatar ? "" : API.avatar;
       headings.forEach((heading) => (heading.innerText += " " + API.name));
       makeAPostListener();
       getPostsFeed(true);

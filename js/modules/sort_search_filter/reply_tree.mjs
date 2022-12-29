@@ -10,7 +10,7 @@ export function createReplyTree(replyData) {
     reply.replies = replyData.filter((rep) => rep.replyToId === reply.id);
 
     /** pushes the comments primary replies to an array */
-    if (reply.replyToId === 0) {
+    if (reply.replyToId === null) {
       primaryReplies.push(reply);
     }
   });
