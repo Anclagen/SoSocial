@@ -12,9 +12,9 @@ export function createPostHeader({ author, id, created }) {
   postHead.appendChild(profileLink);
 
   const avatar = document.createElement("img");
-  avatar.src = author.avatar;
+  avatar.src = !author.avatar ? "" : author.avatar;
   avatar.setAttribute("onerror", `this.src="images/default-avatar.png"`);
-  avatar.setAttribute("alt", `Profile image of ${author}`);
+  avatar.setAttribute("alt", `Profile image of ${author.name}`);
   avatar.classList = "img-fluid rounded-circle me-2";
   profileLink.appendChild(avatar);
 

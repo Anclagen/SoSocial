@@ -39,13 +39,13 @@ export function createPostBody({ id, title, body, media, updated, created, modal
   postBodyTitle.innerText = title;
   postBody.appendChild(postBodyTitle);
 
-  const postBodyImg = document.createElement("img");
-  postBodyImg.src = media;
-  postBodyImg.classList = "px-3 w-100 pb-2 post-image";
-  postBodyImg.setAttribute("loading", "lazy");
-  postBodyImg.setAttribute("alt", title);
-  postBodyImg.setAttribute("onerror", `this.src="images/404.jpg"`);
   if (media) {
+    const postBodyImg = document.createElement("img");
+    postBodyImg.src = media;
+    postBodyImg.classList = "px-3 w-100 pb-2 post-image";
+    postBodyImg.setAttribute("loading", "lazy");
+    postBodyImg.setAttribute("alt", title);
+    postBodyImg.setAttribute("onerror", `this.src="images/404.jpg"`);
     postBody.appendChild(postBodyImg);
   }
 

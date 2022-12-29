@@ -16,6 +16,8 @@ export async function editPost(id, errorReporting, form) {
     }
     if (bodyData.tags) {
       bodyData.tags = bodyData.tags.split(",").map((tag) => tag.trim());
+    } else {
+      delete bodyData.tags;
     }
     const response = await API.updatePost(JSON.stringify(bodyData), id);
     console.log(response);

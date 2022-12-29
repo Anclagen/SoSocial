@@ -7,11 +7,16 @@ const editProfileForm = document.querySelector("#edit-profile-form");
  * @param {Object} UserData
  */
 export function renderProfileContent({ banner, avatar, name, meta = "" }) {
-  profileBanner.src = banner;
-  profileImage.src = avatar;
-  heading.innerText = name;
+  if (banner != null) {
+    profileBanner.src = banner;
+    editProfileForm.banner.value = banner;
+  }
 
+  if (banner != null) {
+    profileImage.src = avatar;
+    editProfileForm.avatar.value = avatar;
+  }
+
+  heading.innerText = name;
   //updates the edit inputs
-  editProfileForm.banner.value = banner;
-  editProfileForm.avatar.value = avatar;
 }
