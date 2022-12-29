@@ -22,6 +22,11 @@ async function createNewPost(form, postFunction) {
     if (bodyData.media === "") {
       delete bodyData.media;
     }
+
+    if (bodyData.tags === "") {
+      delete bodyData.tags;
+    }
+
     const response = await API.createPost(JSON.stringify(bodyData));
     //error message reporting from server
     if (response.statusCode) {
